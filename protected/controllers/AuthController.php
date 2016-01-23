@@ -33,4 +33,31 @@ class AuthController extends Controller {
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    /**
+     * actionRegister
+     *
+     * @author Davit T.
+     * @created at 23 th day of Jan 2016
+     * @param string $code
+     * @return void
+     */
+    public function actionRegister($code = "") {
+        
+        $model = new User('register');
+        
+        if(isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            // Keep refferal code of inviter 
+            $model->inviter_refferal = $code;
+            
+            if($model->save()) {
+                $this->redirect(Yii::app()->createUrl("/user/dashboard"));
+            }
+        }
+        var_dump($model->getErrors());
+        $this->render("register", array(
+            "model" => $model
+        ));
+    }
+
 }

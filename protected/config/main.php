@@ -14,6 +14,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
+        'application.helpers.*'
     ),
     'modules' => array(
         'user',

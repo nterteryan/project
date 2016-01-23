@@ -91,7 +91,6 @@ p.point-text {
 
 div[class^="section"]{
     padding: 66px 0;
-    margin-right:-15px;
 }
 
 .section-info {
@@ -214,4 +213,8 @@ div.faq-item:last-child {
     margin: 15px;
     padding: 15px;
     border-radius: 10px;
+}
+
+span.required, span.error, div.errorMessage {
+    color: #b94a48;
 }

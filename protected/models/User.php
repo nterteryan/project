@@ -20,14 +20,18 @@
  * @property string $updated_date
  */
 class User extends CActiveRecord {
-    
+
     const STATUS_NEW = 'NEW';
     const STATUS_ACTIVE = 'ACTIVE';
     const STATUS_BLOCKED = 'BLOCKED';
-    
     const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
+
+    // Compare field 
+    public $repeat_password = '';
+    // Inviter refferal code
+    public $inviter_refferal = '';
 
     /**
      * @return string the associated database table name
@@ -43,7 +47,7 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password, updated_date', 'required'),
+            array('email, password', 'required'),
             array('parent_id', 'numerical', 'integerOnly' => true),
             array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255),
             array('password', 'length', 'max' => 100),
@@ -51,6 +55,13 @@ class User extends CActiveRecord {
             array('role', 'length', 'max' => 11),
             array('phone', 'length', 'max' => 60),
             array('created_date', 'safe'),
+            //
+            // REGISTRATION SCENARIO
+            // 
+            array('repeat_password', 'required', 'on' => 'register'),
+            // 
+            // END REGISTRATION SCENARIO
+            // 
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, parent_id, email, password, status, role, first_name, last_name, skype, phone, refferal_code, activation_code, created_date, updated_date', 'safe', 'on' => 'search'),
@@ -135,7 +146,7 @@ class User extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     /**
      * BeforeSave
      * For check isNewRecord, set created date or updated date
@@ -147,10 +158,33 @@ class User extends CActiveRecord {
     public function beforeSave() {
         if ($this->isNewRecord) {
             $this->created_date = new CDbExpression("now()");
+            $this->refferal_code = HashHelper::generateRefferalHash();
+            $this->activation_code = HashHelper::generateActivationHash($this->email);
+            if (!empty($this->password)) {
+                $this->password = HashHelper::hashPassword($this->password);
+            }
+            if ($this->inviter_refferal) {
+                $this->parent_id = $this->getInviterIdByRefferalCode();
+            }
         }
         $this->updated_date = new CDbExpression("now()");
-
         return true;
+    }
+
+    /**
+     * getInviterIdByRefferalCode 
+     *
+     * @author Davit T.
+     * @created at 23th day of Jan 2016
+     * @return void
+     */
+    private function getInviterIdByRefferalCode() {
+        $dbCommand = Yii::app()->db->createCommand("SELECT `id` FROM `users` WHERE `refferal_code`=:refferal_code");
+        $inviterId = $dbCommand->queryScalar(array(
+            ':refferal_code' => $this->inviter_refferal
+        ));
+        $inviterId = $inviterId ? $inviterId : null;
+        return $inviterId;
     }
 
 }
