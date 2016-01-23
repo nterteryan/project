@@ -59,6 +59,7 @@ class User extends CActiveRecord {
             // REGISTRATION SCENARIO
             // 
             array('repeat_password', 'required', 'on' => 'register'),
+            array('repeat_password', 'compare', 'compareAttribute'=>'password', 'on' => 'register'),
             // 
             // END REGISTRATION SCENARIO
             // 
