@@ -54,7 +54,6 @@ class AuthController extends Controller {
                 $this->redirect(Yii::app()->createUrl("/user/dashboard"));
             }
         }
-        var_dump($model->getErrors());
         $this->render("register", array(
             "model" => $model
         ));
