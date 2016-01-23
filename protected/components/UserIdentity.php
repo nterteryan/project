@@ -23,7 +23,7 @@ class UserIdentity extends CUserIdentity {
         ));
         if (!$user instanceof User) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } elseif (!CPasswordHelper::verifyPassword($this->password, $user->password)) {
+        } elseif (!HashHelper::comparePassword($this->password, $user->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
             $this->_id = $user->id;
