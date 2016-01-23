@@ -3,10 +3,10 @@
 /**
  * DashboardController 
  *
- * @author Davit T.
+ * @author Narek T.
  * @created at 23th day of Jan 2016
  */
-class DashboardController extends Controller {
+class ProfileController extends Controller {
     
     /**
      * @return array action filters
@@ -38,13 +38,16 @@ class DashboardController extends Controller {
     }
 
     /**
-     * DashboardController 
+     * Action Index 
      *
-     * @author Davit T.
+     * @author Narek T.
      * @created at 23th day of Jan 2016
      */
     public function actionIndex() {
-        $this->render("index");
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        $this->render("index", array(
+            'user' => $user,
+        ));
     }
 
 }

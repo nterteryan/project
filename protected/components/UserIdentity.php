@@ -25,6 +25,10 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         } elseif (!HashHelper::comparePassword($this->password, $user->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        } elseif ($user->status == User::STATUS_NEW) {
+            $this->errorCode = User::ERR_INACTIVE;
+        } elseif ($user->status == User::STATUS_BLOCKED) {
+            $this->errorCode = User::ERR_BLOCKED;    
         } else {
             $this->_id = $user->id;
             //$user->setLastLoggedDate();
@@ -36,7 +40,7 @@ class UserIdentity extends CUserIdentity {
             }
             $this->errorCode = self::ERROR_NONE;
         }
-        return !$this->errorCode;
+        return ($this->errorCode == self::ERROR_NONE);
     }
     
     public function getId() {

@@ -27,11 +27,14 @@ class User extends CActiveRecord {
     const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
+    const ERR_INACTIVE = 'INACTIVE';
+    const ERR_BLOCKED = 'BLOCKED';
 
     // Compare field 
     public $repeat_password = '';
     // Inviter refferal code
     public $inviter_refferal = '';
+    
 
     /**
      * @return string the associated database table name
