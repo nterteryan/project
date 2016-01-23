@@ -16,6 +16,8 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
+        'user',
+        'admin',
         // uncomment the following to enable the Gii tool
         'gii' => array(
             'class' => 'system.gii.GiiModule',
