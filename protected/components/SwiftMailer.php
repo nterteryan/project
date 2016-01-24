@@ -8,11 +8,11 @@ class SwiftMailer {
     /*
      * Gmail account username
      */
-    public $username = 'devaccnarek@gmail.com';
+    public $username = 'libertydevdev@gmail.com';
     /*
      * Gmail account password
      */
-    public $password = 'F2M7pfKP';
+    public $password = 'G&YU&H*(JK';
     /*
      * Protocol
      */
