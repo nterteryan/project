@@ -50,14 +50,14 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-4">
                     <div class="list-group table-of-contents">
-                        <a class="list-group-item" href="#navbar">Кабинет</a>
-                        <a class="list-group-item" href="#navbar">Профиль</a>
-                        <a class="list-group-item" href="#buttons">Мои Финансы</a>
-                        <a class="list-group-item" href="#typography">Партнеры</a>
-                        <a class="list-group-item" href="#tables">Легкий старт</a>
-                        <a class="list-group-item" href="#tables">Быстрый старт</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/'; ?>">Мои Финансы</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/partner/our'; ?>">Наши Партнеры</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
                         <a class="list-group-item" href="#tables">Акционер</a>
-                        <a class="list-group-item" href="#tables">Структура</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/partner'; ?>">Структура</a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-8">

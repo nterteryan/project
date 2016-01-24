@@ -198,6 +198,7 @@ class User extends CActiveRecord {
         }
         return parent::afterSave();
     }
+    
     /**
      * getFullName
      *
