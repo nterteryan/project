@@ -28,7 +28,7 @@ class SwiftMailer {
     /*
      * Send From Email and Description name
      */
-    public $setFrom = array("devaccnarek@gmail.com" => "anyvue");
+    public $setFrom = array("libertydevdev@gmail.com" => "domblaga");
 
     public function __construct() {
         require_once dirname(__FILE__) . '/../extensions/swiftMailer/lib/swift_required.php';

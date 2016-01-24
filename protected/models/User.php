@@ -183,21 +183,6 @@ class User extends CActiveRecord {
         $this->updated_date = new CDbExpression("now()");
         return true;
     }
-
-    /**
-     * afterSave
-     * 
-     * @author Davit T.
-     * @created at 24th day of Jan 2016
-     * @return bool
-     */
-    public function afterSave() {
-        if ($this->isNewRecord && $this->status == self::STATUS_NEW) {
-            // TODO Insert sftp account data into swiftmailer componenet
-            //Notification::sendActivationMail($this);
-        }
-        return parent::afterSave();
-    }
     
     /**
      * getFullName
@@ -225,5 +210,22 @@ class User extends CActiveRecord {
         $inviterId = $inviterId ? $inviterId : null;
         return $inviterId;
     }
+    
+    /**
+     * Get current user, singleton 
+     *
+     * @author Narek T. 
+     * @created at 24th day of July 2015
+     * @return User
+     */
+    static function getCurrentUser() {
+        static $currentUser;
+        if (!$currentUser instanceof User) {
+            $currentUser = User::model()->findByPk(Yii::app()->user->id);
+        }
+        return $currentUser;
+    }
+    
+    
 
 }

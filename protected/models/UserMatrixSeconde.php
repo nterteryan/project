@@ -12,10 +12,7 @@
  * @property string $created_date
  * @property string $updated_date
  */
-class UserMatrixSeconde extends CActiveRecord {
-
-    const IS_CLOSED_NO = 'NO';
-    const IS_CLOSED_YES = 'YES';
+class UserMatrixSeconde extends MatrixActivaRecord {
 
     /**
      * @return string the associated database table name

@@ -1,36 +1,58 @@
 <?php
+/**
+ * StartController 
+ *
+ * @author Narek T.
+ * @created at 24th day of Jan 2016
+ */
+class StartController extends Controller {
+    
+     /**
+     * @return array action filters
+     */
+    public function filters() {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+            //'postOnly',
+        );
+    }
 
-class StartController extends Controller
-{
-	public function actionEasy()
-	{
-		$this->render('easy');
-	}
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules() {
+        return array(
+            array('allow', // allow all users to perform 'index' actions
+                'actions' => array(
+                    'easy',
+                    'fast',
+                ),
+                'roles' => array(User::ROLE_USER),
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
+    }
 
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
+    public function actionEasy() {
+        $currentUser = User::getCurrentUser();
+        $matrixFirst = UserMatrixFirst::model()->notClosed()->byUserId($currentUser->id)->find();
+        $this->render('easy', array(
+            'currentUser' => $currentUser,
+            'matrixFirst' => $matrixFirst,
+        ));
+    }
+    
+    public function actionFast() {
+        $currentUser = User::getCurrentUser();
+        $matrixFirst = UserMatrixSeconde::model()->notClosed()->byUserId($currentUser->id)->find();
+        $this->render('fast', array(
+            'currentUser' => $currentUser,
+            'matrixFirst' => $matrixFirst,
+        ));
+    }
 
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
 }
