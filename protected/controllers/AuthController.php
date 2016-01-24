@@ -101,9 +101,9 @@ class AuthController extends Controller {
                 $to = $_POST['email'];
                 $subject = "Забыли пароль?";
                 $messageText = "Зайдите по <a href='"
-                        . Yii::app()->createUrl("/auth/resetPassword", array('code' => $user->activation_code))
+                        . Yii::app()->createAbsoluteUrl("/auth/resetPassword", array('code' => $user->activation_code))
                         . "'>этой ссылке</a> чтобы сбросить старый пароль и создать новый";
-                //CNotification::sendMail($to, $subject, $messageText);
+                CNotification::sendMail($to, $subject, $messageText);
                 $this->render("resetMailSent");
                 exit;
             } else {

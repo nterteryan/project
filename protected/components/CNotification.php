@@ -19,8 +19,8 @@ class CNotification {
     public static function sendActivationMail($model) {
         $to = $model->email;
         $subject = "Регистрация успешна завершена!";
-        $messageText = "Регистрация успешна завершена! Нажмите на <а href='"
-                . Yii::app()->createAbsoluteUrl("/auth/activate", array("code", $model->activation_code))
+        $messageText = "Регистрация успешна завершена! Нажмите <a href='"
+                . Yii::app()->createAbsoluteUrl("/auth/activate", array("code"=>$model->activation_code))
                 . "'>сюда</a> чтобы активировать ваш акаунт";
         return self::sendMail($to, $subject, $messageText);
     }

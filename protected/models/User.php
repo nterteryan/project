@@ -209,8 +209,7 @@ class User extends CActiveRecord {
      */
     public function afterSave() {
         if ($this->isNewRecord && $this->status == self::STATUS_NEW) {
-            // TODO Insert sftp account data into swiftmailer componenet
-            //Notification::sendActivationMail($this);
+            CNotification::sendActivationMail($this);
         }
         return parent::afterSave();
     }
