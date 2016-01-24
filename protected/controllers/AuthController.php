@@ -133,7 +133,7 @@ class AuthController extends Controller {
         $model->password = '';
         if (isset($_POST["User"])) {
             $model->attributes = $_POST["User"];
-            if($model->save()) {
+            if ($model->save()) {
                 $this->render("resetPasswordSuccess");
                 exit;
             }

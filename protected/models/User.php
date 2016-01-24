@@ -74,15 +74,15 @@ class User extends CActiveRecord {
             //
             // REGISTRATION SCENARIO
             // 
-            array('repeat_password', 'required', 'on' => 'register', 'message' => self::ERR_REQUIRED),
-            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => 'register', 'message' => self::ERR_COMPARE),
+            array('repeat_password', 'required', 'on' => self::SCENARIO_REGISTRATION, 'message' => self::ERR_REQUIRED),
+            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTRATION, 'message' => self::ERR_COMPARE),
             // 
             // END REGISTRATION SCENARIO
             // 
             // RESETPASSWORD SCENARIO 
             // 
-            array('repeat_password', 'required', 'on' => 'register', 'message' => self::ERR_REQUIRED),
-            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => 'register', 'message' => self::ERR_COMPARE),
+            array('repeat_password', 'required', 'on'=>self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_REQUIRED),
+            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on'=>self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_COMPARE),
             // 
             // END RESETPASSWORD SCENARION
             // 
