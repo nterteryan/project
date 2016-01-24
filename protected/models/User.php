@@ -37,6 +37,9 @@ class User extends CActiveRecord {
     const ERR_UNIQUE = '{attribute} {value} уже существует';
     // Other error messages
     const ERR_INVALID_ACTIVATION = "Ссылка активации является неправильной.";
+    // Scenarios 
+    const SCENARIO_RESET_PASSWORD = 'resetPassword';
+    const SCENARIO_REGISTRATION = 'registration';
 
     // Compare field 
     public $repeat_password = '';
@@ -57,12 +60,14 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password', 'required', 'message' => self::ERR_REQUIRED),
+            array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
             array('email', 'unique', 'message' => self::ERR_UNIQUE),
             array('parent_id', 'numerical', 'integerOnly' => true, 'message' => self::ERR_NUMERICAL),
             array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255, 'tooLong' => self::ERR_LENGTH),
             array('password', 'length', 'max' => 100, 'tooLong' => self::ERR_LENGTH),
             array('status', 'length', 'max' => 7, 'tooLong' => self::ERR_LENGTH),
+            array('username', 'length', 'max' => 16, 'tooLong' => self::ERR_LENGTH),
+            array('username', 'unique'),
             array('role', 'length', 'max' => 11, 'tooLong' => self::ERR_LENGTH),
             array('phone', 'length', 'max' => 60, 'tooLong' => self::ERR_LENGTH),
             array('created_date', 'safe'),
@@ -73,6 +78,13 @@ class User extends CActiveRecord {
             array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => 'register', 'message' => self::ERR_COMPARE),
             // 
             // END REGISTRATION SCENARIO
+            // 
+            // RESETPASSWORD SCENARIO 
+            // 
+            array('repeat_password', 'required', 'on' => 'register', 'message' => self::ERR_REQUIRED),
+            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => 'register', 'message' => self::ERR_COMPARE),
+            // 
+            // END RESETPASSWORD SCENARION
             // 
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -98,6 +110,7 @@ class User extends CActiveRecord {
             'id' => 'ID',
             'parent_id' => 'Parent',
             'email' => 'Адрес Электронной Почты',
+            'username' => 'Никнейм',
             'password' => 'Пароль',
             'repeat_password' => 'Повторите Пароль',
             'status' => 'Статус',
@@ -180,10 +193,28 @@ class User extends CActiveRecord {
                 $this->parent_id = $this->getInviterIdByRefferalCode();
             }
         }
+        if ($this->scenario == self::SCENARIO_RESET_PASSWORD && !empty($this->password)) {
+            $this->password = HashHelper::hashPassword($this->password);
+        }
         $this->updated_date = new CDbExpression("now()");
         return true;
     }
-    
+
+    /**
+     * afterSave
+     * 
+     * @author Davit T.
+     * @created at 24th day of Jan 2016
+     * @return bool
+     */
+    public function afterSave() {
+        if ($this->isNewRecord && $this->status == self::STATUS_NEW) {
+            // TODO Insert sftp account data into swiftmailer componenet
+            //Notification::sendActivationMail($this);
+        }
+        return parent::afterSave();
+    }
+
     /**
      * getFullName
      *

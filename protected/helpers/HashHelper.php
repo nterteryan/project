@@ -91,7 +91,7 @@ class HashHelper {
      * @return string
      */
     private static function crypt($str) {
-        return base64_encode(base64_encode(crypt($str, CRYPT_EXT_DES ? "secret_co" : "se" )));
+        return password_hash($str.self::SALT, PASSWORD_BCRYPT);
     }
 
 }

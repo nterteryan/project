@@ -67,7 +67,7 @@
                 <ol class="registered-users-list">
                     <?php if (!empty($users)) { ?>
                         <?php foreach ($users as $user) { ?>
-                            <li class="text-bold"><?php echo  $user->email; ?> <span class="text-light"><?php echo $user->fullName; ?></span></li>
+                            <li class="text-bold"><?php echo  $user->username; ?> <span class="text-light"><?php echo $user->fullName; ?></span></li>
                         <?php } ?>
                     <?php } ?>
                 </ol>

@@ -49,6 +49,22 @@
                 ))
                 ?>
             </div>
+            <div class="form-group <?php echo HtmlHelper::hasError($model, 'username'); ?>">
+                <?php
+                echo $form->labelEx($model, 'username', array(
+                    'class' => 'control-label'
+                ))
+                ?>
+                <?php
+                echo $form->textField($model, 'username', array(
+                    'class' => 'form-control'
+                ));
+                ?>
+                <?php
+                echo $form->error($model, 'username', array(
+                ))
+                ?>
+            </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'email'); ?>">
                 <?php
                 echo $form->labelEx($model, 'email', array(
