@@ -1,22 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "user_points".
+ * This is the model class for table "user_orders".
  *
- * The followings are the available columns in table 'user_points':
+ * The followings are the available columns in table 'user_orders':
  * @property integer $id
  * @property integer $user_id
- * @property double $points
+ * @property integer $marketing_plan_id
+ * @property integer $product_id
+ * @property integer $amount
+ * @property string $status
  * @property string $created_date
  * @property string $updated_date
  */
-class UserPoint extends CActiveRecord {
+class UserOrder extends CActiveRecord {
+    
+    const STATUS_INPROGRESS = 'INPROGRESS';
+    const STATUS_DECLIEND = 'DECLIEND';
+    const STATUS_APPROVED = 'APPROVED';
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'user_points';
+        return 'user_orders';
     }
 
     /**
@@ -27,12 +34,12 @@ class UserPoint extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('updated_date', 'required'),
-            array('user_id', 'numerical', 'integerOnly' => true),
-            array('points', 'numerical'),
+            array('user_id, marketing_plan_id, product_id, amount', 'numerical', 'integerOnly' => true),
+            array('status', 'length', 'max' => 10),
             array('created_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, user_id, points, created_date, updated_date', 'safe', 'on' => 'search'),
+            array('id, user_id, marketing_plan_id, product_id, amount, status, created_date, updated_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,7 +60,10 @@ class UserPoint extends CActiveRecord {
         return array(
             'id' => 'ID',
             'user_id' => 'User',
-            'points' => 'Points',
+            'marketing_plan_id' => 'Marketing Plan',
+            'product_id' => 'Product',
+            'amount' => 'Amount',
+            'status' => 'Status',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         );
@@ -78,7 +88,10 @@ class UserPoint extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('points', $this->points);
+        $criteria->compare('marketing_plan_id', $this->marketing_plan_id);
+        $criteria->compare('product_id', $this->product_id);
+        $criteria->compare('amount', $this->amount);
+        $criteria->compare('status', $this->status, true);
         $criteria->compare('created_date', $this->created_date, true);
         $criteria->compare('updated_date', $this->updated_date, true);
 
@@ -91,7 +104,7 @@ class UserPoint extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return UserPoint the static model class
+     * @return UserOrder the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
