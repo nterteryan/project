@@ -29,12 +29,19 @@ class User extends CActiveRecord {
     const ROLE_USER = 'USER';
     const ERR_INACTIVE = 'INACTIVE';
     const ERR_BLOCKED = 'BLOCKED';
+    // Validation error messages
+    const ERR_REQUIRED = '"{attribute}" обязателен для заполнения';
+    const ERR_COMPARE = '"{attribute}" должен с точностью повторятся';
+    const ERR_LENGTH = '"{attribute}" слишком длинный (максимум {max} символов).';
+    const ERR_NUMERICAL = '"{attribute}" должен быть цыфрой';
+    const ERR_UNIQUE = '{attribute} {value} уже существует';
+    // Other error messages
+    const ERR_INVALID_ACTIVATION = "Ссылка активации является неправильной.";
 
     // Compare field 
     public $repeat_password = '';
     // Inviter refferal code
     public $inviter_refferal = '';
-    
 
     /**
      * @return string the associated database table name
@@ -50,19 +57,20 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password', 'required'),
-            array('parent_id', 'numerical', 'integerOnly' => true),
-            array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255),
-            array('password', 'length', 'max' => 100),
-            array('status', 'length', 'max' => 7),
-            array('role', 'length', 'max' => 11),
-            array('phone', 'length', 'max' => 60),
+            array('email, password', 'required', 'message' => self::ERR_REQUIRED),
+            array('email', 'unique', 'message' => self::ERR_UNIQUE),
+            array('parent_id', 'numerical', 'integerOnly' => true, 'message' => self::ERR_NUMERICAL),
+            array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255, 'tooLong' => self::ERR_LENGTH),
+            array('password', 'length', 'max' => 100, 'tooLong' => self::ERR_LENGTH),
+            array('status', 'length', 'max' => 7, 'tooLong' => self::ERR_LENGTH),
+            array('role', 'length', 'max' => 11, 'tooLong' => self::ERR_LENGTH),
+            array('phone', 'length', 'max' => 60, 'tooLong' => self::ERR_LENGTH),
             array('created_date', 'safe'),
             //
             // REGISTRATION SCENARIO
             // 
-            array('repeat_password', 'required', 'on' => 'register'),
-            array('repeat_password', 'compare', 'compareAttribute'=>'password', 'on' => 'register'),
+            array('repeat_password', 'required', 'on' => 'register', 'message' => self::ERR_REQUIRED),
+            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => 'register', 'message' => self::ERR_COMPARE),
             // 
             // END REGISTRATION SCENARIO
             // 
@@ -89,18 +97,19 @@ class User extends CActiveRecord {
         return array(
             'id' => 'ID',
             'parent_id' => 'Parent',
-            'email' => 'Email',
-            'password' => 'Password',
-            'status' => 'Status',
-            'role' => 'Role',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'skype' => 'Skype',
-            'phone' => 'Phone',
-            'refferal_code' => 'Refferal Code',
-            'activation_code' => 'Activation Code',
-            'created_date' => 'Created Date',
-            'updated_date' => 'Updated Date',
+            'email' => 'Адрес Электронной Почты',
+            'password' => 'Пароль',
+            'repeat_password' => 'Повторите Пароль',
+            'status' => 'Статус',
+            'role' => 'Роль',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'skype' => 'Скайп',
+            'phone' => 'Номер Телефона',
+            'refferal_code' => 'Рефферальный Код',
+            'activation_code' => 'Код Активации',
+            'created_date' => 'Дата Создания',
+            'updated_date' => 'Дата Обнавления',
         );
     }
 
@@ -173,6 +182,31 @@ class User extends CActiveRecord {
         }
         $this->updated_date = new CDbExpression("now()");
         return true;
+    }
+
+    /**
+     * afterSave
+     * 
+     * @author Davit T.
+     * @created at 24th day of Jan 2016
+     * @return bool
+     */
+    public function afterSave() {
+        if ($this->isNewRecord && $this->status == self::STATUS_NEW) {
+            // TODO Insert sftp account data into swiftmailer componenet
+            //Notification::sendActivationMail($this);
+        }
+        return parent::afterSave();
+    }
+    /**
+     * getFullName
+     *
+     * @author Davit T.
+     * @created at 24th day of Jan 2016
+     * @return string
+     */
+    public function getFullName() {
+        return $this->first_name . " " . $this->last_name;
     }
 
     /**

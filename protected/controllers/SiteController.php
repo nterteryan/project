@@ -26,9 +26,17 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
         $this->layout = "//layouts/home";
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+        $criteria = new CDbCriteria();
+        $criteria->limit = 10;
+        $criteria->order = "created_date DESC";
+        $criteria->condition = "status = :status";
+        $criteria->params = array(
+            ":status" => User::STATUS_ACTIVE
+        );
+        $users = User::model()->findAll($criteria);
+        $this->render('index', array(
+            'users' => $users
+        ));
     }
 
     /**

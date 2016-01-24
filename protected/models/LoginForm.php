@@ -33,7 +33,9 @@ class LoginForm extends CFormModel {
      */
     public function attributeLabels() {
         return array(
-            'rememberMe' => 'Remember me next time',
+            'email'=>'РђРґСЂРµСЃ Р­Р»РµРєС‚СЂРѕРЅРЅРѕР№ РџРѕС‡С‚С‹',
+            'password'=>'РџР°СЂРѕР»СЊ',
+            'rememberMe' => 'Р—Р°РїРѕРјРЅРёС‚СЊ РџР°СЂРѕР»СЊ',
         );
     }
 
@@ -63,9 +65,9 @@ class LoginForm extends CFormModel {
             Yii::app()->user->login($this->_identity, $duration);
             return true;
         } elseif ($this->_identity->errorCode == User::ERR_INACTIVE) {
-            $this->addError('password', 'Пожалуйста активируйте ваш акаунт.');
+            $this->addError('password', 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.');
         } elseif ($this->_identity->errorCode == User::ERR_BLOCKED)
-            $this->addError('password', 'Ваш акаунт заблокирован, если у вас есть вопроры обратитесь к администрации.');
+            $this->addError('password', 'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.');
         else
             return false;
     }

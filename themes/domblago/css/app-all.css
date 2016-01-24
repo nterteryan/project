@@ -115,10 +115,12 @@ div[class^="section"]{
 ol.registered-users-list {
     font-size: 18px;
     font-weight: normal;
+    height: 335px;
+    overflow-y: auto;
 }
 
 ol.registered-users-list>li {
-    height: 30px;
+    height: auto;
     line-height: 30px;
 }
 

@@ -17,7 +17,7 @@
         <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="../" class="navbar-brand">
+                    <a href="/<?php echo APP_BASE_URL; ?>" class="navbar-brand">
                         <img class="logo-image" src="<?php echo APP_THEME_URL ?>/img/logo.png" />
                     </a>
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">

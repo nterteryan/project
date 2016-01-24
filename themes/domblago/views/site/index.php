@@ -1,5 +1,5 @@
 <div class="page-header" id="banner">
-        <div class="col-lg-8 col-md-7 col-sm-6"></div>
+    <div class="col-lg-8 col-md-7 col-sm-6"></div>
 </div>
 <div class="section-info bs-docs-section clearfix">
     <div class="col-lg-12">
@@ -26,35 +26,35 @@
     <br/>
     <br/>
     <br/>
-        <div class="col-lg-12">
-            <h3 class="text-center">БИЗНЕС-КЛУБ ПОМОЖЕТ ВАМ РЕШИТ ЖИЗНЕННО-ВАЖНЫЕ ЗАДАЧИ:</h3>
-            <div class="container-fluid">
-                <ul class="point-list block-center">
-                    <li>
-                        <a class="badge point-badge">1</a>
-                        <p class="point-text text-center text-bold">Здоровье</p>
-                    </li>
-                    <li>
-                        <a class="badge point-badge">2</a>
-                        <p class="point-text text-center text-bold">Недвижимость</p>
-                    </li>
-                    <li>
-                        <a class="badge point-badge">3</a>
-                        <p class="point-text text-center text-bold">Инвестиции</p>
-                    </li>
-                </ul>
-            </div>
-            <hr/>
+    <div class="col-lg-12">
+        <h3 class="text-center">БИЗНЕС-КЛУБ ПОМОЖЕТ ВАМ РЕШИТ ЖИЗНЕННО-ВАЖНЫЕ ЗАДАЧИ:</h3>
+        <div class="container-fluid">
+            <ul class="point-list block-center">
+                <li>
+                    <a class="badge point-badge">1</a>
+                    <p class="point-text text-center text-bold">Здоровье</p>
+                </li>
+                <li>
+                    <a class="badge point-badge">2</a>
+                    <p class="point-text text-center text-bold">Недвижимость</p>
+                </li>
+                <li>
+                    <a class="badge point-badge">3</a>
+                    <p class="point-text text-center text-bold">Инвестиции</p>
+                </li>
+            </ul>
         </div>
+        <hr/>
+    </div>
     <br/>
     <br/>
     <br/>
-        <div class="col-lg-12">
-            <h2 class="text-center text-bold">ГАРАНТИРУЕМ ПОЛОЖИТЕЛЬНЫЕ РЕЗУЛЬТАТЫ И МГНОВЕННУЮ ОПЛАТУ</h2>
-            <h3 class="text-center subtitle">ХОЧЕШЬ СТАТЬ НАШИМ ПАРТНЕРОМ?</h3>
-            <br/>
-            <a href="<?php echo APP_BASE_URL ?>/auth/register" class="btn btn-primary btn-200 block-center">Получить доступ</a>
-        </div>
+    <div class="col-lg-12">
+        <h2 class="text-center text-bold">ГАРАНТИРУЕМ ПОЛОЖИТЕЛЬНЫЕ РЕЗУЛЬТАТЫ И МГНОВЕННУЮ ОПЛАТУ</h2>
+        <h3 class="text-center subtitle">ХОЧЕШЬ СТАТЬ НАШИМ ПАРТНЕРОМ?</h3>
+        <br/>
+        <a href="<?php echo APP_BASE_URL ?>/auth/register" class="btn btn-primary btn-200 block-center">Получить доступ</a>
+    </div>
 </div>
 <div class="section-registered-users bs-docs-section clearfix">
     <div class="col-lg-12">
@@ -65,16 +65,11 @@
                 <h4 class="text-center text-light subtitle">Последние 10 регистрации:</h4>
                 <hr/>
                 <ol class="registered-users-list">
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
-                    <li class="text-bold">Gokhman68 <span class="text-light"> Вячеслав Павлин</span></li>
+                    <?php if (!empty($users)) { ?>
+                        <?php foreach ($users as $user) { ?>
+                            <li class="text-bold"><?php echo  $user->email; ?> <span class="text-light"><?php echo $user->fullName; ?></span></li>
+                        <?php } ?>
+                    <?php } ?>
                 </ol>
             </div>
         </div>
