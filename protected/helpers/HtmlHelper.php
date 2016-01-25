@@ -23,4 +23,17 @@ class HtmlHelper {
         return $className;
     }
 
+    /**
+     * displayAmount
+     *
+     * @author Davit T.
+     * @created at 25th day of Jan 2016
+     * @param int $amount
+     * @param string $currency
+     * @return void
+     */
+    public static function displayAmount($amount, $currency = '$') {
+        echo Yii::app()->numberFormatter->formatCurrency($amount, $currency);
+    }
+
 }

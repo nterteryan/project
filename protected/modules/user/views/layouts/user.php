@@ -9,9 +9,9 @@
         <link rel="stylesheet" type="text/css" href="<?php echo APP_THEME_URL; ?>/css/media-queries.css">
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/jquery-2.2.0.min.js"></script>
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/lib/bootsrap.min.js"></script>
-        <script type="text/javascript">var APP_BASE_URL="/<?php echo APP_BASE_URL; ?>"</script>
+        <script type="text/javascript">var APP_BASE_URL = "/<?php echo APP_BASE_URL; ?>"</script>
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/app.js"></script>
-        <script type="text/javascript">var MODULE_BASE_URL="/user/<?php echo APP_BASE_URL; ?>"</script>
+        <script type="text/javascript">var MODULE_BASE_URL = "/user/<?php echo APP_BASE_URL; ?>"</script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
@@ -30,6 +30,7 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav navbar-right">
                         <?php if (Yii::app()->user->id) { ?>
+                            <li><a href="<?php echo APP_BASE_URL ?>/user/dashboard">Кабинет</a></li>
                             <li><a href="<?php echo APP_BASE_URL ?>/auth/logout">Выйти</a></li>
                         <?php } else { ?>
                             <li><a href="<?php echo APP_BASE_URL ?>/auth/login">Вход</a></li>
@@ -43,8 +44,14 @@
         <div class="container">
             <div class="page-header" id="banner">
                 <div class="row">
-                    <div class="col-lg-8 col-md-7 col-sm-6">
-                        <h1>Панель Управления</h1>
+                    <div class="col-lg-12">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <h1>Панель Управления</h1>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 padding-none">
+                            <br/>
+                            <?php $this->widget('application.widgets.userAmounts.UserAmount') ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,7 +72,7 @@
                     <?php echo $content; ?>
                 </div>
             </div>
-            
+
             <!--<footer>
                 <div class="row">
                     <div class="col-lg-12">

@@ -27,6 +27,8 @@ class User extends CActiveRecord {
     const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
+    const IS_PARTNER_YES = "YES";
+    const IS_PARTNER_NO = "NO";
     const ERR_INACTIVE = 'INACTIVE';
     const ERR_BLOCKED = 'BLOCKED';
     // Validation error messages
@@ -37,12 +39,16 @@ class User extends CActiveRecord {
     const ERR_UNIQUE = '{attribute} {value} уже существует';
     // Other error messages
     const ERR_INVALID_ACTIVATION = "Ссылка активации является неправильной.";
+    const ERR_OLD_PASSWORD = "Пароль не соответствует текушему.";
     // Scenarios 
     const SCENARIO_RESET_PASSWORD = 'resetPassword';
     const SCENARIO_REGISTRATION = 'registration';
+    
 
     // Compare field 
     public $repeat_password = '';
+    // Old password used on reset password in profile page, etc
+    public $old_password = '';
     // Inviter refferal code
     public $inviter_refferal = '';
 
@@ -81,8 +87,8 @@ class User extends CActiveRecord {
             // 
             // RESETPASSWORD SCENARIO 
             // 
-            array('repeat_password', 'required', 'on'=>self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_REQUIRED),
-            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on'=>self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_COMPARE),
+            array('repeat_password', 'required', 'on' => self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_REQUIRED),
+            array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_RESET_PASSWORD, 'message' => self::ERR_COMPARE),
             // 
             // END RESETPASSWORD SCENARION
             // 
@@ -226,6 +232,17 @@ class User extends CActiveRecord {
     }
 
     /**
+     * getRefferalUrl
+     *
+     * @author Davit T.
+     * @created at 25th day of Jan 2016
+     * @return string
+     */
+    public function getRefferalUrl() {
+        return Yii::app()->createAbsoluteUrl("/auth/register", array('code' => $this->refferal_code));
+    }
+
+    /**
      * getInviterIdByRefferalCode 
      *
      * @author Davit T.
@@ -240,7 +257,7 @@ class User extends CActiveRecord {
         $inviterId = $inviterId ? $inviterId : null;
         return $inviterId;
     }
-    
+
     /**
      * Get current user, singleton 
      *
@@ -255,7 +272,5 @@ class User extends CActiveRecord {
         }
         return $currentUser;
     }
-    
-    
 
 }

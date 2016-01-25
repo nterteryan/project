@@ -70,12 +70,23 @@ class ProfileController extends Controller {
         );
         $model = User::getCurrentUser();
         $model->setScenario(User::SCENARIO_RESET_PASSWORD);
+
+        // Checking old password validness
+        $oldPassword = $model->password;
+        // Set attributes
         $model->attributes = $_POST['User'];
-        if(!$model->save()) {
+        //var_dump($model->old_password);
+        //var_dump($oldPassword);
+        /*if (!HashHelper::comparePassword($model->old_password, $oldPassword)) {
+            $model->addError('old_password', User::ERR_OLD_PASSWORD);
+        }*/
+
+        if ($model->hasErrors() || !$model->save()) {
             $response['success'] = 0;
             $response['error'] = $model->getErrors();
         };
         echo json_encode($response);
+        Yii::app()->end();
     }
 
 }

@@ -3,6 +3,20 @@
 class AuthController extends Controller {
 
     /**
+     * beforeAction
+     *
+     * @author Davit T.
+     * @created at 25th day of Jan 2016
+     * @return bool
+     */
+    public function beforeAction($action) {
+        if (!Yii::app()->user->isGuest && !in_array($action->id, array('error', 'logout'))) {
+            $this->redirect("/user/dashboard");
+        }
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Displays the login page
      */
     public function actionLogin() {

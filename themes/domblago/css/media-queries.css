@@ -3,4 +3,9 @@
         width: 100%;
         float: none;
     }
+    
+    .w-user-amount-nav {
+        float:left !important;
+        padding-left: 15px;
+    }
 }

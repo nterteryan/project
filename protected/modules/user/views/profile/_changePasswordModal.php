@@ -16,6 +16,20 @@
                 ?>
                 <div class="form-group <?php echo HtmlHelper::hasError($model, 'password'); ?>">
                     <?php
+                    echo $form->labelEx($model, 'old_password', array(
+                        'class' => 'control-label'
+                    ))
+                    ?>
+                    <?php
+                    echo $form->passwordField($model, 'old_password', array(
+                        'class' => 'form-control',
+                        'value' => '',
+                    ));
+                    ?>
+                    <div class='errorMessage hidden'></div>
+                </div>
+                <div class="form-group <?php echo HtmlHelper::hasError($model, 'old_password'); ?>">
+                    <?php
                     echo $form->labelEx($model, 'password', array(
                         'class' => 'control-label'
                     ))

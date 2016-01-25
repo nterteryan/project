@@ -7,14 +7,14 @@
  * @created at 23th day of Jan 2016
  */
 class DashboardController extends Controller {
-    
+
     /**
      * @return array action filters
      */
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            //'postOnly',
+                //'postOnly',
         );
     }
 
@@ -44,7 +44,10 @@ class DashboardController extends Controller {
      * @created at 23th day of Jan 2016
      */
     public function actionIndex() {
-        $this->render("index");
+        $model = User::getCurrentUser();
+        $this->render("index", array(
+            'model' => $model
+        ));
     }
 
 }
