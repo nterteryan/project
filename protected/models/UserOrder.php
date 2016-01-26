@@ -126,5 +126,67 @@ class UserOrder extends CActiveRecord {
 
         return true;
     }
+    
+    /**
+     * Scopes
+     *
+     * @author Narek T. 
+     * @created at 24th day of July 2015
+     * @return array
+     */
+    public function scopes() {
+        return array(
+            'inprogress' => array(
+                'condition' => $this->getTableAlias(true, false) . '.`status`=:status',
+                'params' => array(
+                    ':status' => self::STATUS_INPROGRESS,
+                ),
+            ),
+            'approved' => array(
+                'condition' => $this->getTableAlias(true, false) . '.`status`=:status',
+                'params' => array(
+                    ':status' => self::STATUS_APPROVED,
+                ),
+            ),
+            'declined' => array(
+                'condition' => $this->getTableAlias(true, false) . '.`status`=:status',
+                'params' => array(
+                    ':status' => self::STATUS_DECLIEND,
+                ),
+            ),
+        );
+    }
+    
+    /**
+     * Scope by user id
+     *
+     * @author Narek T.
+     * @created at 24th day of January 2015
+     * @param integer $userId
+     * @return UserOrder
+     */
+    public function byUserId($userId) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'user_id =:userId',
+            'params' => array(':userId' => $userId),
+        ));
+        return $this;
+    }
+    
+    /**
+     * Scope by user id
+     *
+     * @author Narek T.
+     * @created at 24th day of January 2015
+     * @param integer $marketingPlanId
+     * @return UserOrder
+     */
+    public function byMarketingPlanId($marketingPlanId) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'marketing_plan_id =:marketingPlanId',
+            'params' => array(':marketingPlanId' => $marketingPlanId),
+        ));
+        return $this;
+    }
 
 }

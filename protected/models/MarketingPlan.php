@@ -120,5 +120,21 @@ class MarketingPlan extends CActiveRecord {
 
         return true;
     }
+    
+    /**
+     * Scope by user id
+     *
+     * @author Narek T.
+     * @created at 25th day of January 2015
+     * @param string $slug
+     * @return UserMatrixFirst
+     */
+    public function bySlug($slug) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'slug =:slug',
+            'params' => array(':slug' => $slug),
+        ));
+        return $this;
+    }
 
 }

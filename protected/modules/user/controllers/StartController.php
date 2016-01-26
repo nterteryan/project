@@ -40,9 +40,11 @@ class StartController extends Controller {
     public function actionEasy() {
         $currentUser = User::getCurrentUser();
         $matrixFirst = UserMatrixFirst::model()->notClosed()->byUserId($currentUser->id)->find();
+        $marketingPlan = MarketingPlan::model()->bySlug(MarketingPlan::SLUG_MATRIX_1)->find();
         $this->render('easy', array(
             'currentUser' => $currentUser,
             'matrixFirst' => $matrixFirst,
+            'marketingPlan' => $marketingPlan,
         ));
     }
     
