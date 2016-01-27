@@ -367,8 +367,6 @@ class User extends CActiveRecord {
         $dbCommand->query();
     }
 
-}
-
     /**
      * Add user amount to current account type 
      *
@@ -382,3 +380,5 @@ class User extends CActiveRecord {
         $this->$accountType = $this->$accountType + $amount;
         return $this->save(false);
     }
+
+}
