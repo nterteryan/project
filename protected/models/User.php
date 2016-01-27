@@ -46,7 +46,10 @@ class User extends CActiveRecord {
     // Amount Type
     const ACCOUNT_TYPE_AMOUNT = 'AMOUNT';
     const ACCOUNT_TYPE_PERSONAL_AMOUNT = 'PERSONAL_AMOUNT';
-
+    // Amount Type
+    const ACCOUNT_FIELD_AMOUNT = 'amount';
+    const ACCOUNT_FIELD_PERSONAL_AMOUNT = 'personal_amount';
+    
     // Compare field 
     public $repeat_password = '';
     // Old password used on reset password in profile page, etc
@@ -284,6 +287,32 @@ class User extends CActiveRecord {
      */
     public function isPartner() {
         return ($this->is_partner == self::IS_PARTNER_YES);
+    }
+    
+    /**
+     * Make user as partner 
+     *
+     * @author Narek T.
+     * @created at 27th day of January 2016
+     * @return boolean
+     */
+    public function markAsPartner() {
+        $this->is_partner = self::IS_PARTNER_YES;
+        return $this->save(false);
+    }
+    
+    /**
+     * Add user amount to current account type 
+     *
+     * @author Narek T.
+     * @created at 27th day of January 2016
+     * @param double $amount
+     * @param string $amountType
+     * @return boolean
+     */
+    public function addAmount($amount, $accountType) {
+        $this->$accountType = $this->$accountType + $amount;
+        return $this->save(false);
     }
 
 }

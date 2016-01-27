@@ -29,6 +29,7 @@ class StartController extends Controller {
                     'easy',
                     'fast',
                     'partner',
+                    'premium',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -67,6 +68,10 @@ class StartController extends Controller {
             'currentUser' => $currentUser,
             'marketingPlan' => $marketingPlan,
         ));
+    }
+    
+    public function actionPremium() {
+        $this->render('premium');
     }
 
 }

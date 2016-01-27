@@ -1,27 +1,32 @@
 <?php
 
 /**
- * This is the model class for table "marketing_plans".
+ * This is the model class for table "user_transactions".
  *
- * The followings are the available columns in table 'marketing_plans':
+ * The followings are the available columns in table 'user_transactions':
  * @property integer $id
- * @property string $name
- * @property string $slug
- * @property integer $join_amount
+ * @property integer $receiver_id
+ * @property integer $sender_id
+ * @property double $amount
+ * @property string $transaction_type
+ * @property string $account_type
  * @property string $created_date
  * @property string $updated_date
  */
-class MarketingPlan extends CActiveRecord {
+class UserTransaction extends CActiveRecord {
     
-    const SLUG_MATRIX_1 = 'matrix1';
-    const SLUG_MATRIX_2 = 'matrix2';
-    const SLUG_PARTNER = 'partner';
+    const TYPE_GRANDED_BY_ADMIN = 'GRANDED_BY_ADMIN';
+    const TYPE_FIRST_MATRIX = 'FIRST_MATRIX';
+    const TYPE_SECONDE_MATRIX = 'SECONDE_MATRIX';
+    const TYPE_BUY = 'BUY';
+    const TYPE_TRANSFER = 'TRANSFER';
+    const TYPE_CHARGE = 'CHARGE';
 
     /**
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'marketing_plans';
+        return 'user_transactions';
     }
 
     /**
@@ -32,12 +37,14 @@ class MarketingPlan extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('updated_date', 'required'),
-            array('join_amount', 'numerical', 'integerOnly' => true),
-            array('name, slug', 'length', 'max' => 255),
+            array('receiver_id, sender_id', 'numerical', 'integerOnly' => true),
+            array('amount', 'numerical'),
+            array('transaction_type', 'length', 'max' => 16),
+            array('account_type', 'length', 'max' => 15),
             array('created_date', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, slug, join_amount, created_date, updated_date', 'safe', 'on' => 'search'),
+            array('id, receiver_id, sender_id, amount, transaction_type, account_type, created_date, updated_date', 'safe', 'on' => 'search'),
         );
     }
 
@@ -57,9 +64,11 @@ class MarketingPlan extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
-            'slug' => 'Slug',
-            'join_amount' => 'Join Amount',
+            'receiver_id' => 'Receiver',
+            'sender_id' => 'Sender',
+            'amount' => 'Amount',
+            'transaction_type' => 'Transaction Type',
+            'account_type' => 'Account Type',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         );
@@ -83,9 +92,11 @@ class MarketingPlan extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('slug', $this->slug, true);
-        $criteria->compare('join_amount', $this->join_amount);
+        $criteria->compare('receiver_id', $this->receiver_id);
+        $criteria->compare('sender_id', $this->sender_id);
+        $criteria->compare('amount', $this->amount);
+        $criteria->compare('transaction_type', $this->transaction_type, true);
+        $criteria->compare('account_type', $this->account_type, true);
         $criteria->compare('created_date', $this->created_date, true);
         $criteria->compare('updated_date', $this->updated_date, true);
 
@@ -98,7 +109,7 @@ class MarketingPlan extends CActiveRecord {
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return MarketingPlan the static model class
+     * @return UserTransaction the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -119,49 +130,6 @@ class MarketingPlan extends CActiveRecord {
         $this->updated_date = new CDbExpression("now()");
 
         return true;
-    }
-    
-    /**
-     * Scope by user id
-     *
-     * @author Narek T.
-     * @created at 25th day of January 2015
-     * @param string $slug
-     * @return UserMatrixFirst
-     */
-    public function bySlug($slug) {
-        $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'slug =:slug',
-            'params' => array(':slug' => $slug),
-        ));
-        return $this;
-    }
-    
-    public function insertUserToMarketing($userId) {
-        switch ($this->slug) {
-            case self::SLUG_MATRIX_1 :
-                // Add user to first matrix
-                $userMatrixFirst = new UserMatrixFirst;
-                $userMatrixFirst->order_number = $userMatrixFirst->getNextOrderNumber();
-                $userMatrixFirst->close_number = $userMatrixFirst->getCloseNumber($userMatrixFirst->order_number);
-                $userMatrixFirst->user_id = $userId;
-                return $userMatrixFirst->save(false);
-            break;
-            case self::SLUG_MATRIX_2 :
-                // Add user to seconde matrix
-                $userMatrixSeconde = new UserMatrixSeconde;
-                $userMatrixSeconde->order_number = $userMatrixSeconde->getNextOrderNumber();
-                $userMatrixSeconde->close_number = $userMatrixSeconde->getCloseNumber($userMatrixSeconde->order_number);
-                $userMatrixSeconde->user_id = $userId;
-                return $userMatrixSeconde->save(false);
-            break;
-            case self::SLUG_PARTNER :
-                $currentUser = User::getCurrentUser();
-                $currentUser->markAsPartner();
-                // 50$ to company
-                // 50$ to marketing
-            break;
-        }
     }
 
 }

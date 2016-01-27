@@ -14,8 +14,6 @@ class PaymentController extends Controller {
         var_dump($marketingPlan->insertUserToMarketing(2));
         echo "</pre>";
         die();*/
-        
-        
         $request = Yii::app()->request;
         $keyCode = $request->getPost('KEY_CODE', false);
         $paymentBatchNum = $request->getPost('PAYMENT_BATCH_NUM', false);

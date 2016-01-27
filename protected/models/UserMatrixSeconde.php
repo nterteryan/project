@@ -13,6 +13,8 @@
  * @property string $updated_date
  */
 class UserMatrixSeconde extends MatrixActivaRecord {
+    
+    const MATRIX_CLOSED_AMOUNT = 75;
 
     /**
      * @return string the associated database table name
@@ -134,14 +136,16 @@ class UserMatrixSeconde extends MatrixActivaRecord {
         if (!is_null($userMatrixSecondeClosed)) {
             $userMatrixSecondeClosed->markAsClosed();
             // Add closed matrix payment to user
-            $userClosedMatrix = $userMatrixFirstClosed->user;
-            $userClosedMatrix->amount = $userClosedMatrix->amount + self::MATRIX_CLOSED_AMOUNT;
-            $userClosedMatrix->save(false);
+            $userClosedMatrix = $userMatrixSecondeClosed->user;
+            $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
             // Add history
             UserAmountHistory::addHistory($userClosedMatrix->id, NULL, self::MATRIX_CLOSED_AMOUNT, 
                 UserAmountHistory::TYPE_FIRST_MATRIX, User::ACCOUNT_TYPE_AMOUNT);
-            // Add closed user to next matrix
-            $userMatrixSeconde = UserMatrixSeconde::addUser($userClosedMatrix->id);
+            // Check if user closed matrix already partner
+            if (!$userClosedMatrix->isPartner()) {
+                $userClosedMatrix->markAsPartner();
+                // logic for partners payment
+            }
         }
         return true;
     }
@@ -160,6 +164,14 @@ class UserMatrixSeconde extends MatrixActivaRecord {
         return (!is_null($maxOrderNumber)) ? $maxOrderNumber + 1 : 1;
     }
     
+    /**
+     * Add user to seconde matrix
+     *
+     * @author Narek T.
+     * @created at 27th day of January 2016
+     * @param integer $userId
+     * @return boolean
+     */
     public static function addUser($userId) {
         $userMatrixSeconde = new UserMatrixSeconde;
         $userMatrixSeconde->order_number = $userMatrixSeconde->getNextOrderNumber();
@@ -168,9 +180,17 @@ class UserMatrixSeconde extends MatrixActivaRecord {
         return $userMatrixSeconde->save(false);
     }
     
+    /**
+     * Check if some user close seconde matrix
+     *
+     * @author Narek T.
+     * @created at 27th day of January 2016
+     * @param integer $closeNumber
+     * @return UserMatrixSeconde | null
+     */
     public function checkIfUserClose($closeNumber) {
-        $userMatrixFirst = UserMatrixSeconde::model()->byCloseNumber($closeNumber)->find();
-        return $userMatrixFirst;
+        $userMatrixSeconde = UserMatrixSeconde::model()->byCloseNumber($closeNumber)->find();
+        return $userMatrixSeconde;
     }
 
 }

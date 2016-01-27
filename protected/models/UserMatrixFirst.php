@@ -138,8 +138,7 @@ class UserMatrixFirst extends MatrixActivaRecord {
             $userMatrixFirstClosed->markAsClosed();
             // Add closed matrix payment to user
             $userClosedMatrix = $userMatrixFirstClosed->user;
-            $userClosedMatrix->amount = $userClosedMatrix->amount + self::MATRIX_CLOSED_AMOUNT;
-            $userClosedMatrix->save(false);
+            $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
             // Add history
             UserAmountHistory::addHistory($userClosedMatrix->id, NULL, self::MATRIX_CLOSED_AMOUNT, 
                 UserAmountHistory::TYPE_FIRST_MATRIX, User::ACCOUNT_TYPE_AMOUNT);

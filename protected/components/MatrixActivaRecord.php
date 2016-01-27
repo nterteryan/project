@@ -69,6 +69,14 @@ class MatrixActivaRecord extends CActiveRecord {
         return $this;
     }
     
+    /**
+     * Get number when user will close his matrix 
+     *
+     * @author Narek T.
+     * @created at 27th day of January 2016
+     * @param integer $orderNumber
+     * @return integer
+     */
     public function getCloseNumber($orderNumber) {
         return ($orderNumber*4 + 3);
     }
