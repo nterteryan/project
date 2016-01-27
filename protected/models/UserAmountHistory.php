@@ -129,5 +129,23 @@ class UserAmountHistory extends CActiveRecord {
 
         return true;
     }
+    
+    /**
+     * Add user amount history
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @param
+     * @return boolean
+     */
+    public static function addHistory($recieverId, $senderId, $amount, $type, $accountType) {
+        $userAmountHistory = new UserAmountHistory();
+        $userAmountHistory->receiver_id = $recieverId;
+        $userAmountHistory->sender_id = $senderId;
+        $userAmountHistory->amount = $amount;
+        $userAmountHistory->type = $type;
+        $userAmountHistory->account_type = $accountType;
+        return $userAmountHistory->save(false);
+    }
 
 }

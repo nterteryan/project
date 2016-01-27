@@ -119,5 +119,58 @@ class UserMatrixSeconde extends MatrixActivaRecord {
 
         return true;
     }
+    
+    /**
+     * AfterSave
+     * For check isNewRecord, set created date or updated date
+     * 
+     * @author Narek T.
+     * @created at 23th day of January 2016
+     * @return bool
+     */
+    public function afterSave() {
+        // Check if some user close matrix
+        $userMatrixSecondeClosed = $this->checkIfUserClose($this->order_number);
+        if (!is_null($userMatrixSecondeClosed)) {
+            $userMatrixSecondeClosed->markAsClosed();
+            // Add closed matrix payment to user
+            $userClosedMatrix = $userMatrixFirstClosed->user;
+            $userClosedMatrix->amount = $userClosedMatrix->amount + self::MATRIX_CLOSED_AMOUNT;
+            $userClosedMatrix->save(false);
+            // Add history
+            UserAmountHistory::addHistory($userClosedMatrix->id, NULL, self::MATRIX_CLOSED_AMOUNT, 
+                UserAmountHistory::TYPE_FIRST_MATRIX, User::ACCOUNT_TYPE_AMOUNT);
+            // Add closed user to next matrix
+            $userMatrixSeconde = UserMatrixSeconde::addUser($userClosedMatrix->id);
+        }
+        return true;
+    }
+    
+    /**
+     * Generate next matrix number
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @return integer
+     */
+    public function getNextOrderNumber() {
+        $sql = Yii::app()->db->createCommand('SELECT MAX(order_number) AS orderNumber FROM user_matrix_seconde');
+        $result = $sql->queryRow();
+        $maxOrderNumber = $result['orderNumber'];
+        return (!is_null($maxOrderNumber)) ? $maxOrderNumber + 1 : 1;
+    }
+    
+    public static function addUser($userId) {
+        $userMatrixSeconde = new UserMatrixSeconde;
+        $userMatrixSeconde->order_number = $userMatrixSeconde->getNextOrderNumber();
+        $userMatrixSeconde->close_number = $userMatrixSeconde->getCloseNumber($userMatrixSeconde->order_number);
+        $userMatrixSeconde->user_id = $userId;
+        return $userMatrixSeconde->save(false);
+    }
+    
+    public function checkIfUserClose($closeNumber) {
+        $userMatrixFirst = UserMatrixSeconde::model()->byCloseNumber($closeNumber)->find();
+        return $userMatrixFirst;
+    }
 
 }

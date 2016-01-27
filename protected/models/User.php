@@ -43,7 +43,9 @@ class User extends CActiveRecord {
     // Scenarios 
     const SCENARIO_RESET_PASSWORD = 'resetPassword';
     const SCENARIO_REGISTRATION = 'registration';
-    
+    // Amount Type
+    const ACCOUNT_TYPE_AMOUNT = 'AMOUNT';
+    const ACCOUNT_TYPE_PERSONAL_AMOUNT = 'PERSONAL_AMOUNT';
 
     // Compare field 
     public $repeat_password = '';
@@ -271,6 +273,17 @@ class User extends CActiveRecord {
             $currentUser = User::model()->findByPk(Yii::app()->user->id);
         }
         return $currentUser;
+    }
+    
+    /**
+     * Check if current user is partner 
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @return boolean
+     */
+    public function isPartner() {
+        return ($this->is_partner == self::IS_PARTNER_YES);
     }
 
 }

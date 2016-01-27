@@ -28,6 +28,7 @@ class StartController extends Controller {
                 'actions' => array(
                     'easy',
                     'fast',
+                    'partner',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -50,10 +51,21 @@ class StartController extends Controller {
     
     public function actionFast() {
         $currentUser = User::getCurrentUser();
-        $matrixFirst = UserMatrixSeconde::model()->notClosed()->byUserId($currentUser->id)->find();
+        $matrixSeconde = UserMatrixSeconde::model()->notClosed()->byUserId($currentUser->id)->find();
+        $marketingPlan = MarketingPlan::model()->bySlug(MarketingPlan::SLUG_MATRIX_2)->find();
         $this->render('fast', array(
             'currentUser' => $currentUser,
-            'matrixFirst' => $matrixFirst,
+            'matrixSeconde' => $matrixSeconde,
+            'marketingPlan' => $marketingPlan,
+        ));
+    }
+    
+    public function actionPartner() {
+        $currentUser = User::getCurrentUser();
+        $marketingPlan = MarketingPlan::model()->bySlug(MarketingPlan::SLUG_PARTNER)->find();
+        $this->render('partner', array(
+            'currentUser' => $currentUser,
+            'marketingPlan' => $marketingPlan,
         ));
     }
 

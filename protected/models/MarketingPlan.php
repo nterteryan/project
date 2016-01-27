@@ -136,5 +136,31 @@ class MarketingPlan extends CActiveRecord {
         ));
         return $this;
     }
+    
+    public function insertUserToMarketing($userId) {
+        switch ($this->slug) {
+            case self::SLUG_MATRIX_1 :
+                // Add user to first matrix
+                $userMatrixFirst = new UserMatrixFirst;
+                $userMatrixFirst->order_number = $userMatrixFirst->getNextOrderNumber();
+                $userMatrixFirst->close_number = $userMatrixFirst->getCloseNumber($userMatrixFirst->order_number);
+                $userMatrixFirst->user_id = $userId;
+                return $userMatrixFirst->save(false);
+            break;
+            case self::SLUG_MATRIX_2 :
+                // Add user to seconde matrix
+                $userMatrixSeconde = new UserMatrixSeconde;
+                $userMatrixSeconde->order_number = $userMatrixSeconde->getNextOrderNumber();
+                $userMatrixSeconde->close_number = $userMatrixSeconde->getCloseNumber($userMatrixSeconde->order_number);
+                $userMatrixSeconde->user_id = $userId;
+                return $userMatrixSeconde->save(false);
+            break;
+            case self::SLUG_PARTNER :
+                // mark user as a partner
+                // 50$ to company
+                // 50$ to marketing
+            break;
+        }
+    }
 
 }

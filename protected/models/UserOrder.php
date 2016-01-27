@@ -50,6 +50,7 @@ class UserOrder extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'marketingPlan' => array(self::BELONGS_TO, 'MarketingPlan', 'marketing_plan_id'),
         );
     }
 
@@ -187,6 +188,30 @@ class UserOrder extends CActiveRecord {
             'params' => array(':marketingPlanId' => $marketingPlanId),
         ));
         return $this;
+    }
+    
+    /**
+     * Mark status as Approved
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @return boolean
+     */
+    public function markAsApproved() {
+        $this->status = self::STATUS_APPROVED;
+        return $this->save(false);
+    }
+    
+    /**
+     * Mark status as Declined
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @return boolean
+     */
+    public function markAsDecliend() {
+        $this->status = self::STATUS_DECLIEND;
+        return $this->save(false);
     }
 
 }

@@ -11,6 +11,8 @@ class MatrixActivaRecord extends CActiveRecord {
     const IS_CLOSED_NO = 'NO';
     const IS_CLOSED_YES = 'YES';
 
+    public $orderNumber;
+    
     /**
      * Scopes
      *
@@ -49,6 +51,38 @@ class MatrixActivaRecord extends CActiveRecord {
             'params' => array(':userId' => $userId),
         ));
         return $this;
+    }
+    
+    /**
+     * Scope by user close number
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2015
+     * @param integer $closeNumber
+     * @return UserMatrixFirst
+     */
+    public function byCloseNumber($closeNumber) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'close_number =:closeNumber',
+            'params' => array(':closeNumber' => $closeNumber),
+        ));
+        return $this;
+    }
+    
+    public function getCloseNumber($orderNumber) {
+        return ($orderNumber*4 + 3);
+    }
+    
+    /**
+     * Mark user in matrix as closed 
+     *
+     * @author Narek T.
+     * @created at 26th day of January 2016
+     * @return boolean
+     */
+    public function markAsClosed() {
+        $this->is_closed = self::IS_CLOSED_YES;
+        return $this->save(false);
     }
 
 }

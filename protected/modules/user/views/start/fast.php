@@ -1,4 +1,4 @@
-<?php if (is_null($matrixFirst)) : ?>
+<?php if (is_null($matrixSeconde)) : ?>
 <h1>Быстрый старт</h1>
 
 <p>
@@ -14,25 +14,7 @@
 </p><br />
  
  
-<form action="https://perfectmoney.is/api/step1.asp" method="POST">
-<p>
-    <input type="hidden" name="PAYEE_ACCOUNT" value="U9007123">
-    <input type="hidden" name="PAYEE_NAME" value="My company">
-    <input type="hidden" name="PAYMENT_AMOUNT" value="109.99">
-    <input type="hidden" name="PAYMENT_UNITS" value="USD">
-    <input type="hidden" name="STATUS_URL" 
-        value="https://www.myshop.com/cgi-bin/xact.cgi">
-    <input type="hidden" name="PAYMENT_URL" 
-        value="https://www.myshop.com/cgi-bin/chkout1.cgi">
-    <input type="hidden" name="NOPAYMENT_URL" 
-        value="https://www.myshop.com/cgi-bin/chkout2.cgi">
-    <input type="hidden" name="BAGGAGE_FIELDS" 
-        value="ORDER_NUM CUST_NUM">
-    <input type="hidden" name="ORDER_NUM" value="9801121">
-    <input type="hidden" name="CUST_NUM" value="2067609">
-    <input type="submit" name="PAYMENT_METHOD" class="btn btn-success" value="Вход">
-</p>
-</form>
+<a href="<?php echo APP_BASE_URL . '/user/order/marketing?id=' . $marketingPlan->id; ?>" class="btn btn-success">Вход</a>
 
 <?php else: ?>
 
