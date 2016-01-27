@@ -277,7 +277,7 @@ class User extends CActiveRecord {
         }
         return $currentUser;
     }
-    
+
     /**
      * Check if current user is partner 
      *
@@ -288,19 +288,87 @@ class User extends CActiveRecord {
     public function isPartner() {
         return ($this->is_partner == self::IS_PARTNER_YES);
     }
-    
+
     /**
-     * Make user as partner 
+     * structureData - list of data providers that contains refferal hierarchy 
      *
-     * @author Narek T.
-     * @created at 27th day of January 2016
-     * @return boolean
+     * @author Davit T.
+     * @created at 27th day of Jan 2016
      */
-    public function markAsPartner() {
-        $this->is_partner = self::IS_PARTNER_YES;
-        return $this->save(false);
+    public function structureData() {
+        // Array of results
+        $results = array();
+        // List of users ids which refferals need to get in each step
+        $userIdList = array();
+        // Loop start
+        do {
+            $refferals = self::userRefferals($userIdList);
+            if (!empty($refferals)) {
+                $userIdList = array_values(CHtml::listData($refferals, "id", "id"));
+                $results[] = $refferals;
+            }
+        } while (!empty($refferals));
+        return $results;
     }
-    
+
+    /**
+     * userRefferals 
+     *
+     * @author Davit T.
+     * @created at 27th day of Jan 2016
+     * @param array $userIdList
+     * @return array
+     */
+    public function userRefferals($userIdList = array()) {
+        // If not param $userIdList given, then return 
+        // refferal list of current user
+        if (empty($userIdList)) {
+            $userIdList = array($this->id);
+        }
+        $inIdCondition = implode(",", $userIdList);
+        // Creating criteria object
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("status=:user_status AND parent_id IN($inIdCondition)");
+        $criteria->params = array(
+            ':user_status' => User::STATUS_ACTIVE,
+        );
+        return self::findAll($criteria);
+    }
+
+    /**
+     * markAsPartner
+     *
+     * @author Davit T.
+     * @created at 27th day of Jan 2016
+     * @param float $amount 
+     * @return void
+     */
+    public function markAsPartner($amount) {
+        $this->is_partner = self::IS_PARTNER_YES;
+        if ($this->save(false)) {
+            CTransaction::spreadMoney($this, $amount);
+	    return true;
+        }
+    }
+
+    /**
+     * addRefferalMoney 
+     *
+     * @author Davit T.
+     * @created at 27th day of Jan 2016
+     * @param float $userAmountPortion
+     */
+    public function addRefferalMoney($userAmountPortion) {
+        $amount = $this->amount + CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT);
+        $amountPersonal = $this->amount + CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT_PERSONAL);
+        $dbCommand = Yii::app()->db->createCommand("UPDATE users SET amount = $amount, "
+                . " personal_amount = $amountPersonal"
+                . " WHERE id = {$this->id}");
+        $dbCommand->query();
+    }
+
+}
+
     /**
      * Add user amount to current account type 
      *
@@ -314,5 +382,3 @@ class User extends CActiveRecord {
         $this->$accountType = $this->$accountType + $amount;
         return $this->save(false);
     }
-
-}
