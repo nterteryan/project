@@ -40,6 +40,7 @@ class User extends CActiveRecord {
     // Other error messages
     const ERR_INVALID_ACTIVATION = "Ссылка активации является неправильной.";
     const ERR_OLD_PASSWORD = "Пароль не соответствует текушему.";
+    const ERR_OLD_PASSWORD_REQUIRED = '"Текуший Пароль" обязателен для заполнения';
     // Scenarios 
     const SCENARIO_RESET_PASSWORD = 'resetPassword';
     const SCENARIO_REGISTRATION = 'registration';
@@ -71,7 +72,7 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            //array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
+            array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
             array('email', 'unique', 'message' => self::ERR_UNIQUE),
             array('parent_id', 'numerical', 'integerOnly' => true, 'message' => self::ERR_NUMERICAL),
             array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255, 'tooLong' => self::ERR_LENGTH),
@@ -123,6 +124,7 @@ class User extends CActiveRecord {
             'email' => 'Адрес Электронной Почты',
             'username' => 'Никнейм',
             'password' => 'Пароль',
+            'old_password'=>'Текуший Пароль',
             'repeat_password' => 'Повторите Пароль',
             'status' => 'Статус',
             'role' => 'Роль',

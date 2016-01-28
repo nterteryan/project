@@ -17,7 +17,8 @@
                 <div class="form-group <?php echo HtmlHelper::hasError($model, 'password'); ?>">
                     <?php
                     echo $form->labelEx($model, 'old_password', array(
-                        'class' => 'control-label'
+                        'class' => 'control-label',
+                        'required' => true
                     ))
                     ?>
                     <?php

@@ -16,6 +16,7 @@ User = {
             $('#change-password-modal .progress').addClass('hidden');
             $('#change-password-modal').modal('show');
             $('#change-password-modal').find('input').val("");
+            App.Form.setSuccess();
         });
         $('button#change-password-submit').click(function (e) {
             e.preventDefault();

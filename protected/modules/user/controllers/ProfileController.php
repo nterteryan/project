@@ -75,16 +75,20 @@ class ProfileController extends Controller {
         $oldPassword = $model->password;
         // Set attributes
         $model->attributes = $_POST['User'];
-        //var_dump($model->old_password);
-        //var_dump($oldPassword);
-        /*if (!HashHelper::comparePassword($model->old_password, $oldPassword)) {
+        $model->old_password = $_POST['User']['old_password'];
+        $model->validate();
+        if(!$model->old_password) {
+            $model->addError('old_password', User::ERR_OLD_PASSWORD_REQUIRED);
+        }
+        if (!HashHelper::comparePassword($model->old_password, $oldPassword)) {
             $model->addError('old_password', User::ERR_OLD_PASSWORD);
-        }*/
-
-        if ($model->hasErrors() || !$model->save()) {
+        }
+        if ($model->hasErrors()) {
             $response['success'] = 0;
             $response['error'] = $model->getErrors();
-        };
+        }else{
+            $model->save(false);
+        }
         echo json_encode($response);
         Yii::app()->end();
     }
