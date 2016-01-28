@@ -50,7 +50,7 @@ class User extends CActiveRecord {
     // Amount Type
     const ACCOUNT_FIELD_AMOUNT = 'amount';
     const ACCOUNT_FIELD_PERSONAL_AMOUNT = 'personal_amount';
-    
+
     // Compare field 
     public $repeat_password = '';
     // Old password used on reset password in profile page, etc
@@ -124,7 +124,7 @@ class User extends CActiveRecord {
             'email' => 'Адрес Электронной Почты',
             'username' => 'Никнейм',
             'password' => 'Пароль',
-            'old_password'=>'Текуший Пароль',
+            'old_password' => 'Текуший Пароль',
             'repeat_password' => 'Повторите Пароль',
             'status' => 'Статус',
             'role' => 'Роль',
@@ -349,7 +349,7 @@ class User extends CActiveRecord {
         $this->is_partner = self::IS_PARTNER_YES;
         if ($this->save(false)) {
             CTransaction::spreadMoney($this, $amount);
-	    return true;
+            return true;
         }
     }
 
@@ -381,6 +381,22 @@ class User extends CActiveRecord {
     public function addAmount($amount, $accountType) {
         $this->$accountType = $this->$accountType + $amount;
         return $this->save(false);
+    }
+
+    /**
+     * canReceivMoneyFromeRefferal 
+     *
+     * @author Davit T.
+     * @created at 28th day of Jan 2016
+     * @param int $refferalLevel
+     * @return bool
+     */
+    public function canReceivMoneyFromeRefferal($refferalLevel) {
+        $refferalsCount = self::model()->countByAttributes(array(
+            'parent_id' => $this->id,
+            'status' => self::STATUS_ACTIVE,
+        ));
+        return $refferalsCount >= $refferalLevel;
     }
 
 }

@@ -69,8 +69,15 @@ class CTransaction {
         $parentId = $user->parent_id;
         for ($i = 0; $i < 8; $i++) {
             $parentUser = self::getParentUser($parentId);
-            if ($parentUser instanceof User && $parentUser->status == User::STATUS_ACTIVE && $parentUser->is_partner == User::IS_PARTNER_YES) {
-                $parentId = $parentUser->parent_id;
+            if(!$parentUser instanceof User) {
+                break;
+            }
+            $parentId = $parentUser->parent_id;
+            if ($parentUser->status == User::STATUS_ACTIVE && $parentUser->is_partner == User::IS_PARTNER_YES) {
+                // Check if user can receive money
+                if(!$parentUser->canReceivMoneyFromeRefferal($i+1)) {
+                    continue;
+                }
                 $percent = self::$userPortions[$i];
                 $userAmountPortion = self::getPortion($totalAmount, $percent);
                 $parentUser->addRefferalMoney($userAmountPortion);
