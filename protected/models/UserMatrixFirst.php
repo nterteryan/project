@@ -139,9 +139,14 @@ class UserMatrixFirst extends MatrixActivaRecord {
             // Add closed matrix payment to user
             $userClosedMatrix = $userMatrixFirstClosed->user;
             $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
-            // Add history
-            UserAmountHistory::addHistory($userClosedMatrix->id, NULL, self::MATRIX_CLOSED_AMOUNT, 
-                UserAmountHistory::TYPE_FIRST_MATRIX, User::ACCOUNT_TYPE_AMOUNT);
+            // Add user transactions
+            $userTransaction = new UserTransaction;
+            $userTransaction->receiver_id = $userClosedMatrix->id;
+            $userTransaction->sender_id = $this->user_id;
+            $userTransaction->amount = self::MATRIX_CLOSED_AMOUNT;
+            $userTransaction->transaction_type = UserTransaction::TYPE_FIRST_MATRIX;
+            $userTransaction->account_type = User::ACCOUNT_TYPE_AMOUNT;
+            $userTransaction->save(false);
             // Add closed user to next matrix
             $userMatrixSeconde = UserMatrixSeconde::addUser($userClosedMatrix->id);
         }

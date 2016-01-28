@@ -71,7 +71,7 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
+            //array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
             array('email', 'unique', 'message' => self::ERR_UNIQUE),
             array('parent_id', 'numerical', 'integerOnly' => true, 'message' => self::ERR_NUMERICAL),
             array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255, 'tooLong' => self::ERR_LENGTH),
@@ -85,7 +85,7 @@ class User extends CActiveRecord {
             //
             // REGISTRATION SCENARIO
             // 
-            array('repeat_password', 'required', 'on' => self::SCENARIO_REGISTRATION, 'message' => self::ERR_REQUIRED),
+            array('email, password, username, repeat_password', 'required', 'on' => self::SCENARIO_REGISTRATION, 'message' => self::ERR_REQUIRED),
             array('repeat_password', 'compare', 'compareAttribute' => 'password', 'on' => self::SCENARIO_REGISTRATION, 'message' => self::ERR_COMPARE),
             // 
             // END REGISTRATION SCENARIO

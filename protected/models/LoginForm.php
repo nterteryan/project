@@ -65,9 +65,9 @@ class LoginForm extends CFormModel {
             Yii::app()->user->login($this->_identity, $duration);
             return true;
         } elseif ($this->_identity->errorCode == User::ERR_INACTIVE) {
-            $this->addError('password', '���������� ����������� ��� ������.');
+            $this->addError('password', 'Пожалуйста активируйте ваш акаунт.');
         } elseif ($this->_identity->errorCode == User::ERR_BLOCKED)
-            $this->addError('password', '��� ������ ������������, ���� � ��� ���� ������� ���������� � �������������.');
+            $this->addError('password', 'Ваш акаунт заюлокирован, обратитесь к администрации.');
         else
             return false;
     }

@@ -30,6 +30,8 @@ class StartController extends Controller {
                     'fast',
                     'partner',
                     'premium',
+                    'paymentSuccess',
+                    'paymentField',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -72,6 +74,14 @@ class StartController extends Controller {
     
     public function actionPremium() {
         $this->render('premium');
+    }
+    
+    public function actionPaymentSuccess() {
+        $this->render('paymentSuccess');
+    }
+    
+    public function actionPaymentField() {
+        $this->render('paymentField');
     }
 
 }

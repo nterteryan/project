@@ -137,14 +137,27 @@ class UserMatrixSeconde extends MatrixActivaRecord {
             $userMatrixSecondeClosed->markAsClosed();
             // Add closed matrix payment to user
             $userClosedMatrix = $userMatrixSecondeClosed->user;
-            $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
-            // Add history
-            UserAmountHistory::addHistory($userClosedMatrix->id, NULL, self::MATRIX_CLOSED_AMOUNT, 
-                UserAmountHistory::TYPE_FIRST_MATRIX, User::ACCOUNT_TYPE_AMOUNT);
+            // Add user transactions
+            $userTransaction = new UserTransaction;
+            $userTransaction->receiver_id = $userClosedMatrix->id;
+            $userTransaction->sender_id = $this->user_id;
+            $userTransaction->amount = self::MATRIX_CLOSED_AMOUNT;
+            $userTransaction->transaction_type = UserTransaction::TYPE_SECONDE_MATRIX;
+            $userTransaction->account_type = User::ACCOUNT_TYPE_AMOUNT;
+            $userTransaction->save(false);
             // Check if user closed matrix already partner
             if (!$userClosedMatrix->isPartner()) {
-                $userClosedMatrix->markAsPartner();
-                // logic for partners payment
+                // Mark as partner and set payment for all partners
+                $userClosedMatrix->markAsPartner(CTransaction::PARTNER_AMOUNT);
+                // After seconde matrix closed once 75$ to amount
+                $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
+                $userClosedMatrix->addAmount(CTransaction::SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
+                CompanyTransaction::createAfterMatrixClosed($this->user_id);
+            } else {
+                $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT + 100, User::ACCOUNT_FIELD_AMOUNT);
+                $userClosedMatrix->addAmount(CTransaction::SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
+                // raspredelit na kompaniyu
+                CompanyTransaction::createAfterMatrixClosed($this->user_id, false);
             }
         }
         return true;

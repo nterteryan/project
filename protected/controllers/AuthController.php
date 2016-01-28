@@ -57,7 +57,7 @@ class AuthController extends Controller {
      */
     public function actionRegister($code = "") {
 
-        $model = new User('register');
+        $model = new User('registration');
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];

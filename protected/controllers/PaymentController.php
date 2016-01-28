@@ -46,7 +46,8 @@ class PaymentController extends Controller {
             $userOrder = UserOrder::model()->inprogress()->with('marketingPlan')->findByPk($userOrderNumberId);
             // Check if order not exist or not verified or marketing plan not exist
             if (!$verified || !$userOrder instanceof UserOrder || is_null($userOrder->marketingPlan)
-                    || $userOrder->marketingPlan->join_amount !== $userPmPayment->payment_amount) {
+                    || $userOrder->marketingPlan->join_amount !== $userPmPayment->payment_amount
+                    || $userPmPayment->payee_account !== Yii::app()->params['payeeAccountPM']) {
                 $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentField');
             }
             $userOrder->markAsApproved();
@@ -54,11 +55,7 @@ class PaymentController extends Controller {
             $marketingPlan->insertUserToMarketing($currentUser->id);
             $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentSuccess');
         }
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
-        die();
-        $this->render('perfectVerify');
+        $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentField');
     }
 
 }

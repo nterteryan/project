@@ -156,11 +156,16 @@ class MarketingPlan extends CActiveRecord {
                 return $userMatrixSeconde->save(false);
             break;
             case self::SLUG_PARTNER :
-                // mark user as a partner
-                // 45$ to company
-                // 65$ to marketing
+                // Mark user as a partner
                 $user = User::getCurrentUser();
-                $user->markAsPartner($this->join_amount);
+                $user->markAsPartner($this->join_amount/2);
+                // Add to company 50%
+                $companyTransaction = new CompanyTransaction;
+                $companyTransaction->amount = $this->join_amount/2;
+                $companyTransaction->sender_id = $user->id;
+                $companyTransaction->account_type = CompanyTransaction::ACCOUNT_TYPE_COMPANY;
+                $companyTransaction->transaction_type = CompanyTransaction::TRANSACTION_TYPE_PARTNER;
+                $companyTransaction->save(false);
             break;
         }
     }

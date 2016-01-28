@@ -7,6 +7,19 @@
  * @created at 27th day of Jan 2016
  */
 class CTransaction {
+    
+    const SECONDE_MATRIX_CLOSED_ROTATION = 50;
+    const SECONDE_MATRIX_CLOSED_COMMON = 25;
+    const SECONDE_MATRIX_CLOSED_COMPANY = 25;
+    const SECONDE_MATRIX_CLOSED_CHARITY = 25;
+    const SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT = 25;
+    const SECONDE_MATRIX_CLOSED_AMOUNT = 75;
+    const PARTNER_AMOUNT = 50;
+    const PARTNER_COMPANY_COMPANY = 5;
+    const PARTNER_COMPANY_COMMON = 5;
+    const PARTNER_COMPANY_CHARITY = 5;
+    const PARTNER_COMPANY_FEE = 2.5;
+    
 
     // Portion percents of amount
     //const PARTNER_PARENT_PORTION = 65;
@@ -56,8 +69,8 @@ class CTransaction {
         $parentId = $user->parent_id;
         for ($i = 0; $i < 8; $i++) {
             $parentUser = self::getParentUser($parentId);
-            $parentId = $parentUser->parent_id;
-            if ($parentUser->status == User::STATUS_ACTIVE && $parentUser->is_partner == User::IS_PARTNER_YES) {
+            if ($parentUser instanceof User && $parentUser->status == User::STATUS_ACTIVE && $parentUser->is_partner == User::IS_PARTNER_YES) {
+                $parentId = $parentUser->parent_id;
                 $percent = self::$userPortions[$i];
                 $userAmountPortion = self::getPortion($totalAmount, $percent);
                 $parentUser->addRefferalMoney($userAmountPortion);
