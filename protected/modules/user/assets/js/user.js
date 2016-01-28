@@ -41,6 +41,12 @@ User = {
                 }
             });
         });
+    },
+    chekcAcceptedTerms: function(e) {
+        if(!$('#check-terms-corporatization').is(":checked")) {
+            e.preventDefault();
+            alert("Нужно подтвердить согласие с условиами!")
+        }
     }
 };
 
