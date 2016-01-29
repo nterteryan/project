@@ -55,7 +55,7 @@ class HashHelper {
      * @return string
      */
     public static function generateRefferalHash() {
-        return self::randomHash();
+        return self::randomHash(8, false);
     }
 
     /**
@@ -71,8 +71,9 @@ class HashHelper {
         $sPassword = '';
         $sChars = self::SALT;
 
-        if ($bSpecialCharacters === true)
+        if ($bSpecialCharacters) {
             $sChars .= "!?=/&+,.";
+        }
 
         srand((double) microtime() * 1000000);
         for ($i = 0; $i < $iLength; $i++) {

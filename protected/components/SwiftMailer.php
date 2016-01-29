@@ -33,6 +33,7 @@ class SwiftMailer {
     public function __construct() {
         require_once dirname(__FILE__) . '/../extensions/swiftMailer/lib/swift_required.php';
     }
+    
     /*
      * Params
      * $to
@@ -40,11 +41,15 @@ class SwiftMailer {
      * $messageText
      * $files is optional
      */
-    public function sendEmail($to, $subject, $messageText, $files = array()) {        
-        $transport = Swift_SmtpTransport::newInstance($this->mailHost, $this->mailPort, $this->protocol)
-            ->setUsername($this->username)
-            ->setPassword($this->password);
-
+    public function sendEmail($to, $subject, $messageText, $smtp, $files = array()) {
+        if ($smtp) {
+            $transport = Swift_SmtpTransport::newInstance($this->mailHost, $this->mailPort, $this->protocol)
+                ->setUsername($this->username)
+                ->setPassword($this->password);
+        } else {
+            $transport = Swift_MailTransport::newInstance();
+        }
+        
         //Create the Mailer using your created Transport
         $mailer = Swift_Mailer::newInstance($transport);
 
@@ -53,9 +58,9 @@ class SwiftMailer {
 
         //Create a message
         $message = Swift_Message::newInstance($subject)
-            ->setFrom($this->setFrom)
-            ->setTo($to)
-            ->setBody($messageText, 'text/html');
+                ->setFrom($this->setFrom)
+                ->setTo($to)
+                ->setBody($messageText, 'text/html');
 
         if (is_array($files) && count($files) > 0)
             foreach ($files as $file) {

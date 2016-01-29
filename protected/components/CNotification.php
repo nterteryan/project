@@ -35,7 +35,8 @@ class CNotification {
      */
     public static function sendMail($to, $subject, $messageText) {
         $swiftMailer = new SwiftMailer();
-        return $swiftMailer->sendEmail($to, $subject, $messageText);
+        $smtp = (Yii::app()->params['useSwiftMailer']) ? true : false;
+        return $swiftMailer->sendEmail($to, $subject, $messageText, $smtp);
     }
 
 }

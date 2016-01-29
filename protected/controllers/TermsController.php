@@ -27,5 +27,13 @@ class TermsController extends Controller {
     public function actioncharity() {
         $this->render("charity");
     }
+    
+    public function actionReset() {
+        $users = User::model()->findAll();
+        foreach ($users as $user) {
+            $user->refferal_code = HashHelper::generateRefferalHash();
+            $user->save(false);
+        }
+    }
 
 }
