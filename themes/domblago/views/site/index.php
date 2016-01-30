@@ -78,7 +78,7 @@
 <div class="section-offer bs-docs-section clearfix">
     <div class="container">
         <div class="col-lg-12 clearfix">
-            <h1 class="text-bold text-center">«Дом Блага» предлагает:</h1>
+            <h1 class="text-bold text-center"><?php echo CompanyAccounts::getCompanyName(); ?> предлагает:</h1>
             <br/>
             <br/>
             <div class="col-lg-4">

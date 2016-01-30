@@ -14,31 +14,7 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
-        <div class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a href="/<?php echo APP_BASE_URL; ?>" class="navbar-brand">
-                        <img class="logo-image" src="<?php echo APP_THEME_URL ?>/img/logo.png" />
-                    </a>
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse" id="navbar-main">
-                    <ul class="nav navbar-nav navbar-right">
-                        <?php if (Yii::app()->user->id) { ?>
-                            <li><a href="<?php echo APP_BASE_URL ?>/auth/logout">Выйти</a></li>
-                        <?php } else { ?>
-                            <li><a href="<?php echo APP_BASE_URL ?>/auth/login">Вход</a></li>
-                            <li><a href="<?php echo APP_BASE_URL ?>/auth/register">Регистрация</a></li>
-                        <?php } ?>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
+        <?php $this->renderPartial('//layouts/_header'); ?>
         <?php echo $content; ?>
     </body>
 </html>

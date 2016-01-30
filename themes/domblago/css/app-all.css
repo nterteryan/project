@@ -220,3 +220,7 @@ div.faq-item:last-child {
 span.required, span.error, div.errorMessage {
     color: #b94a48;
 }
+
+.margin-top-20 {
+    margin-top: 20px;
+}

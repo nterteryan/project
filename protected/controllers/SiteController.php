@@ -3,20 +3,6 @@
 class SiteController extends Controller {
 
     /**
-     * beforeAction
-     *
-     * @author Davit T.
-     * @created at 25th day of Jan 2016
-     * @return bool
-     */
-    public function beforeAction($action) {
-        if (!Yii::app()->user->isGuest && $action->id !== 'error') {
-            $this->redirect("/user/dashboard");
-        }
-        return parent::beforeAction($action);
-    }
-
-    /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
      */
@@ -46,6 +32,18 @@ class SiteController extends Controller {
             else
                 $this->render('error', $error);
         }
+    }
+    
+    /**
+     * Marketing plan static page
+     *
+     * @author Narek T.
+     * @created at 30th day of January 2016
+     * @return void
+     */
+    public function actionMarketing() {
+        //$this->layout = "//layouts/home";
+        $this->render('marketing');
     }
 
 }
