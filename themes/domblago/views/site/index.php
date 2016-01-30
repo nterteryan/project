@@ -4,7 +4,7 @@
 <div class="section-info bs-docs-section clearfix">
     <div class="col-lg-12">
         <h2 class="text-center text-bold">ВЫ ИЩЕТЕ СПОСОБ ЗАРАБОТАТЬ?</h2>
-        <h3 class="text-center subtitle">«Дом Блага» поможет  реализовать планы:</h3>
+        <h3 class="text-center subtitle"><?php echo CompanyAccounts::getCompanyName(); ?> поможет  реализовать планы:</h3>
         <div class="container-fluid">
             <ul class="point-list block-center">
                 <li>
@@ -61,7 +61,7 @@
         <div class="col-lg-7 col-md-12"></div>
         <div class="col-lg-5 col-md-12">
             <div class="user-list">
-                <h3 class=text-center>Нас уже 1869</h3>
+                <h3 class=text-center>Нас уже <?php echo $usersCount; ?></h3>
                 <h4 class="text-center text-light subtitle">Последние 10 регистрации:</h4>
                 <hr/>
                 <ol class="registered-users-list">

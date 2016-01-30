@@ -82,5 +82,6 @@ return array(
         'useSwiftMailer' => true,
         'emailTemplatesPath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'email_templates' . DIRECTORY_SEPARATOR,
         'payeeAccountPM' => 'U1243895',
+        'companyName' => '«МБО Дом Блага»',
     ),
 );

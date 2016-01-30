@@ -31,7 +31,8 @@ class SiteController extends Controller {
         );
         $users = User::model()->findAll($criteria);
         $this->render('index', array(
-            'users' => $users
+            'users' => $users,
+            'usersCount' => count(User::model()->findAll()),
         ));
     }
 

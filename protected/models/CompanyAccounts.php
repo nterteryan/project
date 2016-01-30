@@ -112,5 +112,9 @@ class CompanyAccounts extends CActiveRecord {
         }
         return $currentCompany;
     }
+    
+    static function getCompanyName() {
+        return Yii::app()->params['companyName'];
+    }
 
 }
