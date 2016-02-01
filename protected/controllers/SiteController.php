@@ -45,5 +45,31 @@ class SiteController extends Controller {
         //$this->layout = "//layouts/home";
         $this->render('marketing');
     }
+    
+    /**
+     * Finance plan static page
+     *
+     * @author Narek T.
+     * @created at 30th day of January 2016
+     * @return void
+     */
+    public function actionFinance() {
+        //$this->layout = "//layouts/home";
+        $this->render('finance');
+    }
+    
+    /**
+     * Finance plan static page
+     *
+     * @author Narek T.
+     * @created at 30th day of January 2016
+     * @return void
+     */
+    public function actionMedicine() {
+        //$this->layout = "//layouts/home";
+        $this->render('medicine');
+    }
+    
+    
 
 }

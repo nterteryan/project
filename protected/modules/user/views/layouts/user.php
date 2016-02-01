@@ -40,7 +40,7 @@
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
-                        <a class="list-group-item" href="<?php //echo APP_BASE_URL . '/user/start/partner'; ?>">Структура</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/premium'; ?>">Премиум Соц Сеть</a>
                     </div>
                 </div>

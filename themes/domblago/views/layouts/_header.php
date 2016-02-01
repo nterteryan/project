@@ -6,6 +6,8 @@
             </a>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo APP_BASE_URL ?>/site/marketing">Маркетинг-план</a></li>
+                <li><a href="<?php echo APP_BASE_URL ?>/site/finance">Финансовая Свобода</a></li>
+                <li><a href="<?php echo APP_BASE_URL ?>/site/medicine">Медицина Будущего</a></li>
             </ul>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
