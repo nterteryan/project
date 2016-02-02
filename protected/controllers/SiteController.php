@@ -70,6 +70,16 @@ class SiteController extends Controller {
         $this->render('medicine');
     }
     
+    /**
+     * Finance plan static page
+     *
+     * @author Narek T.
+     * @created at 30th day of January 2016
+     * @return void
+     */
+    public function actionPromotion() {
+        $this->render('promotion');
+    }
     
 
 }
