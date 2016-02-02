@@ -9,6 +9,7 @@ User = {
     },
     onDocumentReady: function () {
         User.addChangePasswordButtonHandler();
+        User.addByCertificate();
     },
     addChangePasswordButtonHandler: function () {
         $("input#change-password").click(function (e) {
@@ -42,6 +43,22 @@ User = {
             });
         });
     },
+    
+    addByCertificate: function(e) {
+        $(".certificate-choose").click(function (e) {
+            e.preventDefault();
+            $certificateId = $(this).data('id');
+            $.ajax({
+                url: User.BASE_URL + 'certificate/getForm',
+                type: 'POST',
+                dataType: 'json',
+                data: {certificateId: $certificateId}
+            }).done(function(dataResponse) {
+                $('#box-'+$certificateId).html(dataResponse.form);
+            });
+        });
+    },
+            
     chekcAcceptedTerms: function(e) {
         if(!$('#check-terms-corporatization').is(":checked")) {
             e.preventDefault();

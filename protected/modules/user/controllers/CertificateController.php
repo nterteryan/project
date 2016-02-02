@@ -28,6 +28,7 @@ class CertificateController extends Controller {
             array('allow', // allow all users to perform 'index' actions
                 'actions' => array(
                     'index',
+                    'getForm',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -38,11 +39,34 @@ class CertificateController extends Controller {
     }
 
     public function actionIndex() {
-        
         $certificates = Certificate::model()->findAll();
         $this->render('index', array(
             'certificates' => $certificates,
         ));
+    }
+    
+    /**
+     * Get certificate form
+     *
+     * @author Narek T.
+     * @created at 2nd day of Febrary 2016
+     * @return void
+     */
+    public function actionGetForm() {
+        $response = array(
+            'success' => 'true',
+        );
+        $certificate = Certificate::model()->findByPk($_POST['certificateId']);
+        // Check if certificate not exist or ceritificate reached limit
+        if (!$certificate instanceof Certificate || $certificate->count == 0) {
+            
+        }
+        $userCertificate = new UserCertificate;
+        $response['form'] = $this->renderPartial('_form', array(
+            'userCertificate' => $userCertificate,
+        ), true, false);
+        echo json_encode($response);
+        Yii::app()->end();
     }
 
 }
