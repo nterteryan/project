@@ -10,7 +10,12 @@
     <div class="panel-heading">
         <h3 class="panel-title">Выберите тип Сертификата который хотите купиь</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body clearfix">
+        <div class="clearfix">
+            <div class="col-lg-12 col-md-12">
+                <h4>Сертификаты можно купить с лицевого счета.</h4>
+            </div>
+        </div>
         <?php foreach ($certificates as $certificate) : ?>
             <div class="col-lg-6 col-md-12">
                 <div class="certificate" id="box-<?php echo $certificate->id; ?>">

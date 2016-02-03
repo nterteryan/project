@@ -105,5 +105,18 @@ class Certificate extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    /**
+     * Discount from certificate counts
+     *
+     * @author Narek T.
+     * @created at 3th day of February 2016
+     * @param integer $count
+     * @return boolean
+     */
+    public function discount($count) {
+        $this->count = $this->count - $count;
+        return $this->save(false);
+    }
 
 }

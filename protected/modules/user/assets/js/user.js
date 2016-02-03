@@ -3,13 +3,11 @@ User = {
     ASSETS_URL: assetsUrl,
     IMAGES_URL: null,
     init: function () {
-        User.IMAGES_URL = User.ASSETS_URL + "/img",
-                console.log(User.BASE_URL);
-        console.log(User.IMAGES_URL);
+        User.IMAGES_URL = User.ASSETS_URL + "/img"
     },
     onDocumentReady: function () {
         User.addChangePasswordButtonHandler();
-        User.addByCertificate();
+        User.addGetFormCertificate();
     },
     addChangePasswordButtonHandler: function () {
         $("input#change-password").click(function (e) {
@@ -44,7 +42,7 @@ User = {
         });
     },
     
-    addByCertificate: function(e) {
+    addGetFormCertificate: function(e) {
         $(".certificate-choose").click(function (e) {
             e.preventDefault();
             $certificateId = $(this).data('id');
@@ -57,6 +55,29 @@ User = {
                 $('#box-'+$certificateId).html(dataResponse.form);
             });
         });
+    },
+    
+    addByCertificate: function(e, element) {
+        e.preventDefault();
+        $certificateId = $(element).data('id');
+        var $form = $('#form-' + $certificateId);
+        var data = new FormData($form[0]);
+        console.log(data);
+        $.ajax({
+            url: User.BASE_URL + 'certificate/buy',
+            contentType: false,
+            processData: false,
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (dataResponse) {
+                $(".error-message-" + $certificateId).html(dataResponse.message);
+                if(dataResponse.success == 'true') {
+                    setTimeout(function(){ 
+                       location.reload();
+                    }, 5000);
+                }
+            }});
     },
             
     chekcAcceptedTerms: function(e) {

@@ -398,5 +398,31 @@ class User extends CActiveRecord {
         ));
         return $refferalsCount >= $refferalLevel;
     }
+    
+    /**
+     * Check if user have enough amount in current account
+     *
+     * @author Narek T.
+     * @created at 31th day of January 2016
+     * @param double $amount
+     * @return boolean
+     */
+    public function isAmountEnough($amount, $accountType = self::ACCOUNT_FIELD_AMOUNT) {
+        return ($this->$accountType >= $amount);
+    }
+    
+    /**
+     * Discount from user accunt
+     *
+     * @author Narek T.
+     * @created at 3th day of February 2016
+     * @param double $amount
+     * @param string $accountField
+     * @return boolean
+     */
+    public function discount($amount, $accountField = self::ACCOUNT_FIELD_AMOUNT) {
+        $this->$accountField = $this->$accountField - $amount;
+        return $this->save(false);
+    }
 
 }

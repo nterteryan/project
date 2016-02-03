@@ -12,6 +12,8 @@
  * @property string $updated_date
  */
 class UserCertificate extends CActiveRecord {
+    
+    const MINIMUM_COUNT = 5;
 
     /**
      * @return string the associated database table name
@@ -27,7 +29,7 @@ class UserCertificate extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('updated_date', 'required'),
+            array('count', 'required'),
             array('user_id, certificate_id', 'numerical', 'integerOnly' => true),
             array('count', 'numerical'),
             array('created_date', 'safe'),
@@ -56,7 +58,7 @@ class UserCertificate extends CActiveRecord {
             'id' => 'ID',
             'user_id' => 'User',
             'certificate_id' => 'Certificate',
-            'count' => 'Count',
+            'count' => ' оличество: минимальное количесство ' . self::MINIMUM_COUNT,
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         );
@@ -124,12 +126,28 @@ class UserCertificate extends CActiveRecord {
      * @author Narek T.
      * @created at 24th day of January 2015
      * @param integer $userId
-     * @return UserOrder
+     * @return object
      */
     public function byUserId($userId) {
         $this->getDbCriteria()->mergeWith(array(
             'condition' => 'user_id =:userId',
             'params' => array(':userId' => $userId),
+        ));
+        return $this;
+    }
+    
+    /**
+     * Scope by certificate id
+     *
+     * @author Narek T.
+     * @created at 24th day of January 2015
+     * @param integer $certificateId
+     * @return object
+     */
+    public function byCertificateId($certificateId) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'certificate_id =:certificateId',
+            'params' => array(':certificateId' => $certificateId),
         ));
         return $this;
     }

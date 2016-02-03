@@ -3,8 +3,8 @@
 </div>
 <div class="section-info bs-docs-section clearfix">
     <div class="col-lg-12">
-        <h2 class="text-center text-bold">ВЫ ИЩЕТЕ СПОСОБ ЗАРАБОТАТЬ?</h2>
-        <h3 class="text-center subtitle"><?php echo CompanyAccounts::getCompanyName(); ?> поможет  реализовать планы:</h3>
+        <h2 class="text-center text-bold">Сообщество Социальных программ МБО "Дом Блага" Представляет!</h2>
+        <h3 class="text-center subtitle">Помощь в решении Ваших насущных планов</h3>
         <div class="container-fluid">
             <ul class="point-list block-center">
                 <li>
@@ -27,7 +27,7 @@
     <br/>
     <br/>
     <div class="col-lg-12">
-        <h3 class="text-center">БИЗНЕС-КЛУБ ПОМОЖЕТ ВАМ РЕШИТ ЖИЗНЕННО-ВАЖНЫЕ ЗАДАЧИ:</h3>
+        <h3 class="text-center">Сотрудничая с МБО "Дом Блага" в таких сферах как:</h3>
         <div class="container-fluid">
             <ul class="point-list block-center">
                 <li>
