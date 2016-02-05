@@ -2,7 +2,7 @@
     <li class="active"><a href="#">
             Лицевой <span class="badge"><?php HtmlHelper::displayAmount($model->amount); ?></span></a>
     </li>
-    <?php if ($model->is_partner == User::IS_PARTNER_YES) { ?>
+    <?php if ($model->isPartner()) { ?>
         <li class="active">
             <a href="#">
                 Накопительный  <span class="badge"> <?php HtmlHelper::displayAmount($model->personal_amount); ?></span>

@@ -14,13 +14,14 @@
  * @property string $updated_date
  */
 class UserTransaction extends CActiveRecord {
-    
+
     const TYPE_GRANDED_BY_ADMIN = 'GRANDED_BY_ADMIN';
     const TYPE_FIRST_MATRIX = 'FIRST_MATRIX';
     const TYPE_SECONDE_MATRIX = 'SECONDE_MATRIX';
     const TYPE_BUY = 'BUY';
     const TYPE_TRANSFER = 'TRANSFER';
     const TYPE_CHARGE = 'CHARGE';
+    const TYPE_REFFERAL = 'REFFERAL';
 
     /**
      * @return string the associated database table name
@@ -114,7 +115,7 @@ class UserTransaction extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     /**
      * BeforeSave
      * For check isNewRecord, set created date or updated date
@@ -127,9 +128,32 @@ class UserTransaction extends CActiveRecord {
         if ($this->isNewRecord) {
             $this->created_date = new CDbExpression("now()");
         }
-        $this->updated_date = new CDbExpression("now()");
-
         return true;
+    }
+
+    /**
+     * beforeValidate
+     * 
+     * @author Dvit T.
+     * @created at 05th day of Deb 2016
+     * @return bool
+     */
+    public function beforeValidate() {
+        $this->updated_date = new CDbExpression("now()");
+        return true;
+    }
+
+    /**
+     * create
+     * 
+     * @param array $data
+     * @author Davit T.
+     * @created at 05th day of Feb 2016
+     */
+    public function create($data) {
+        $model = new UserTransaction();
+        $model->attributes = $data;
+        $model->save();
     }
 
 }

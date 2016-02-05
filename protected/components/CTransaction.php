@@ -7,7 +7,7 @@
  * @created at 27th day of Jan 2016
  */
 class CTransaction {
-    
+
     const SECONDE_MATRIX_CLOSED_ROTATION = 50;
     const SECONDE_MATRIX_CLOSED_COMMON = 25;
     const SECONDE_MATRIX_CLOSED_COMPANY = 25;
@@ -19,8 +19,6 @@ class CTransaction {
     const PARTNER_COMPANY_COMMON = 5;
     const PARTNER_COMPANY_CHARITY = 5;
     const PARTNER_COMPANY_FEE = 2.5;
-    
-
     // Portion percents of amount
     //const PARTNER_PARENT_PORTION = 65;
     //const PARTNER_COMPANY_PORTION = 35;
@@ -55,7 +53,6 @@ class CTransaction {
         self::PORTION_AMOUNT,
         self::PORTION_AMOUNT_PERSONAL,
     );
-
     /**
      * spreadMoney
      *
@@ -69,13 +66,13 @@ class CTransaction {
         $parentId = $user->parent_id;
         for ($i = 0; $i < 8; $i++) {
             $parentUser = self::getParentUser($parentId);
-            if(!$parentUser instanceof User) {
+            if (!$parentUser instanceof User) {
                 break;
             }
             $parentId = $parentUser->parent_id;
-            if ($parentUser->status == User::STATUS_ACTIVE && $parentUser->is_partner == User::IS_PARTNER_YES) {
+            if ($parentUser->status == User::STATUS_ACTIVE && $parentUser->type != User::TYPE_MEMBER) {
                 // Check if user can receive money
-                if(!$parentUser->canReceivMoneyFromeRefferal($i+1)) {
+                if (!$parentUser->canReceivMoneyFromeRefferal($i + 1)) {
                     continue;
                 }
                 $percent = self::$userPortions[$i];

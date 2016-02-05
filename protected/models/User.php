@@ -27,8 +27,6 @@ class User extends CActiveRecord {
     const ROLE_SUPER_ADMIN = 'SUPER_ADMIN';
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_USER = 'USER';
-    const IS_PARTNER_YES = "YES";
-    const IS_PARTNER_NO = "NO";
     const ERR_INACTIVE = 'INACTIVE';
     const ERR_BLOCKED = 'BLOCKED';
     // Validation error messages
@@ -50,6 +48,11 @@ class User extends CActiveRecord {
     // Amount Type
     const ACCOUNT_FIELD_AMOUNT = 'amount';
     const ACCOUNT_FIELD_PERSONAL_AMOUNT = 'personal_amount';
+    // User types 
+    const TYPE_FOUNDER = "FOUNDER";
+    const TYPE_CO_FOUNDER = "CO_FOUNDER";
+    const TYPE_PARTNER = "PARTNER";
+    const TYPE_MEMBER = "MEMBER";
 
     // Compare field 
     public $repeat_password = '';
@@ -288,7 +291,7 @@ class User extends CActiveRecord {
      * @return boolean
      */
     public function isPartner() {
-        return ($this->is_partner == self::IS_PARTNER_YES);
+        return ($this->type == self::TYPE_PARTNER);
     }
 
     /**
@@ -346,7 +349,7 @@ class User extends CActiveRecord {
      * @return void
      */
     public function markAsPartner($amount) {
-        $this->is_partner = self::IS_PARTNER_YES;
+        $this->type = self::TYPE_PARTNER;
         if ($this->save(false)) {
             CTransaction::spreadMoney($this, $amount);
             return true;
@@ -361,12 +364,30 @@ class User extends CActiveRecord {
      * @param float $userAmountPortion
      */
     public function addRefferalMoney($userAmountPortion) {
-        $amount = $this->amount + CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT);
-        $amountPersonal = $this->amount + CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT_PERSONAL);
+        // Update balance
+        $amountPortion = CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT);
+        $amount = $this->amount + $amountPortion;
+        $personalAmountPortion = CTransaction::getPortion($userAmountPortion, CTransaction::PORTION_AMOUNT_PERSONAL);
+        $amountPersonal = $this->amount + $personalAmountPortion;
         $dbCommand = Yii::app()->db->createCommand("UPDATE users SET amount = $amount, "
                 . " personal_amount = $amountPersonal"
                 . " WHERE id = {$this->id}");
         $dbCommand->query();
+        // Add transactions 
+        UserTransaction::create(array(
+            'sender_id' => Yii::app()->user->id,
+            'receiver_id' => $this->id,
+            'amount' => $amountPortion,
+            'account_type' => self::ACCOUNT_TYPE_AMOUNT,
+            'transaction_type' => UserTransaction::TYPE_REFFERAL
+        ));
+        UserTransaction::create(array(
+            'sender_id' => Yii::app()->user->id,
+            'receiver_id' => $this->id,
+            'amount' => $personalAmountPortion,
+            'account_type' => self::ACCOUNT_TYPE_PERSONAL_AMOUNT,
+            'transaction_type' => UserTransaction::TYPE_REFFERAL
+        ));
     }
 
     /**
@@ -392,13 +413,38 @@ class User extends CActiveRecord {
      * @return bool
      */
     public function canReceivMoneyFromeRefferal($refferalLevel) {
+        // Founders and co-founders ca reseive money from all refferals
+        if ($this->type == self::TYPE_CO_FOUNDER || $this->type == self::TYPE_FOUNDER) {
+            return true;
+        }
         $refferalsCount = self::model()->countByAttributes(array(
             'parent_id' => $this->id,
             'status' => self::STATUS_ACTIVE,
         ));
-        return $refferalsCount >= $refferalLevel;
+        $requiredRefferalsCount = $this->requiredRefferalsCountForLevel($refferalLevel);
+        return $refferalsCount >= $requiredRefferalsCount;
     }
-    
+
+    /**
+     * requiredRefferalsCountForLevel 
+     *
+     * @author Davit T.
+     * @created at 05th day of Feb 2016
+     * @param int $refferalLevel
+     * @return int
+     */
+    private function requiredRefferalsCountForLevel($refferalLevel) {
+        // Refferal counts for each level
+        $refferalLevels = array(3, 5, 7, 8);
+        // get required refferals count for current level
+        for ($i = 0; $i < 4; $i++) {
+            if ($refferalLevel <= $refferalLevels[$i]) {
+                break;
+            }
+        }
+        return ++$i;
+    }
+
     /**
      * Check if user have enough amount in current account
      *
@@ -410,7 +456,7 @@ class User extends CActiveRecord {
     public function isAmountEnough($amount, $accountType = self::ACCOUNT_FIELD_AMOUNT) {
         return ($this->$accountType >= $amount);
     }
-    
+
     /**
      * Discount from user accunt
      *
