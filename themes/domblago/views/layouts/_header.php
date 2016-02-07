@@ -1,25 +1,18 @@
 <div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+    <div class="container padding-none">
         <div class="navbar-header">
-            <a href="/<?php echo APP_BASE_URL; ?>" class="navbar-brand">
+            <a href="/<?php echo APP_BASE_URL; ?>" class="navbar-brand padding-none">
                 <img class="logo-image" src="<?php echo APP_THEME_URL ?>/img/logo.png" />
             </a>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo APP_BASE_URL ?>/site/marketing">Маркетинг-план</a></li>
-                <li><a href="<?php echo APP_BASE_URL ?>/site/finance">Финансовая Свобода</a></li>
-                <li><a href="<?php echo APP_BASE_URL ?>/site/medicine">Медицина Будущего</a></li>
-                <li><a href="<?php echo APP_BASE_URL ?>/site/promotion">Промоушен</a></li>
-                
-            </ul>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right margin-none">
                 <?php if (Yii::app()->user->id) { ?>
                     <li><a href="<?php echo APP_BASE_URL ?>/user/dashboard">Кабинет</a></li>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/logout">Выйти</a></li>
                 <?php } else { ?>
-                    <li><a href="<?php echo APP_BASE_URL ?>/auth/login">Вход</a></li>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/register">Регистрация</a></li>
+                    <li><a href="<?php echo APP_BASE_URL ?>/auth/login">Войти</a></li>
                 <?php } ?>
             </ul>
         </div>

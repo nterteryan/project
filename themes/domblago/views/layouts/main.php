@@ -13,7 +13,7 @@
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/app.js"></script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
-    <body>
+    <body class="<?php echo Yii::app()->user->isGuest ? "guest": "";?>">
         <?php $this->renderPartial('//layouts/_header'); ?>
         <div class="container">
             <?php echo $content; ?>
