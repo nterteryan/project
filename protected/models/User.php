@@ -292,7 +292,8 @@ class User extends CActiveRecord {
      * @return boolean
      */
     public function isPartner() {
-        return ($this->type == self::TYPE_PARTNER);
+        //  NEED TO CHECK IS THIS OK
+        return ($this->type !== self::TYPE_MEMBER);
     }
 
     /**

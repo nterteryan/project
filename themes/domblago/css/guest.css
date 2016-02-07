@@ -139,7 +139,7 @@ body .page-header {
     width: 280px;
     bottom: 0;
     text-align: center;
-    background-color: rgba(255,255,255,0.9);
+    /*background-color: rgba(255,255,255,0.9);*/
     margin:0;
     padding-top: 17px;
     color: #072d43;
@@ -156,34 +156,34 @@ body .page-header {
     margin-top: 45px;
 }
 
-.section-row>div:nth-child(2) .service-article-desc  {
+/*.section-row>div:nth-child(2) .service-article-desc  {
     top: 0;
     bottom: inherit;
     padding-top: 32px;
-}
+}*/
 
 .section-services .section-row:nth-child(1)>div:nth-child(1) .service-article {
-    background-image: url(../img/service-bg1.png);
+    background-image: url(../img/home/medicin.png);
 }
 
 .section-services .section-row:nth-child(1)>div:nth-child(2) .service-article {
-    background-image: url(../img/service-bg2.png);
+    background-image: url(../img/home/blagotvor.png);
 }
 
 .section-services .section-row:nth-child(1)>div:nth-child(3) .service-article {
-    background-image: url(../img/service-bg3.png);
+    background-image: url(../img/home/eco.png);
 }
 
 .section-services .section-row:nth-child(2)>div:nth-child(1) .service-article {
-    background-image: url(../img/service-bg4.png);
+    background-image: url(../img/home/house.png);
 }
 
 .section-services .section-row:nth-child(2)>div:nth-child(2) .service-article {
-    background-image: url(../img/service-bg5.png);
+    background-image: url(../img/home/mobile.png);
 }
 
 .section-services .section-row:nth-child(2)>div:nth-child(3) .service-article {
-    background-image: url(../img/service-bg6.png);
+    background-image: url(../img/home/invest.png);
 }
 
 .section-delimiter {
