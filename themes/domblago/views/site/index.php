@@ -8,7 +8,7 @@
 Гарантируем положительные 
 результаты и мговенную оплату.
             </pre>
-            <a class="brn-partner">стать партнером</a>
+            <a href='auth/register' class="brn-partner">стать партнером</a>
         </div>
     </div>
 </div>
