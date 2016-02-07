@@ -8,7 +8,7 @@
 Гарантируем положительные 
 результаты и мговенную оплату.
             </pre>
-            <a href='auth/register' class="brn-partner">стать партнером</a>
+            <a href="<?php echo APP_BASE_URL . '/auth/register'; ?>" class="brn-partner">стать партнером</a>
         </div>
     </div>
 </div>

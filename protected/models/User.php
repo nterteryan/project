@@ -54,7 +54,7 @@ class User extends CActiveRecord {
     const TYPE_PARTNER = "PARTNER";
     const TYPE_MEMBER = "MEMBER";
     // User default avatar if no image 
-    const DEFAULT_AVATAR = '/themes/domblago/img/no_image.jpg';
+    const DEFAULT_AVATAR = '/themes/domblago/img/no_image.gif';
     // Compare field 
     public $repeat_password = '';
     // Old password used on reset password in profile page, etc
