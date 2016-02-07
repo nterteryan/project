@@ -47,6 +47,7 @@ class UserMatrixSeconde extends MatrixActivaRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -137,28 +138,38 @@ class UserMatrixSeconde extends MatrixActivaRecord {
             $userMatrixSecondeClosed->markAsClosed();
             // Add closed matrix payment to user
             $userClosedMatrix = $userMatrixSecondeClosed->user;
-            // Add user transactions
-            $userTransaction = new UserTransaction;
-            $userTransaction->receiver_id = $userClosedMatrix->id;
-            $userTransaction->sender_id = $this->user_id;
-            $userTransaction->amount = self::MATRIX_CLOSED_AMOUNT;
-            $userTransaction->transaction_type = UserTransaction::TYPE_SECONDE_MATRIX;
-            $userTransaction->account_type = User::ACCOUNT_TYPE_AMOUNT;
-            $userTransaction->save(false);
+            $personalAccauntAmountPortion = CTransaction::SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT;
             // Check if user closed matrix already partner
             if (!$userClosedMatrix->isPartner()) {
+                $accauntAmountPortion = self::MATRIX_CLOSED_AMOUNT;
                 // Mark as partner and set payment for all partners
                 $userClosedMatrix->markAsPartner(CTransaction::PARTNER_AMOUNT);
                 // After seconde matrix closed once 75$ to amount
-                $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT, User::ACCOUNT_FIELD_AMOUNT);
-                $userClosedMatrix->addAmount(CTransaction::SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
+                $userClosedMatrix->addAmount($accauntAmountPortion, User::ACCOUNT_FIELD_AMOUNT);
+                $userClosedMatrix->addAmount($personalAccauntAmountPortion, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
                 CompanyTransaction::createAfterMatrixClosed($this->user_id);
             } else {
-                $userClosedMatrix->addAmount(self::MATRIX_CLOSED_AMOUNT + 100, User::ACCOUNT_FIELD_AMOUNT);
-                $userClosedMatrix->addAmount(CTransaction::SECONDE_MATRIX_CLOSED_PERSONAL_AMOUNT, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
+                $accauntAmountPortion = self::MATRIX_CLOSED_AMOUNT + 100;
+                $userClosedMatrix->addAmount($accauntAmountPortion, User::ACCOUNT_FIELD_AMOUNT);
+                $userClosedMatrix->addAmount($personalAccauntAmountPortion, User::ACCOUNT_FIELD_PERSONAL_AMOUNT);
                 // raspredelit na kompaniyu
                 CompanyTransaction::createAfterMatrixClosed($this->user_id, false);
             }
+            // Add user transactions
+            UserTransaction::create(array(
+                'sender_id' => $this->user_id,
+                'receiver_id' => $userClosedMatrix->id,
+                'amount' => $accauntAmountPortion,
+                'account_type' => User::ACCOUNT_TYPE_AMOUNT,
+                'transaction_type' => UserTransaction::TYPE_SECONDE_MATRIX
+            ));
+            UserTransaction::create(array(
+                'sender_id' => $this->user_id,
+                'receiver_id' => $userClosedMatrix->id,
+                'amount' => $personalAccauntAmountPortion,
+                'account_type' => User::ACCOUNT_TYPE_PERSONAL_AMOUNT,
+                'transaction_type' => UserTransaction::TYPE_SECONDE_MATRIX
+            ));
         }
         return true;
     }

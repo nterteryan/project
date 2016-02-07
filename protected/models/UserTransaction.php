@@ -155,5 +155,7 @@ class UserTransaction extends CActiveRecord {
         $model->attributes = $data;
         $model->save();
     }
+    
+    
 
 }

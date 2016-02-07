@@ -153,7 +153,7 @@ class CompanyTransaction extends CActiveRecord {
             }
             $companyAccount = CompanyAccounts::getCurrentCompany();
             $companyAccount->charity = $companyAccount->charity + CTransaction::SECONDE_MATRIX_CLOSED_CHARITY;
-            $companyAccount->common = $companyAccount->common + CTransaction::SECONDE_MATRIX_CLOSED_COMMON;
+            $companyAccount->comman = $companyAccount->comman + CTransaction::SECONDE_MATRIX_CLOSED_COMMON;
             $companyAccount->rotation = $companyAccount->rotation + CTransaction::SECONDE_MATRIX_CLOSED_ROTATION;
             $companyAccount->save(false);
         } else {
@@ -174,7 +174,7 @@ class CompanyTransaction extends CActiveRecord {
             $companyAccount = CompanyAccounts::getCurrentCompany();
             $companyAccount->company = $companyAccount->company + CTransaction::SECONDE_MATRIX_CLOSED_COMPANY;
             $companyAccount->charity = $companyAccount->charity + CTransaction::SECONDE_MATRIX_CLOSED_CHARITY;
-            $companyAccount->common = $companyAccount->common + CTransaction::SECONDE_MATRIX_CLOSED_COMMON;
+            $companyAccount->comman = $companyAccount->comman + CTransaction::SECONDE_MATRIX_CLOSED_COMMON;
             $companyAccount->rotation = $companyAccount->rotation + CTransaction::SECONDE_MATRIX_CLOSED_ROTATION;
             $companyAccount->save(false);
         }

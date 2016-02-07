@@ -5,10 +5,10 @@
             <p>это может быть так легко!</p>
             <a class="btn-transparent-grey">Узнать больше</a>
             <pre>
-Гарантируем положительные 
-результаты и мговенную оплату.
+                Гарантируем положительные 
+                результаты и мговенную оплату.
             </pre>
-            <a href='auth/register' class="brn-partner">стать партнером</a>
+            <a href="<?php echo APP_BASE_URL . '/auth/register'; ?>" class="brn-partner">стать партнером</a>
         </div>
     </div>
 </div>
@@ -19,34 +19,34 @@
             <div class="section-row clearfix">
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Здоровье без <br/>лекарств и врачей</p>
+                        <p class="service-article-desc">Медецина будущего <br/>Комплексный подход</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Отдых в <br/> Европе и Болгарии</p>
+                        <p class="service-article-desc">Благотворительность</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Автомобиль за 50% от <br/>реальной стоимости</p>
+                        <p class="service-article-desc">Эко - Поселение</p>
                     </div>
                 </div>
             </div>
             <div class="section-row clearfix">
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Дом/Квартира за <br/> полцены </p>
+                        <p class="service-article-desc">Дом/Квартира<br/> Твоей мечты </p>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Финансовая <br/>независимость</p>
+                        <p class="service-article-desc">Социальная сеть</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12">
                     <div class="service-article">
-                        <p class="service-article-desc">Инвестиции <br/>без риска в  реальный <br/>сектор экономики</p>
+                        <p class="service-article-desc">Инвестиции без риска</p>
                     </div>
                 </div>
             </div>
@@ -64,21 +64,21 @@
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        Оплатите вступительный взнос в расмере 100$ нашей программе  нового поколения» используются природные ресурсы, никакой химии в лечении больных
+                        Становитесь нашим полноправным партнером и получаете пассивный доход в виде дивидендов - оплатив вступительный взнос в 100$.
                     </p>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        ет такой суммы ? вступительный взнос в расмере 25 $ нашей программе  нового поколения» используются природные ресурсы, никакой химии в лечении 
+                        Нет суммы в 100$, тогда начните с минимальной суммы, оплатитив взнос в размере всего 25$.
                     </p>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        Преобритайте акции инвестируя  ашей программе  нового поколения» используются природные ресурсы,и спользуются природные ресурсы,ж никакой химии в лечении 
+                        Приобретайте акции, инвестируя в наши программы – Соц. Сеть, Медицина, Эко-продукты, Недвижимость.
                     </p>
                 </div>
             </div>
@@ -89,21 +89,21 @@
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        Оплатите вступительный взнос в расмере 100$ нашей программе  нового поколения» используются природные ресурсы, никакой химии в лечении больных
+                        Вы получаете доступ к постоянно получаемому пассивному доходу. А это - приобретение своей доли в миллиардном предприятии. 
                     </p>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        Нет такой суммы ? вступительный взнос в расмере 25 $ нашей программе  нового поколения» используются природные ресурсы, никакой химии в лечении 
+                        Гарантированно получаете вложенные деньги и непрерывный доход, а также возможность перейти на Круг-2, где Вы получите еще больше финансовых благ!
                     </p>
                 </div>
             </div>
             <div class="col-md-4 col-xs-12">
                 <div class="section-requirements-item">
                     <p class="section-requirements-desc">
-                        Преобритайте акции инвестируя  ашей программе  нового поколения» используются природные ресурсы,и спользуются природные ресурсы,ж никакой химии в лечении 
+                        Вы получаете в свои руки часть рынка, а именно сертификаты предприятия на получения акций, тех, в чем нуждается сегодня каждый человек.
                     </p>
                 </div>
             </div>
