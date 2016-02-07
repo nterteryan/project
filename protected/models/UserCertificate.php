@@ -58,7 +58,7 @@ class UserCertificate extends CActiveRecord {
             'id' => 'ID',
             'user_id' => 'User',
             'certificate_id' => 'Certificate',
-            'count' => 'Количество: минимальное количесство ' . self::MINIMUM_COUNT,
+            'count' => 'РљРѕР»РёС‡РµСЃС‚РІРѕ: РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃСЃС‚РІРѕ ' . self::MINIMUM_COUNT,
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
         );

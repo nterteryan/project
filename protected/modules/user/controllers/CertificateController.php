@@ -81,24 +81,24 @@ class CertificateController extends Controller {
     public function actionBuy() {
         $response = array(
             'success' => 'true',
-            'message' => 'Âû óñïåøíî êóïèëè ñåðòèôèêàò.',
+            'message' => 'Ð’Ñ‹ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ ÐºÑƒÐ¿Ð¸Ð»Ð¸ ÑÐµÑ€Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚.',
         );
+        $certificateCount = $_POST['UserCertificate']['count'];
         $certificate = Certificate::model()->findByPk($_POST['UserCertificate']['certificate_id']);
         // Check if certificate not exist or ceritificate reached limit
-        if (!$certificate instanceof Certificate || $certificate->count == 0) {
+        if (!$certificate instanceof Certificate || $certificate->count == 0 || $certificateCount < 0) {
             $response['success'] = 'false';
-            $response['message'] = 'Ó âàñ íå äîñòàòî÷íî äåíåãü íà ëèöåâîì ñ÷åòå.';
+            $response['message'] = 'Ð’Ñ‹ Ð´ÐµÐ»Ð°ÐµÑ‚Ðµ Ñ‡Ñ‚Ð¾ Ñ‚Ð¾ Ð½ÐµÐ¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½Ð¾!';
             echo json_encode($response);
             Yii::app()->end();
         }
         // Get current user
         $currentUser = User::getCurrentUser();
-        $certificateCount = $_POST['UserCertificate']['count'];
         $priceAmount = $certificate->current_price * $certificateCount;
         // Check if user have enough balance in account
         if (!$currentUser->isAmountEnough($priceAmount)) {
             $response['success'] = 'false';
-            $response['message'] = 'Ó âàñ íå äîñòàòî÷íî äåíåãü íà ëèöåâîì ñ÷åòå.';
+            $response['message'] = 'Ð£ Ð²Ð°Ñ Ð½Ðµ Ð´Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾ Ð´ÐµÐ½ÐµÐ³ÑŒ Ð½Ð° Ð»Ð¸Ñ†ÐµÐ²Ð¾Ð¼ ÑÑ‡ÐµÑ‚Ðµ.';
             echo json_encode($response);
             Yii::app()->end();
         }
