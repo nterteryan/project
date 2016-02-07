@@ -3,7 +3,7 @@ Tree = {
         return url.indexOf('user/team/ajaxFillTree') > -1;
     },
     addMoreButton: function (itemsCount, blockId) {
-        if (itemsCount > 1) {
+        if (itemsCount >= 10) {
             var $currentBlock = Tree.getBlockById(blockId);
             if (!$currentBlock.find('.tree-more-button').lenfth) {
                 $currentBlock.append("<a data-offset='10' data-limit='10' class='tree-more-button'>Показать еще</a>");
