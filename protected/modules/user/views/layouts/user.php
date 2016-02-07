@@ -42,6 +42,7 @@
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/premium'; ?>">Премиум Соц Сеть</a>
+                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Команда</a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-8">

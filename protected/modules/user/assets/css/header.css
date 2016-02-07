@@ -1,0 +1,72 @@
+@media (min-width: 1200px) {
+    .container {
+        width: 1200px;
+    }
+}
+
+.navbar-header {
+    min-height: 60px;
+}
+
+.navbar.navbar-default.navbar-fixed-top {
+    min-height: 60px;
+    border-bottom: 2px solid #b3b3b3;
+    box-shadow: 1px 1px 10px lightgray;
+}
+
+.logo-image {
+    margin-left: 20px;
+    width: 82px;
+    height: auto;
+    bottom: -5px;
+}
+
+#navbar-main .navbar-left {
+
+}
+
+#navbar-main .navbar-left>li {
+    margin-left: 48px
+}
+
+#navbar-main .navbar-left>li>a {
+    color: #454545;
+    font-size: 14px;
+    font-family: Arial Regular;
+}
+
+#navbar-main .navbar-left>li>a:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+#navbar-main .navbar-right>li>a {
+    background: none;
+    border: none;
+    padding-right: 20px;
+    color: #535353;
+    font-size: 14px;
+    text-transform: none;
+    font-family: Arial Regular;
+
+}
+
+#navbar-main .navbar-right>li>a:hover {
+    background: none;
+}
+
+.navbar-default #navbar-main  .badge {
+    background-color: red;;
+    color: white;
+    position: absolute;
+    top: 1px;
+    right: 10px;
+}
+
+#user-name-dropdown {
+    padding-left: 48px;
+    background-repeat: no-repeat !important;
+    background-size: 40px auto !important;
+    background-position: left !important;
+    background-color: transparent !important;
+}

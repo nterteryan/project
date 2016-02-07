@@ -11,21 +11,10 @@
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav navbar-left">
-                <li>
-                    <a target="_blank" href="/site/marketing">Маркетинг План</a>
-                </li>
-                <li>
-                    <a target="_blank" href="/site/promotion">Промоушн</a>
-                </li>
-                <li>
-                    <a target="_blank" href="#">Наши Партнеры</a>
-                </li>
-            </ul>
             <ul class="nav navbar-nav navbar-right margin-none">
                 <?php if (Yii::app()->user->id) { ?>
-                    <?php $this->widget('application.widgets.notifications.Notification'); ?>
-                    <?php $this->widget('application.widgets.useractions.Dropdown'); ?>
+                    <li><a href="<?php echo APP_BASE_URL ?>/user/dashboard">Кабинет</a></li>
+                    <li><a href="<?php echo APP_BASE_URL ?>/auth/logout">Выйти</a></li>
                 <?php } else { ?>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/register">Регистрация</a></li>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/login">Войти</a></li>

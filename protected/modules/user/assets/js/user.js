@@ -1,3 +1,27 @@
+Tree = {
+    isToggleRequest: function (url) {
+        return url.indexOf('user/team/ajaxFillTree') > -1;
+    },
+    addMoreButton: function (itemsCount, blockId) {
+        if (itemsCount > 1) {
+            var $currentBlock = Tree.getBlockById(blockId);
+            if (!$currentBlock.find('.tree-more-button').lenfth) {
+                $currentBlock.append("<a data-offset='10' data-limit='10' class='tree-more-button'>Показать еще</a>");
+            } else {
+                $currentBlock.find('a.tree-more-button').attr("data-offset", itemsCount);
+            }
+        }
+    },
+    getBlockById: function (id) {
+        if (id == 0) {
+            var blockSelector = 'ul.treeview>li:first-child';
+        } else {
+            blockSelector = 'li#' + id+">ul";
+        }
+        return  $(blockSelector).closest('ul');
+    }
+};
+
 User = {
     BASE_URL: MODULE_BASE_URL,
     ASSETS_URL: assetsUrl,
@@ -41,8 +65,7 @@ User = {
             });
         });
     },
-    
-    addGetFormCertificate: function(e) {
+    addGetFormCertificate: function (e) {
         $(".certificate-choose").click(function (e) {
             e.preventDefault();
             $certificateId = $(this).data('id');
@@ -51,13 +74,12 @@ User = {
                 type: 'POST',
                 dataType: 'json',
                 data: {certificateId: $certificateId}
-            }).done(function(dataResponse) {
-                $('#box-'+$certificateId).html(dataResponse.form);
+            }).done(function (dataResponse) {
+                $('#box-' + $certificateId).html(dataResponse.form);
             });
         });
     },
-    
-    addByCertificate: function(e, element) {
+    addByCertificate: function (e, element) {
         e.preventDefault();
         $certificateId = $(element).data('id');
         var $form = $('#form-' + $certificateId);
@@ -72,24 +94,41 @@ User = {
             data: data,
             success: function (dataResponse) {
                 $(".error-message-" + $certificateId).html(dataResponse.message);
-                if(dataResponse.success == 'true') {
-                    setTimeout(function(){ 
-                       location.reload();
+                if (dataResponse.success == 'true') {
+                    setTimeout(function () {
+                        location.reload();
                     }, 5000);
                 }
             }});
     },
-            
-    chekcAcceptedTerms: function(e) {
-        if(!$('#check-terms-corporatization').is(":checked")) {
+    chekcAcceptedTerms: function (e) {
+        if (!$('#check-terms-corporatization').is(":checked")) {
             e.preventDefault();
             alert("Нужно подтвердить согласие с условиами!")
+        }
+    },
+    processAjaxComplete: function (event, XMLHttpRequest, ajaxOptions) {
+        setTimeout(function () {
+            User.onTreeToggleAjaxComplete(event, XMLHttpRequest, ajaxOptions);
+        }, 0);
+    },
+    onTreeToggleAjaxComplete: function (event, XMLHttpRequest, ajaxOptions) {
+        if (Tree.isToggleRequest(ajaxOptions.url)) {
+            var itemsCount = XMLHttpRequest.responseJSON.length;
+            var match = ajaxOptions.url.match(/root=(\d+)/);
+            console.log(match);
+            var blockId = match ? parseInt(match[1]) : 0;
+            Tree.addMoreButton(itemsCount, blockId);
         }
     }
 };
 
 User.init();
 
-$(document).ready(function () {
+$(document).ready(function (event, XMLHttpRequest, ajaxOptions) {
     User.onDocumentReady();
+});
+
+$(document).ajaxComplete(function (event, XMLHttpRequest, ajaxOptions) {
+    User.processAjaxComplete(event, XMLHttpRequest, ajaxOptions);
 });
