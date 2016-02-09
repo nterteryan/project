@@ -15,7 +15,6 @@ App.Form = {
     setResponseErrors: function (modelName, resp) {
         App.Form.setSuccess();
         if (!resp.success) {
-            console.log(resp.error);
             $.each(resp.error, function (field, messages) {
                 var message = messages[0];
                 var $inputField = App.Form.getField(modelName, field);

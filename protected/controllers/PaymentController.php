@@ -83,7 +83,29 @@ class PaymentController extends Controller {
             $marketingPlan = $userOrder->marketingPlan;
             $marketingPlan->insertUserToMarketing($currentUser->id);
             $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentSuccess');
+        } else if ($keyCode == UserOrder::TYPE_CHARGE) {
+            $userOrder = UserOrder::model()->inprogress()->findByPk($userOrderNumberId);
+            // Check if order not exist or not verified or marketing plan not exist
+            if (!$verified || !$userOrder instanceof UserOrder || 
+                    $userOrder->amount !== $userPmPayment->payment_amount
+                    || $userPmPayment->payee_account !== Yii::app()->params['payeeAccountPM']) {
+                $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentField');
+            }
+            $userOrder->markAsApproved();
+            // Add user transaction
+            // Add user transactions
+            UserTransaction::create(array(
+                'receiver_id' => $userOrder->id,
+                'amount' => $userOrder->amount,
+                'account_type' => User::ACCOUNT_TYPE_AMOUNT,
+                'transaction_type' => UserTransaction::TYPE_CHARGE,
+            ));
+            // Charge user balance
+            $currentUser->addAmount($userOrder->amount, User::ACCOUNT_FIELD_AMOUNT);
+            $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentSuccess');
         }
+        
+        
         $this->redirect(APP_BASE_URL_ABS . '/user/start/paymentField');
     }
 

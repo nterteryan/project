@@ -37,8 +37,19 @@ class FinanceController extends Controller {
         );
     }
 
+    /**
+     * User main finances page
+     * 1) Charge account balance
+     *
+     * @author Narek T.
+     * @created at 09th day of February 2016
+     * @return void
+     */
     public function actionIndex() {
-        $this->render('index');
+        $userOrder = new UserOrder(UserOrder::SCENARIO_CHARGE);
+        $this->render('index', array(
+            'userOrder' => $userOrder
+        ));
     }
 
 }

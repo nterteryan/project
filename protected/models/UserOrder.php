@@ -18,6 +18,13 @@ class UserOrder extends CActiveRecord {
     const STATUS_INPROGRESS = 'INPROGRESS';
     const STATUS_DECLIEND = 'DECLIEND';
     const STATUS_APPROVED = 'APPROVED';
+    // Type consts
+    const TYPE_CHARGE = 'CHARGE';
+    const TYPE_MARKETING = 'MARKETING';
+    const TYPE_PRODUCT = 'PRODUCT';
+    const TYPE_PREMIUM_ACCOUNT = 'PREMIUM_ACCOUNT';
+    // Scenario
+    const SCENARIO_CHARGE = 'charge';
 
     /**
      * @return string the associated database table name
@@ -33,7 +40,9 @@ class UserOrder extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('updated_date', 'required'),
+            array('amount', 'required', 'on' => self::SCENARIO_CHARGE),
+            array('amount', 'numerical', 'integerOnly'=>true, 'min'=>5, 'tooSmall' => '—умма ¬вода должна быть не мение 5-и.', 'on' => self::SCENARIO_CHARGE),
+            
             array('user_id, marketing_plan_id, product_id, amount', 'numerical', 'integerOnly' => true),
             array('status', 'length', 'max' => 10),
             array('created_date', 'safe'),
@@ -63,7 +72,7 @@ class UserOrder extends CActiveRecord {
             'user_id' => 'User',
             'marketing_plan_id' => 'Marketing Plan',
             'product_id' => 'Product',
-            'amount' => 'Amount',
+            'amount' => '—умма ¬вода',
             'status' => 'Status',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',
@@ -175,7 +184,23 @@ class UserOrder extends CActiveRecord {
     }
     
     /**
-     * Scope by user id
+     * Scope by order type
+     *
+     * @author Narek T.
+     * @created at 24th day of January 2015
+     * @param string $orderType
+     * @return UserOrder
+     */
+    public function byType($orderType) {
+        $this->getDbCriteria()->mergeWith(array(
+            'condition' => 'type =:orderType',
+            'params' => array(':orderType' => $orderType),
+        ));
+        return $this;
+    }
+    
+    /**
+     * Scope by marketing plan id
      *
      * @author Narek T.
      * @created at 24th day of January 2015

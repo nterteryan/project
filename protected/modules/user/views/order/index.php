@@ -4,7 +4,7 @@
 <p>
     <input type="hidden" name="PAYEE_ACCOUNT" value="<?php echo Yii::app()->params['payeeAccountPM']; ?>">
     <input type="hidden" name="PAYEE_NAME" value="OO Dom Blaga">
-    <input type="hidden" name="PAYMENT_AMOUNT" value="<?php /*echo $marketingPlan->join_amount;*/ ?>1">
+    <input type="hidden" name="PAYMENT_AMOUNT" value="<?php echo $marketingPlan->join_amount; ?>">
     <input type="hidden" name="PAYMENT_UNITS" value="USD">
     <input type="hidden" name="PAYMENT_URL" value="<?php echo APP_BASE_URL_ABS . '/payment/perfectVerify'; ?>">
     <input type="hidden" name="NOPAYMENT_URL" value="<?php echo APP_BASE_URL_ABS . '/user/dashboard'; ?>">

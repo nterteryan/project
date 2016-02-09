@@ -27,6 +27,7 @@ class OrderController extends Controller {
             array('allow', // allow all users to perform 'index' actions
                 'actions' => array(
                     'marketing',
+                    'charge',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -57,6 +58,48 @@ class OrderController extends Controller {
             'marketingPlan' => $marketingPlan,
             'userOrder' => $userOrder,
         ));
+    }
+    
+    /**
+     * Charge user account 
+     *
+     * @author Narek T.
+     * @created at 09th day of February 2016
+     * @return void
+     */
+    public function actionCharge() {
+        $response = array(
+            'success' => 'false',
+        );
+        // Get current user
+        $currentUser = User::getCurrentUser();
+        $userOrder = UserOrder::model()->inprogress()->findByAttributes(array(
+            'user_id' => $currentUser->id,
+            'type' => UserOrder::TYPE_CHARGE,
+            'amount' => $_POST['UserOrder']['amount'],
+        ));
+        // Check if order with same amount for current user exist
+        if (!$userOrder instanceof UserOrder) {
+            $userOrder = new UserOrder(UserOrder::SCENARIO_CHARGE);
+        }
+        $userOrder->amount = $_POST['UserOrder']['amount'];
+        // Validate amount for charge balance
+        if ($userOrder->validate()) {
+            $userOrder->user_id = $currentUser->id;
+            $userOrder->type = UserOrder::TYPE_CHARGE;
+            $userOrder->save(false);
+            // Prepear repsonse
+            $response['success'] = 'true';
+            $response['html'] = $this->renderPartial('/finance/_chargeForm', array(
+                'userOrder' => $userOrder,
+            ), true, false);
+        } else {
+            $errors = $userOrder->getErrors();
+            $response['message'] = $errors['amount'][0];
+        }
+        
+        echo json_encode($response);
+        Yii::app()->end();
     }
 
 }

@@ -84,7 +84,6 @@ User = {
         $certificateId = $(element).data('id');
         var $form = $('#form-' + $certificateId);
         var data = new FormData($form[0]);
-        console.log(data);
         $.ajax({
             url: User.BASE_URL + 'certificate/buy',
             contentType: false,
@@ -101,6 +100,35 @@ User = {
                 }
             }});
     },
+    
+    /**
+     * 
+     * @author Narek T.
+     * @cretaed at 9th day of February
+     * @returns {undefined}
+     */        
+    chargeBalance: function(e, element) {
+        e.preventDefault();
+        var $form = $('#charge-balance');
+        var data = new FormData($form[0]);
+        $.ajax({
+            url: User.BASE_URL + 'order/charge',
+            contentType: false,
+            processData: false,
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (dataResponse) {
+                $(".error-message").removeClass('hidden');
+                if (dataResponse.success == 'true') {
+                    $(".error-message").addClass('hidden');
+                    $('#charge').html(dataResponse.html);
+                } else {
+                    $(".error-message").html(dataResponse.message);
+                }
+            }});
+    },
+    
     chekcAcceptedTerms: function (e) {
         if (!$('#check-terms-corporatization').is(":checked")) {
             e.preventDefault();
