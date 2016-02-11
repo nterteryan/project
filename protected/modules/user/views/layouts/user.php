@@ -17,7 +17,7 @@
     <body>
         <?php $this->renderPartial('//layouts/_header'); ?>
         <div class="container">
-            <div class="page-header" id="banner">
+            <!--<div class="page-header" id="banner">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -25,13 +25,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 padding-none">
                             <br/>
-                            <?php $this->widget('application.widgets.userAmounts.UserAmount') ?>
+                            <?php //$this->widget('application.widgets.userAmounts.UserAmount') ?>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-4">
+            </div>-->
+            <div class="row page-header">
+                <div class="col-lg-2 col-md-2 col-sm-2 padding-none">
                     <div class="list-group table-of-contents">
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
@@ -45,8 +45,11 @@
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Команда</a>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="col-lg-7 col-md-7 col-sm-7">
                     <?php echo $content; ?>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <?php $this->widget('application.widgets.userAmounts.UserAmount') ?>
                 </div>
             </div>
         </div>

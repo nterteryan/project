@@ -1,4 +1,4 @@
-<h3>Вы собираетесь пополнить ваш лицевой счет на сумму <?php echo $userOrder->amount; ?>$</h3>
+<h4>Вы собираетесь пополнить ваш лицевой счет на сумму <?php echo $userOrder->amount; ?>$</h4>
 <form action="https://perfectmoney.is/api/step1.asp" method="POST">
     <input type="hidden" name="PAYEE_ACCOUNT" value="<?php echo Yii::app()->params['payeeAccountPM']; ?>">
     <input type="hidden" name="PAYEE_NAME" value="OO Dom Blaga">

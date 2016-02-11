@@ -41,7 +41,7 @@ class UserOrder extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('amount', 'required', 'on' => self::SCENARIO_CHARGE),
-            array('amount', 'numerical', 'integerOnly'=>true, 'min'=>5, 'tooSmall' => 'Ñóììà Ââîäà äîëæíà áûòü íå ìåíèå 5-è.', 'on' => self::SCENARIO_CHARGE),
+            array('amount', 'numerical', 'integerOnly'=>true, 'min'=>5, 'tooSmall' => 'Ð¡ÑƒÐ¼Ð¼Ð° Ð’Ð²Ð¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð½Ðµ Ð¼ÐµÐ½Ð¸Ðµ 5-Ð¸.', 'on' => self::SCENARIO_CHARGE),
             
             array('user_id, marketing_plan_id, product_id, amount', 'numerical', 'integerOnly' => true),
             array('status', 'length', 'max' => 10),
@@ -72,7 +72,7 @@ class UserOrder extends CActiveRecord {
             'user_id' => 'User',
             'marketing_plan_id' => 'Marketing Plan',
             'product_id' => 'Product',
-            'amount' => 'Ñóììà Ââîäà',
+            'amount' => 'Ð¡ÑƒÐ¼Ð¼Ð° Ð’Ð²Ð¾Ð´Ð°',
             'status' => 'Status',
             'created_date' => 'Created Date',
             'updated_date' => 'Updated Date',

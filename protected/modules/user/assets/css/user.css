@@ -26,3 +26,7 @@ ul.treeview ul {
 a.tree-more-button {
     cursor: pointer;
 }
+
+ul.w-user-amount-nav li {
+    padding-bottom: 10px;
+}
