@@ -30,3 +30,141 @@ a.tree-more-button {
 ul.w-user-amount-nav li {
     padding-bottom: 10px;
 }
+
+.sidebar-left {
+    margin-top: -20px;
+    padding: 0px;
+    border-right: 2px solid #bbbbbb;
+    border-left: 2px solid #bbbbbb;
+}
+
+.sidebar-left a.list-group-item {
+    border: none;
+    border-radius: 0;
+    padding: 20px 30px;
+    font-family: Arial Regular;
+    font-size: 16px;
+    color: #4b4848;
+}
+
+.sidebar-left a.list-group-item.active {
+    background: #df3b46;
+    color: white;
+}
+
+ul.list-group-header {
+    border-color: #c4c4c4;
+
+}
+
+ul.list-group-header>li.active {
+    margin-bottom: 0;
+    background-color: #f3f9fe;
+}
+
+ul.list-group-header > li > a {
+    margin: 0 !important;
+    padding: 30px;
+}
+
+ul.list-group-header > li.active > a {
+    background-color: #f3f9fe !important;
+}
+
+ul.list-group-header>li>a {
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+
+.bg-home {
+    background-image: url(../img/icons/home.png)
+}
+
+.bg-group {
+    background-image: url(../img/icons/group.png)
+}
+
+
+.sidebar-right {
+    padding: 20px 0 0 0;
+    margin-top: -20px;
+    border-right: 2px solid #bbbbbb;
+    border-left: 2px solid #bbbbbb;
+}
+
+.sidebar-right .nav-pills > li {
+    margin-left: 5px !important;
+}
+
+.sidebar-right .nav-pills > li.active > a,
+.sidebar-right .nav-pills > li.active > a:hover, 
+.sidebar-right .nav-pills > li.active > a:focus {
+    background-color: #9a9a9a;
+    font-family: Arial Regular;
+    font-size: 14px;
+}
+
+.sidebar-right  .list-group-item.active > .badge, .nav-pills > .active > a > .badge {
+    color: #004985
+}
+
+ul.advertisement {
+    padding: 0;
+    margin: 20px 0 0 0;
+    list-style-type: none;
+}
+
+ul.advertisement>li {
+    margin-bottom: 15px
+}
+
+ul.advertisement>li:last-child {
+    margin-bottom: 0;
+}
+
+.banner-image {
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    height: auto;
+}
+
+.project-info-wrap {
+    padding: 15px;
+    width: 300px;
+    margin: 0px auto;
+    height: 260px;
+    border: 1px solid #ded5d5;
+    margin-bottom: 20px;
+}
+
+.project-info-title {
+    padding-top: 60px;
+    background: url(../img/project-icon-home.png);
+    color: #004985;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+    margin: 0px auto;
+    background-repeat: no-repeat;
+    background-position: 30px 5px;
+    margin-bottom: 10px;
+}
+
+.project-info-title + p {
+    font-family: Arial Regular;
+    font-size: 12.8px;
+    text-align: center;
+    color: #4e4e4e;
+}
+
+.user-projects>div:nth-child(even) .project-info-title {
+    background: url(../img/project-icon-leaf.png);
+    background-repeat: no-repeat;
+    background-position: 30px 5px;
+}
+
+footer, p.copyryght {
+    height: 68px;
+    line-height: 68px;
+}
+

@@ -16,27 +16,22 @@
     </head>
     <body>
         <?php $this->renderPartial('//layouts/_header'); ?>
-        <div class="container">
-            <!--<div class="page-header" id="banner">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <h1>Панель Управления</h1>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 padding-none">
-                            <br/>
-                            <?php //$this->widget('application.widgets.userAmounts.UserAmount') ?>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <div class="row page-header">
-                <div class="col-lg-2 col-md-2 col-sm-2 padding-none">
+        <div class="container content-same-height clearfix padding-top-20">
+            <div class="row margin-none row-eq-height">
+                <div class="col-lg-3 col-md-12 sidebar-left">
+                    <ul class="list-group-header nav nav-tabs">
+                        <li class="active">
+                            <a href="/user/dashboard" onclick="event.stopImmediatePropagation()"  class="bg-centered-icon bg-home" data-toggle="tab" aria-expanded="true"></a>
+                        </li>
+                        <li class="">
+                            <a href="#" data-toggle="tab" class="bg-centered-icon bg-group" aria-expanded="false"></a>
+                        </li>
+                    </ul>
                     <div class="list-group table-of-contents">
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
+                        <a class="list-group-item active" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/finance'; ?>">Мои Финансы</a>
-                        <a class="list-group-item" href="<?php //echo APP_BASE_URL . '/user/partner/our'; ?>">Наши Партнеры</a>
+                        <a class="list-group-item" href="<?php //echo APP_BASE_URL . '/user/partner/our';               ?>">Наши Партнеры</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
@@ -45,13 +40,22 @@
                         <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Команда</a>
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-7 col-sm-7">
+                <div class="col-lg-7 col-md-12 padding-none">
                     <?php echo $content; ?>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="col-lg-2 col-md-12 sidebar-right">
                     <?php $this->widget('application.widgets.userAmounts.UserAmount') ?>
+                    <ul class="advertisement">
+                        <li>
+                            <a><img src="<?php echo APP_THEME_URL ?>/img/banner1.png" class="banner-image" src=""></a>
+                        </li>
+                        <li>
+                            <a><img src="<?php echo APP_THEME_URL ?>/img/banner2.png" class="banner-image" src=""></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+        <?php $this->renderPartial("//layouts/_footer") ?>
     </body>
 </html>

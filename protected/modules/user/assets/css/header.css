@@ -56,11 +56,12 @@
 }
 
 .navbar-default #navbar-main  .badge {
-    background-color: red;;
+    background-color: #9ec929;
+    color: white;
     color: white;
     position: absolute;
-    top: 1px;
-    right: 10px;
+    top: 4px;
+    right: 7px;
 }
 
 #user-name-dropdown {
@@ -70,3 +71,4 @@
     background-position: left !important;
     background-color: transparent !important;
 }
+

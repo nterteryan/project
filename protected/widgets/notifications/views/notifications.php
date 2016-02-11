@@ -1,6 +1,6 @@
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <span class="badge"></span>
+        <span class="badge">0</span>
         <?php
         echo CHtml::image(APP_THEME_URL . '/img/icons/bell.png', 'Notifications', array(
         ))

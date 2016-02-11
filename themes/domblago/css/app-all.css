@@ -99,3 +99,14 @@ p.copyryght {
     font-family: Source Sans Pro Regular;
     margin: 0;
 }
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.bg-centered-icon {
+    background-size: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
