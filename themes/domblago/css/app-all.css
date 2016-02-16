@@ -110,3 +110,23 @@ p.copyryght {
     background-repeat: no-repeat;
 }
 
+.btn.btn-dark-blue {
+    background-color: #004985;
+    padding: 10px 60px;
+    color: #fefefe;
+    font-size: 16px;
+    font-family: Arial Regular;
+    display: inline;
+    border-radius: 6px;
+    border: 1px solid #ccdbe7;
+}
+
+.btn.btn-white {
+    padding: 5.5px 55px;
+    border: 1px solid #1b74ad;
+    color: #1b74ad;
+    float: right;
+    border-radius: 2px;
+    font-family: Arial Regular;
+    font-size: 18px;
+}

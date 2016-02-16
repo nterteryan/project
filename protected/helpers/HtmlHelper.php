@@ -36,4 +36,21 @@ class HtmlHelper {
         echo Yii::app()->numberFormatter->formatCurrency($amount, $currency);
     }
 
+    /**
+     * routeBasedClass
+     *
+     * @author Davit T.
+     * @created at 16th day of Feb 2016
+     * @return string
+     */
+    public static function actionBasedClass( $route ) {
+        $currentRoute = Yii::app()->controller->id.'/'.Yii::app()->controller->action->id;
+        //var_dump($currentRoute);
+        //var_dump($route);
+        if ($currentRoute != $route) {
+            return "";
+        }
+        return 'active';
+    }
+
 }

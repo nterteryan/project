@@ -28,16 +28,16 @@
                         </li>
                     </ul>
                     <div class="list-group table-of-contents">
-                        <a class="list-group-item active" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/finance'; ?>">Мои Финансы</a>
-                        <a class="list-group-item" href="<?php //echo APP_BASE_URL . '/user/partner/our';               ?>">Наши Партнеры</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/premium'; ?>">Премиум Соц Сеть</a>
-                        <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Команда</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('dashboard/index'); ?>" href="<?php echo APP_BASE_URL . '/user/dashboard'; ?>">Кабинет</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('profile/index'); ?>" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('finance/index'); ?>" href="<?php echo APP_BASE_URL . '/user/finance'; ?>">Мои Финансы</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('partner/our'); ?>" href="<?php //echo APP_BASE_URL . '/user/partner/our';               ?>">Наши Партнеры</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('start/easy'); ?>" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('start/fast'); ?>" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('start/partner'); ?>" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('certificate/index'); ?>" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('start/premium'); ?>" href="<?php echo APP_BASE_URL . '/user/start/premium'; ?>">Премиум Соц Сеть</a>
+                        <a class="list-group-item <?php echo HtmlHelper::actionBasedClass('team/index'); ?>" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Команда</a>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-12 padding-none">

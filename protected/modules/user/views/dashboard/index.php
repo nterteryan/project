@@ -1,12 +1,18 @@
 <div class="col-md-12">
     <p class="heading">Моя рефферальная ссылка</p>
-    <div class="form-group">
+    <div class="col-md-8 col-sm-12 padding-none">
         <?php
         echo CHtml::urlField('', $model->refferalUrl, array(
             'class' => 'form-control',
+            'id'=>'refferal-link-input'
         ));
         ?>
     </div>
+    <div class="col-md-4 col-sm-12 padding-none">
+        <a href="#" class="btn btn-white">Приглaсить</a>
+    </div>
+</div>
+<div class="col-md-12">
     <hr class="hr-dotted" />
     <p class="heading text-center">Проекты</p>
 </div>

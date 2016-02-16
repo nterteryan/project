@@ -135,6 +135,7 @@ ul.advertisement>li:last-child {
     height: 260px;
     border: 1px solid #ded5d5;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .project-info-title {
@@ -155,6 +156,7 @@ ul.advertisement>li:last-child {
     font-size: 12.8px;
     text-align: center;
     color: #4e4e4e;
+    margin-bottom: 30px;
 }
 
 .user-projects>div:nth-child(even) .project-info-title {
@@ -166,5 +168,24 @@ ul.advertisement>li:last-child {
 footer, p.copyryght {
     height: 68px;
     line-height: 68px;
+}
+
+p.heading.text-center {
+    font-size: 24px;
+    color: #0d5e8d;
+    font-family: Arial Regular;
+    margin-bottom: 20px;
+}
+
+.hr-dotted {
+    border: none;
+    border-top: 1px dotted #0d5e8d;
+    color: #fff;
+    background-color: #fff;
+    height: 1px;
+}
+
+#refferal-link-input {
+    border-radius: 1px;
 }
 
