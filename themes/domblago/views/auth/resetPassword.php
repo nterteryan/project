@@ -1,31 +1,22 @@
-<div class="page-header" id="banner">
-    <div class="row">
-        <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Сбросить пароль</h1>
-            <p>Поля с символом <span class="required">*</span> обязательны для заполнения.</p>
-        </div>
-    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page_title">Сбросить пароль</h1>
+        <p class="page_sub_title">Поля с символом <span class="required">*</span> обязательны для заполнения.</p>
+    </div> 
 </div>
-<div class="bs-docs-section clearfix">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Форма Сброса Пароля</h3>
-        </div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 auth_inner_bg">
         <div class="panel-body">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'registration'
             ));
             ?>
-            <div class="form-group <?php echo HtmlHelper::hasError($model, 'password'); ?>">
-                <?php
-                echo $form->labelEx($model, 'password', array(
-                    'class' => 'control-label'
-                ))
-                ?>
+            <div class="form-group <?php echo HtmlHelper::hasError($model, 'password'); ?>">                
                 <?php
                 echo $form->passwordField($model, 'password', array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder'=> 'Пароль *',
                 ));
                 ?>
                 <?php
@@ -35,13 +26,9 @@
             </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'repeat_password'); ?>">
                 <?php
-                echo $form->labelEx($model, 'repeat_password', array(
-                    'class' => 'control-label'
-                ))
-                ?>
-                <?php
                 echo $form->passwordField($model, 'repeat_password', array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                     'placeholder'=> 'Повторите Пароль *',
                 ));
                 ?>
                 <?php

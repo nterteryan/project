@@ -1,16 +1,11 @@
-<div class="page-header" id="banner">
-    <div class="row">
-        <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Забыли Парол?</h1>
-            <p>Введите электронную почту чтобы получить ссылку для сброса пароля</p>
-        </div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page_title">Забыли Парол?</h1>
+        <p class="page_sub_title">Введите электронную почту чтобы получить ссылку для сброса пароля</p>
     </div>
 </div>
-<div class="bs-docs-section clearfix">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Форма</h3>
-        </div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 auth_inner_bg">
         <div class="panel-body">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
@@ -18,15 +13,12 @@
             ));
             ?>
             <div class="form-group <?php echo $error ? 'has-error' : ''; ?>">
-                <?php
-                echo CHtml::label('Электронная Почта', 'email', array(
-                    'class' => 'control-label'
-                ))
-                ?>
+                
                 <?php
                 echo CHtml::emailField('email', '', array(
                     'id' => 'email',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder'=> 'Электронная Почта',
                 ));
                 ?>
                 <?php if ($error) { ?>

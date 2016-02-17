@@ -1,6 +1,8 @@
 <?php
 
 class AuthController extends Controller {
+    
+    public $layout='auth';
 
     /**
      * beforeAction

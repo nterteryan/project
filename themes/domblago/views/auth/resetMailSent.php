@@ -1,14 +1,12 @@
-<div class="page-header" id="banner">
-    <div class="row">
-        <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Письмо отправлено!</h1>
-        </div>
+<div class="row">
+    <div class="col-lg-12">        
+        <h1 class="page_title">Письмо отправлено!</h1>
     </div>
 </div>
-<div class="bs-docs-section clearfix">
-    <div class="alert alert-dismissible alert-success">
-        <p>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 auth_inner_bg alert_message">  
+        <div class="panel-body">
             На указанную вами электронную почту было отправлено письмо с сыллкой для сброса пароля
-        </p>
+        </div>
     </div>
 </div>
