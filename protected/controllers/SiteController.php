@@ -66,8 +66,20 @@ class SiteController extends Controller {
      * @return void
      */
     public function actionMedicine() {
-        //$this->layout = "//layouts/home";
+        $this->layout = "//layouts/inner-pages";
         $this->render('medicine');
+    }
+  
+    /**
+     * Finance plan static page
+     *
+     * @author Narek T.
+     * @created at 30th day of January 2016
+     * @return void
+     */
+    public function actionProjects() {
+        $this->layout = "//layouts/inner-pages";
+        $this->render('projects');
     }
     
     /**

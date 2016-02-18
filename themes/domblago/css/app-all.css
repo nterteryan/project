@@ -182,3 +182,110 @@ p.copyryght {
     border-top: 1px solid #fff;
     border-left: 1px solid #fff;
 }
+
+
+.pageContent{
+    min-height: 600px;
+}
+.page-header-block.medicine{
+    background: url(../img/medicine_top_bg.jpg) 0 0 no-repeat;
+    background-size: 100% auto;
+    min-height: 210px;
+    margin-top: 85px;
+    position: relative;
+}
+.page-header-block.medicine .header-links{
+    list-style-type: none;
+    text-align: center;
+    padding-top: 140px;
+    margin: 0;
+}
+.page-header-block.medicine .header-links li{
+    display: inline-block;
+}
+.page-header-block.medicine .header-links li a{
+    background: #fff;
+    border: 1px solid #004985;
+    border-radius: 3px;
+    color: #004985;
+    margin: 0 5px;
+    min-width: 190px;
+    padding: 8px;
+    display: inline-block;
+}
+.page-header-block.medicine .header-links li.active a,
+.page-header-block.medicine .header-links li a:hover{
+    background: #185890;
+    text-decoration: none;
+    color: #fff;
+}
+.page-inner-content{
+    line-height: 23px;
+}
+.page-inner-content h1 {
+    font-size: 1.9em;
+    margin: 50px 0;
+}
+.page-inner-content h3{
+    margin: 50px 0;
+    color: #000;
+    font-size: 1.3em;
+}
+
+.content-row .pull-right.text-img{
+    margin-left: 30px;
+}
+.content-row .pull-left.text-img{
+    margin-right: 30px;
+}
+.content-row{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.page-light-bg{
+    background: url(../img/page_light_bg.jpg) 0 0 no-repeat;
+    background-size: cover;
+}
+
+.page-inner-content .page-light-bg{
+    padding: 50px 0 20px 0;
+    
+}
+.page-inner-content .page-light-bg h2{
+    margin: 0 0 50px 0;
+    color: #000;
+    font-size: 1.8em;
+}
+.page-inner-content .page-light-bg li{
+    margin-bottom: 10px;
+    list-style-type: square;
+}
+
+.paddTB-50{
+    padding: 50px 0;
+}
+.page-inner-content .action-buttons{
+    text-align: center;
+    margin: 50px 0 0 0;
+}
+.page-inner-content .action-buttons .btn-primary{
+    background: #004985;
+    border: none;
+    padding: 6px 30px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 1.1em;
+}
+ul.projects{
+    margin-left: 60px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+ul.projects li{
+    margin-bottom: 10px;
+    list-style-type: square;
+}
+.projects-video{
+    margin: 30px 0 50px;
+}
