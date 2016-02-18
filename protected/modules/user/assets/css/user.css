@@ -27,8 +27,16 @@ a.tree-more-button {
     cursor: pointer;
 }
 
-ul.w-user-amount-nav li {
-    padding-bottom: 10px;
+ul.w-user-amount-nav > li.active {
+    margin-bottom: 5px;
+    background: #9a9a9a;
+    font-size: 13px !important;
+    padding: 5px 5px !important;
+}
+
+ul.w-user-amount-nav > li.active a {
+    font-size: 13px !important;
+    padding: 5px 5px !important;
 }
 
 .sidebar-left {
@@ -102,6 +110,7 @@ ul.list-group-header>li>a {
     background-color: #9a9a9a;
     font-family: Arial Regular;
     font-size: 14px;
+    display: inline-block;
 }
 
 .sidebar-right  .list-group-item.active > .badge, .nav-pills > .active > a > .badge {

@@ -1,3 +1,4 @@
+<div class="col-md-12">
 <?php if (is_null($matrixFirst)) : ?>
 <h1>Легкий Старт</h1>
 
@@ -22,3 +23,4 @@
 
 <?php endif; ?>
 
+</div>
