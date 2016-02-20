@@ -42,7 +42,7 @@ class SiteController extends Controller {
      * @return void
      */
     public function actionMarketing() {
-        //$this->layout = "//layouts/home";
+        $this->layout = "//layouts/inner-pages";
         $this->render('marketing');
     }
     
