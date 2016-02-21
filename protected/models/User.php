@@ -476,5 +476,20 @@ class User extends CActiveRecord {
     public function getAvatar() {
         return self::DEFAULT_AVATAR;    
     }
+    
+    /**
+     * Generate 4 digit pin code for user 
+     *
+     * @author Narek T.
+     * @created at 21th day of February 2016
+     * @return boolean
+     */
+    public function setPin() {
+        $x = 3;
+        $min = pow(10,$x);
+        $max = pow(10,$x+1)-1;
+        $this->pin = rand($min, $max);
+        return $this->save(false);
+    }
 
 }

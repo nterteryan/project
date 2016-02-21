@@ -124,7 +124,8 @@ ul.advertisement {
 }
 
 ul.advertisement>li {
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    list-style: none;
 }
 
 ul.advertisement>li:last-child {
@@ -197,4 +198,7 @@ p.heading.text-center {
 #refferal-link-input {
     border-radius: 1px;
 }
-
+.pin-box {
+    color: #df3b46;
+    font-weight: 600;
+}

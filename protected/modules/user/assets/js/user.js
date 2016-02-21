@@ -32,6 +32,82 @@ User = {
     onDocumentReady: function () {
         User.addChangePasswordButtonHandler();
         User.addGetFormCertificate();
+        User.addListeners();
+        User.getUserPin();
+    },
+    addListeners: function () {
+         // $('[data-toggle="popover"]').popover();
+    },
+    /**
+     * 
+     * @author Narek T.
+     * @cretaed at 21th day of February
+     * @returns {undefined}
+     */   
+    getUserPin: function () {
+        $('#pin').click(function(e) {
+            $.ajax({
+                url: User.BASE_URL + 'profile/pin',
+                contentType: false,
+                processData: false,
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $('#pin').hide();
+                    $('.pin-box').html(data.pin);
+                }
+            });
+        });
+    },
+    /**
+     * Get pin form
+     * 
+     * @author Narek T.
+     * @cretaed at 21th day of February
+     * @returns {undefined}
+     */   
+    getPinForm: function (e, element) {
+        e.preventDefault();
+        var marketingId = $(element).data('id');
+        $.ajax({
+            url: User.BASE_URL + 'marketing/getPinForm',
+            type: 'post',
+            dataType: 'json',
+            data: {marketingId: marketingId},
+            success: function (data) {
+                if (data.success == 'true') {
+                    $('.pin-box').html(data.message);
+                }
+            }
+        });
+    },
+    /**
+     * Check pin code and insert user to marketing plan
+     * 
+     * @author Narek T.
+     * @cretaed at 21th day of February
+     * @returns {undefined}
+     */   
+    enterToMarketingPlan: function (e, element) {
+        e.preventDefault();
+        var marketingId = $(element).data('id');
+        var pinCode = $('.pin-code-field').val();
+        $.ajax({
+            url: User.BASE_URL + 'marketing/enterToMarketing',
+            type: 'post',
+            dataType: 'json',
+            data: {pin: pinCode, marketingId: marketingId},
+            success: function (data) {
+                if (data.success == 'true') {
+                    $('.message-box').html(data.message);
+                    setTimeout(function () {
+                        location.reload();
+                    }, 5000);
+                } else {
+                    $('.message-box').html(data.message);
+                }
+            }
+        });
     },
     addChangePasswordButtonHandler: function () {
         $("input#change-password").click(function (e) {

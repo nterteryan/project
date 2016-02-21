@@ -1,10 +1,11 @@
 <div class="page-header-block medicine">
     
     <ul class="header-links">
-        <li class="active"><a href="#">Медицина</a></li>
+        <li class="active"><a href="#">Маркетинг</a></li>
+        <li><a href="#">Медицина</a></li>
         <li><a href="#">Экопоселки</a></li>
         <li><a href="#">Недвижимость</a></li>
-        <li><a href="#">Экопоселки</a></li>
+        <li><a href="#">Благотварительность</a></li>
     </ul>
     
 </div>

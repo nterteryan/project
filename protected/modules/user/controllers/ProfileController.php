@@ -14,7 +14,7 @@ class ProfileController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-                //'postOnly',
+            'postOnly + pin',
         );
     }
 
@@ -28,7 +28,8 @@ class ProfileController extends Controller {
             array('allow', // allow all users to perform 'index' actions
                 'actions' => array(
                     'index',
-                    'changePassword'
+                    'changePassword',
+                    'pin',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
@@ -90,6 +91,24 @@ class ProfileController extends Controller {
             $model->save(false);
         }
         echo json_encode($response);
+        Yii::app()->end();
+    }
+    
+    /**
+     * Check if user havent pin code set and return 
+     *
+     * @author Narek T.
+     * @created at 21th day of February 2016
+     */
+    public function actionPin() {
+        $currentUser = User::getCurrentUser();
+        // Check if user havent pin code
+        if (is_null($currentUser->pin)) {
+            $currentUser->setPin();
+        }
+        echo json_encode(array(
+            'pin' => $currentUser->pin
+        ));
         Yii::app()->end();
     }
 

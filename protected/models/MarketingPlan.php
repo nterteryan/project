@@ -169,5 +169,27 @@ class MarketingPlan extends CActiveRecord {
             break;
         }
     }
+    
+    /**
+     * Get user transaction type by current marketing plan slug 
+     *
+     * @author Narek T.
+     * @created at 21th day of February 2016
+     * @return string
+     */
+    public function getTransactionType() {
+        switch ($this->slug) {
+            case self::SLUG_MATRIX_1 :
+                $transactionType = UserTransaction::TYPE_FIRST_MATRIX;
+            break;
+            case self::SLUG_MATRIX_2 :
+                $transactionType = UserTransaction::TYPE_SECONDE_MATRIX;
+            break;
+            case self::SLUG_PARTNER :
+                $transactionType = UserTransaction::TYPE_PARTNER;
+            break;
+        }
+        return $transactionType;
+    }
 
 }

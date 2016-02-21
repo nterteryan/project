@@ -8,6 +8,10 @@
         ?>
     </div>
     <hr class="hr-dotted" />
+    <div class="heading">
+        Пин код: <span class="pin-box"></span><a class="btn btn-primary" id="pin">Показать</a>
+    </div>
+    <hr class="hr-dotted" />
 
     <div class="panel panel-primary">
         <div class="panel-heading">

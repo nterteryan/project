@@ -13,7 +13,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav navbar-right margin-none">
                 <?php if (Yii::app()->user->id) { ?>
-                    <li><a href="<?php echo APP_BASE_URL ?>/user/dashboard">Кабинет</a></li>
+                    <li><a href="<?php echo APP_BASE_URL ?>/user/profile">Кабинет</a></li>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/logout">Выйти</a></li>
                 <?php } else { ?>
                     <li><a href="<?php echo APP_BASE_URL ?>/auth/register">Регистрация</a></li>

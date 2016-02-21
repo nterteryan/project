@@ -168,11 +168,10 @@ p.copyryght {
     width: 80%;
     text-align: left;
 }
-.panel-body{
+.auth_block .panel-body{
     padding: 50px 0 20px 0;
     width: 70%;
     margin: 0 auto;
-    text-align: center;
 }
 .auth_inner_bg .form-group {
     margin-bottom: 20px;

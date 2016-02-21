@@ -3,6 +3,7 @@
 class UserModule extends CWebModule {
 
     private $_assetsUrl;
+    public $defaultController = 'profile';
 
     public function init() {
         Yii::app()->assetManager->forceCopy = true;

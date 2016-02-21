@@ -13,13 +13,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav navbar-left">
                 <li>
-                    <a target="_blank" href="/site/marketing">Маркетинг План</a>
-                </li>
-                <li>
-                    <a target="_blank" href="/site/promotion">Промоушн</a>
-                </li>
-                <li>
-                    <a target="_blank" href="#">Наши Партнеры</a>
+                    <a target="_blank" href="/site/marketing">Наши Программы</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right margin-none">

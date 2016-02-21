@@ -31,10 +31,10 @@
                         <div class="list-group table-of-contents tab-pane fade active in" id="home">
                             <a class="list-group-item active" href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>
                             <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/finance'; ?>">Мои Финансы</a>
-                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/easy'; ?>">Легкий старт</a>
-                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/fast'; ?>">Быстрый старт</a>
-                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/start/partner'; ?>">Акционер</a>
-                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Моя Команда</a>
+                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/marketing/easy'; ?>">Легкий старт</a>
+                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/marketing/fast'; ?>">Быстрый старт</a>
+                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/marketing/partner'; ?>">Партнер</a>
+                            <!--<a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Моя Команда</a>-->
                             <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
                         </div>
                         <div class="tab-pane fade" id="social">
