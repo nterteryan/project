@@ -1,22 +1,37 @@
 <div class="col-md-12">
-    <p class="heading">Моя рефферальная ссылка</p>
-    <div class="form-group">
-        <?php
-        echo CHtml::urlField('', $model->refferalUrl, array(
-            'class' => 'form-control',
-        ));
-        ?>
+    <div class="heading referral_link">
+        Моя рефферальная ссылка: 
+        <a href="<?php echo $model->refferalUrl; ?>"><?php echo $model->refferalUrl; ?></a>        
     </div>
-    <hr class="hr-dotted" />
+   
     <div class="heading">
-        Пин код: <span class="pin-box"></span><a class="btn btn-primary" id="pin">Показать</a>
+        Пин код: <span class="pin-box"></span><a class="btn btn-pin" id="pin">Показать</a>
     </div>
-    <hr class="hr-dotted" />
+    <hr class="hr-dashed" />
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Мой Профиль</h3>
+    <div class="panel profile">
+        
+        <h3 class="panel-title">Мой Профиль</h3>
+        
+        <div class="row personal-info">
+            <div class="col-md-3 image">
+                <img src="<?php echo APP_THEME_URL ?>/img/user1.jpg" class="banner-image" src="">
+                <a href="#">Изменить Фото</a>
+            </div>
+            <div class="col-md-9">
+                <div class="type">
+                    Тип пользователя:
+                    <div class="icon-partner">ПАРТНЕР</div>
+                </div>
+                <div class="description">
+                    В момент привязки платежной системы к порталу, Вы можете делать оплату на указанные  счета. Подтвердить перевод путем сканирования или снимка скрин шот отправить на почту  domblaga@gmail.com Тема письма Оплата пакета (Соучредитель)
+                </div>
+                <div>
+                    <a class="btn btn-partner">Стать соучредителем</a>
+                </div>
+            </div>
         </div>
+        
         <div class="panel-body">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
@@ -87,22 +102,6 @@
                 ))
                 ?>
             </div>
-            <div class="form-group <?php echo HtmlHelper::hasError($model, 'skype'); ?>">
-                <?php
-                echo $form->labelEx($model, 'skype', array(
-                    'class' => 'control-label'
-                ))
-                ?>
-                <?php
-                echo $form->textField($model, 'skype', array(
-                    'class' => 'form-control'
-                ));
-                ?>
-                <?php
-                echo $form->error($model, 'skype', array(
-                ))
-                ?>
-            </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'phone'); ?>">
                 <?php
                 echo $form->labelEx($model, 'phone', array(
@@ -119,9 +118,33 @@
                 ))
                 ?>
             </div>
-            <div class="form-group">
-                <input class="btn btn-primary" id="focusedInput" type="submit" value="Изменить">
-                <input class="btn btn-primary" id="change-password" type="submit" value="Сменить Пароль">
+            <div class="form-group <?php echo HtmlHelper::hasError($model, 'skype'); ?>">
+                <?php
+                echo $form->labelEx($model, 'skype', array(
+                    'class' => 'control-label icon-skype'
+                ))
+                ?>
+                <?php
+                echo $form->textField($model, 'skype', array(
+                    'class' => 'form-control'
+                ));
+                ?>
+                <?php
+                echo $form->error($model, 'skype', array(
+                ))
+                ?>
+            </div>
+            
+            <div class="form-group action-buttons">
+                <label class="control-label ">
+                    <input class="btn btn-change-pass" id="change-password" type="submit" value="Сменить Пароль">
+                </label>
+                <div class="buttons-right">
+                    <input class="btn btn-save-changes" id="focusedInput" type="submit" value="Сохранить изменения">
+                    <input class="btn btn-cancel" type="submit" value="Отмена">
+                </div>
+                
+                
             </div>
             <?php $this->endWidget(); ?>
         </div>

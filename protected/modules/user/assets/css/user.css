@@ -42,14 +42,14 @@ ul.w-user-amount-nav > li.active a {
 .sidebar-left {
     margin-top: -20px;
     padding: 0px;
-    border-right: 2px solid #bbbbbb;
-    border-left: 2px solid #bbbbbb;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
 }
 
 .sidebar-left a.list-group-item {
     border: none;
     border-radius: 0;
-    padding: 20px 30px;
+    padding: 18px 10px 18px 30px;
     font-family: Arial Regular;
     font-size: 16px;
     color: #4b4848;
@@ -76,7 +76,7 @@ ul.list-group-header > li > a {
 }
 
 ul.list-group-header > li.active > a {
-    background-color: #f3f9fe !important;
+    background-color: #f9f9f9 !important;
 }
 
 ul.list-group-header>li>a {
@@ -96,8 +96,8 @@ ul.list-group-header>li>a {
 .sidebar-right {
     padding: 20px 0 0 0;
     margin-top: -20px;
-    border-right: 2px solid #bbbbbb;
-    border-left: 2px solid #bbbbbb;
+    border-right: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
 }
 
 .sidebar-right .nav-pills > li {
@@ -194,6 +194,9 @@ p.heading.text-center {
     background-color: #fff;
     height: 1px;
 }
+.hr-dashed {
+   border-top: 1px dashed #bfbfbf;
+}
 
 #refferal-link-input {
     border-radius: 1px;
@@ -201,4 +204,146 @@ p.heading.text-center {
 .pin-box {
     color: #df3b46;
     font-weight: 600;
+}
+.referral_link{    
+    color: #1b74ad;
+    font-weight: bold;
+    line-height: 32px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.referral_link a{
+    color: #454545;
+    margin-left: 10px;
+    font-size: 15px;
+}
+.btn-pin{
+    color: #1b74ad;
+    border: 1px solid #1b74ad;
+    padding: 3px 10px;
+    margin-left: 10px;
+    font-size: 13px;
+}
+.profile .panel-title{
+    text-align: center;
+    color: #1b74ad;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+}
+.personal-info{
+    color: #454545;
+}
+.personal-info .image{
+    text-align:center;
+}
+.personal-info .image img{
+    max-width: 100%;
+    display: block;
+}
+.personal-info .image a{
+    color: #5eb6ff;
+    text-decoration: underline;
+    display: inline-block;
+    margin-top: 5px;
+}
+.btn-partner{
+    color: #1b74ad !important;
+    border: 1px solid #1b74ad;
+    text-transform: uppercase;
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+.personal-info .type{
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.personal-info .type .icon-partner{   
+    min-height: 20px;
+    background: url(../img/icon-partner.png) 0 0 no-repeat;
+    padding-left: 25px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+}
+.personal-info .description{
+    font-size: 13px;
+    color: #818080;
+    font-style: oblique;
+    margin: 15px 0;
+}
+#registration{
+    margin-top: 40px;
+}
+#registration .form-group{
+    display: inline-block;
+    width: 100%;
+}
+#registration .control-label{
+    text-align: right;
+    width: 27%;
+    float: left;
+    margin: 10px 20px 10px 0;
+    font-size: 13px;
+}
+#registration .control-label:after{
+    content: ': ';
+}
+#registration .form-control{
+    width: 70%;
+    height: 24px;
+    float: left;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    border-bottom: 1px solid #b7b7b7;
+    margin: 0;
+    border-radius: 0;
+    
+}
+#registration .icon-skype{
+    position: relative;
+}
+#registration .icon-skype:before{  
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: url(../img/icon-skype.png) 0 0 no-repeat;
+    display: inline-block;
+    background-size: 100% 100%;
+    position: absolute;
+    right: 50px;
+    top: -5px;   
+}
+.action-buttons .control-label{
+    margin: 0 20px 0px 0 !important;
+}
+.action-buttons .control-label:after{
+    content: ' ' !important;    
+}
+.btn-change-pass{
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: #5eb6ff;
+    text-decoration: underline;
+}
+.buttons-right{
+    width: 70%;
+    float: left;
+    padding-top: 70px;
+}
+.btn-save-changes,
+.btn-save-changes:hover{
+    background: #004985;
+    border: 1px solid #004985;
+    color: #fff;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+
+.btn-cancel{
+    background: #fff;
+    border: 1px solid #004985;
+    color: #004985;
 }
