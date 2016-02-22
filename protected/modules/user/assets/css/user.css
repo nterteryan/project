@@ -281,7 +281,7 @@ p.heading.text-center {
 }
 #registration .control-label{
     text-align: right;
-    width: 27%;
+    width: 12%;
     float: left;
     margin: 10px 20px 10px 0;
     font-size: 13px;
@@ -290,7 +290,7 @@ p.heading.text-center {
     content: ': ';
 }
 #registration .form-control{
-    width: 70%;
+    width: 85%;
     height: 24px;
     float: left;
     border: 0;

@@ -9,7 +9,7 @@
     </div>
     <hr class="hr-dashed" />
 
-    <div class="panel profile">
+    <div class=" profile">
         
         <h3 class="panel-title">Мой Профиль</h3>
         
@@ -32,7 +32,7 @@
             </div>
         </div>
         
-        <div class="panel-body">
+        <div class="">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'registration'

@@ -125,7 +125,7 @@ class User extends CActiveRecord {
         return array(
             'id' => 'ID',
             'parent_id' => 'Parent',
-            'email' => 'Адрес Электронной Почты',
+            'email' => 'Эл-Почтa',
             'username' => 'Никнейм',
             'password' => 'Пароль',
             'old_password' => 'Текуший Пароль',
@@ -135,7 +135,7 @@ class User extends CActiveRecord {
             'first_name' => 'Имя',
             'last_name' => 'Фамилия',
             'skype' => 'Скайп',
-            'phone' => 'Номер Телефона',
+            'phone' => 'Телефон',
             'refferal_code' => 'Рефферальный Код',
             'activation_code' => 'Код Активации',
             'created_date' => 'Дата Создания',
