@@ -374,3 +374,112 @@ ul.projects li{
 .marketing.bg-light-gray{
     margin: 50px 0;
 }
+
+/*Certificate page styles*/
+.certificate_link {
+    padding-top: 20px;
+}
+.certificate_link h3{
+    color: #1b74ad;
+    font-size: 18px;
+    padding: 0 0 5px 0;
+    margin: 0;
+}
+.certificate_link .form{
+    display: inline-block;
+    width: 100%;
+}
+.certificate_link .link{
+    width: 65%;
+    float: left;
+}
+.certificate_link .link input{
+    width: 100%;
+    padding: 10px;
+    height: 40px;
+}
+.certificate_link .button{
+    width: 35%;
+    float: left;
+    text-align: right;
+}
+.certificate_link .button input{
+    width: 90%;
+    padding: 10px;
+    height: 40px;
+}
+.certificate_link .form .btn-invite{
+    margin-left: 15px;
+    height: 40px;
+    border: 1px solid #1b74ad;
+    background: none;
+    color: #1b74ad;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.certificate_projects h2{
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+}
+.certificate_projects .certificate{
+    border-radius: 0 !important;
+    border: 1px solid #ded5d5;
+    min-height: 270px;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 20px;
+}
+.certificate_projects .certificate:nth-child(even){
+    margin-right: 6%;
+}
+.certificate_projects .header-box{
+    
+}
+.certificate_projects .header-box .unit{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #f6f6f6;
+    padding: 5px 15px;
+    border: 1px solid #dfdbdb;
+}
+.certificate_projects .header-box .unit span{
+    font-weight: bold;
+    font-size: 1.3em;
+}
+.certificate_projects .header-box h4{
+    width: 150px;
+    height: 40px;
+}
+.certificate_projects .header-box h4.fpa{
+    background: url(../img/icons/icon-fpa.png) 0 0 no-repeat;    
+}
+.certificate_projects .header-box h4.fpe{
+    background: url(../img/icons/icon-fpe.png) 0 0 no-repeat;
+}
+.certificate_projects .header-box h4.fpm{
+    background: url(../img/icons/icon-fpm.png) 0 0 no-repeat;
+}
+.certificate_projects .header-box h4.mbo{
+    background: url(../img/icons/icon-fpo.png) 0 0 no-repeat;
+}
+.certificate-title{
+    color: #1b74ad;
+    font-size: 18px;
+    margin-top: 35px;
+    padding: 0;
+}
+.certificate-descripton{
+    height: 100px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.btn-certificate-choose{
+    background: #004985;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 16px;
+    padding: 8px 50px;
+    border-radius: 3px;
+}
