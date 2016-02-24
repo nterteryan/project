@@ -483,3 +483,6 @@ ul.projects li{
     padding: 8px 50px;
     border-radius: 3px;
 }
+.btn-certificate-choose:hover{
+    color: #fff;
+}
