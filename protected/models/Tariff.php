@@ -33,7 +33,7 @@ class Tariff extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, description, updated_date', 'required'),
-			array('amount, percent, close_month', 'numerical', 'integerOnly'=>true),
+			array('amount, close_month', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('status', 'length', 'max'=>7),
 			array('created_date', 'safe'),

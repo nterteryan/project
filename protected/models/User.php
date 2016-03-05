@@ -115,6 +115,8 @@ class User extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'userimage' => array(self::HAS_MANY, 'UserImage','user_id', 'joinType'=>'LEFT join',
+            'condition'=>'userimage.status = "ACTIVE" or userimage.status IS NULL '),
         );
     }
 
@@ -279,7 +281,7 @@ class User extends CActiveRecord {
     static function getCurrentUser() {
         static $currentUser;
         if (!$currentUser instanceof User) {
-            $currentUser = User::model()->findByPk(Yii::app()->user->id);
+            $currentUser = User::model()->with('userimage')->findByPk(Yii::app()->user->id);
         }
         return $currentUser;
     }

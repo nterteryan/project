@@ -1,28 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "user_tariff".
+ * This is the model class for table "user_image".
  *
- * The followings are the available columns in table 'user_tariff':
+ * The followings are the available columns in table 'user_image':
  * @property integer $id
  * @property integer $user_id
- * @property integer $tariff_id
+ * @property string $image
+ * @property string $status
  * @property string $created_date
  * @property string $updated_date
- * @property float $amount
- * @property float $percent
- * @property float $amount_percent
- * @property float $status
- * @property integer $close_month
  */
-class UserTariff extends CActiveRecord
+
+class UserImage extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
+	public $image;
+
 	public function tableName()
 	{
-		return 'user_tariff';
+		return 'user_image';
 	}
 
 	/**
@@ -33,12 +32,15 @@ class UserTariff extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, tariff_id, amount, percent, close_month', 'required'),
-			array('user_id, tariff_id, amount, amount_percent, close_month', 'numerical', 'integerOnly'=>true),
+			array('user_id, image', 'required'),
+			array('user_id', 'numerical', 'integerOnly'=>true),
+			// array('image', 'length', 'max'=>11),
+			array('image', 'file', 'types'=>'jpg, gif, png', 'safe' => false),
+			array('status', 'length', 'max'=>7),
 			array('created_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, tariff_id, created_date, updated_date, amount, percent, amount_percent, status, close_month', 'safe', 'on'=>'search'),
+			array('id, user_id, image, status, created_date, updated_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,14 +63,10 @@ class UserTariff extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'tariff_id' => 'Tariff',
+			'image' => 'Image',
+			'status' => 'Status',
 			'created_date' => 'Created Date',
 			'updated_date' => 'Updated Date',
-			'amount' => 'Amount',
-			'percent' => 'Percent',
-			'status' => 'Status',
-			'close_month' => 'Close month',
-			'amount_percent' => 'amount percent',
 		);
 	}
 
@@ -92,12 +90,8 @@ class UserTariff extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('tariff_id',$this->tariff_id);
-		$criteria->compare('amount',$this->amount);
-		$criteria->compare('percent',$this->percent);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('close_month',$this->close_month);
-		$criteria->compare('amount_percent',$this->amount_percent);
+		$criteria->compare('image',$this->image,true);
+		$criteria->compare('status',$this->status,true);
 		$criteria->compare('created_date',$this->created_date,true);
 		$criteria->compare('updated_date',$this->updated_date,true);
 
@@ -110,24 +104,28 @@ class UserTariff extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return UserTariff the static model class
+	 * @return UserImage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+    static function getUserImages() {
+        static $UserImages;
+        if (!$UserImages instanceof UserImage) {
+			$UserImages = UserImage::model()->findByAttributes(array(
+					'user_id' =>Yii::app()->user->id,
+					'status' => "ACTIVE"
+					));
+        }
+        return $UserImages;
+    }
+
 	public function beforeSave() {
 		if ($this->isNewRecord) {
 			$this->created_date = new CDbExpression("now()");
 		}
 		return parent::beforeSave();
-	}
-	public static function getUserTariffList($where = array() ) {
-		if(!empty($where)){
-			$tariffList = UserTariff::model()->findAll();
-		}else{
-			$tariffList = UserTariff::model()->findAllByAttributes($where);
-		}
-		return $tariffList;
 	}
 }

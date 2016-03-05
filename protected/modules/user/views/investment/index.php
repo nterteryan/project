@@ -8,7 +8,7 @@
 					<div class="header-box">
 						<h4 class="<?php echo strtolower($tariff->name); ?>"><?= $tariff->name ?> </h4>
 						<div class="">количество <span><?= $tariff->amount ?>$</span></div>
-						<div class="">close  month <span><?= $tariff->close_month ?>$</span></div>
+						<div class="">срок  <span><?= $tariff->close_month ?> месяц</span></div>
 						<div class="unit">процент <span><?= $tariff->percent ?>%</span></div>
 					</div>
 					<div class="certificate-title"><?php echo $tariff->description; ?></div>

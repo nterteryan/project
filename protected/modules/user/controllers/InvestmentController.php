@@ -94,7 +94,7 @@ class InvestmentController extends Controller
             echo json_encode($response);
             Yii::app()->end();
         }
-        echo json_encode($tariff);
+        echo json_encode($tariff["error"][0]);
         Yii::app()->end();
     }
 

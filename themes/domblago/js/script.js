@@ -43,6 +43,31 @@ $( document ).ready(function() {
             }
         })
     })
+
+    var handleFileSelect = function(evt) {
+        var files = evt.target.files;
+        var file = files[0];
+        var fileTypes = ['jpg', 'jpeg', 'png'];
+        var extension = file.name.split('.').pop().toLowerCase();
+        if (files && file) {
+            isSuccess = fileTypes.indexOf(extension) > -1
+            if (isSuccess) {
+                var reader = new FileReader();
+                reader.onload = function(readerEvt) {
+                    var binaryString = readerEvt.target.result;
+                    document.getElementById("user_image").src = "data:image/jpeg;base64,"+btoa(binaryString);
+                    document.getElementById("fileUpload").innerHTML = '<input class="btn btn-save-changes"  type="submit" value="Сохранить">';
+                };
+                reader.readAsBinaryString(file);
+            }else{
+                    document.getElementById("fileUpload").innerHTML = '<div class="errorMessage">The file "'+file.name+'" cannot be uploaded. Only files with these extensions are allowed: jpg, gif, png.</div>';
+            }
+        }
+    };
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        document.getElementById('UserImage_image').addEventListener('change', handleFileSelect, false);
+    }
+
 })
 
 

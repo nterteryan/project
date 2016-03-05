@@ -15,8 +15,28 @@
         
         <div class="row personal-info">
             <div class="col-md-3 image">
-                <img src="<?php echo APP_THEME_URL ?>/img/user1.jpg" class="banner-image" src="">
-                <a href="#">Изменить Фото</a>
+                <img src="<?php echo   $image_user  ?>" class="banner-image" id="user_image" >
+                <?php    
+                    $formImages = $this->beginWidget('CActiveForm', array(
+                        'id' => 'imageUpload',
+                        'enableAjaxValidation'=>false,
+                        'htmlOptions' => array(
+                        'enctype'  => 'multipart/form-data',
+                      )
+                    ));
+                ?>
+                <div class="fileUpload" >
+                    <a href="#">Изменить Фото</a>
+                        <div id="fileUpload">
+                            
+                        </div>
+                    <?php 
+                        echo $formImages->fileField($images_model,'image'); 
+                        echo $formImages->error($images_model, 'image', array());
+                    ?>
+                </div>
+            
+               <?php $this->endWidget();?>    
             </div>
             <div class="col-md-9">
                 <div class="type">
@@ -35,7 +55,11 @@
         <div class="">
             <?php
             $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'registration'
+                'id' => 'registration',
+                'enableAjaxValidation'=>false,
+                'htmlOptions' => array(
+                   'enctype'  => 'multipart/form-data',
+                )
             ));
             ?>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'first_name'); ?>">
