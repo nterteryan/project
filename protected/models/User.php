@@ -491,5 +491,21 @@ class User extends CActiveRecord {
         $this->pin = rand($min, $max);
         return $this->save(false);
     }
+    /**
+     * Action isPinValid
+     * is Pin Valid (user)
+     *
+     * @author Hovo G.
+     * @created at 4th day of March 2016
+     * @param $pin
+     * @return boolean
+     */
+    public function isPinValid($pin) {
+         if($this->pin == $pin){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

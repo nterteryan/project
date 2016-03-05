@@ -23,6 +23,7 @@ class UserTransaction extends CActiveRecord {
     const TYPE_CHARGE = 'CHARGE';
     const TYPE_REFFERAL = 'REFFERAL';
     const TYPE_PARTNER = 'PARTNER';
+    const TYPE_INVESTMANT = 'INVESTMANT';
 
     /**
      * @return string the associated database table name

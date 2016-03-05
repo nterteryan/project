@@ -113,6 +113,9 @@ span.required, span.error, div.errorMessage {
     margin-top: 95px;
 }
 
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
 footer {
     background-color: #0e3454;
     border-bottom: 1px solid #577188;

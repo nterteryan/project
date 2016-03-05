@@ -11,6 +11,7 @@
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/lib/bootsrap.min.js"></script>
         <script type="text/javascript">var APP_BASE_URL = "/<?php echo APP_BASE_URL; ?>"</script>
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/app.js"></script>
+        <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/script.js"></script>
         <script type="text/javascript">var MODULE_BASE_URL = "/user/<?php echo APP_BASE_URL; ?>"</script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
