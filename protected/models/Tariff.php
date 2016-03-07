@@ -123,7 +123,7 @@ class Tariff extends CActiveRecord
 	 * @return Tariff List
 	 */
 	public static function getTariffList($where = array() ) {
-		if(!empty($where)){
+		if(empty($where)){
 			$tariffList = Tariff::model()->findAll();
 		}else{
 			$tariffList = Tariff::model()->findAllByAttributes($where);

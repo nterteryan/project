@@ -47,10 +47,12 @@ class MarketingController extends Controller {
         $currentUser = User::getCurrentUser();
         $matrixFirst = UserMatrixFirst::model()->notClosed()->byUserId($currentUser->id)->find();
         $marketingPlan = MarketingPlan::model()->bySlug(MarketingPlan::SLUG_MATRIX_1)->find();
+        $matrixCount = UserMatrixFirst::getMatrixOrderUsers($matrixFirst->order_number);
         $this->render('easy', array(
             'currentUser' => $currentUser,
             'matrixFirst' => $matrixFirst,
             'marketingPlan' => $marketingPlan,
+            'matrixCount' => $matrixCount,
         ));
     }
     
@@ -58,10 +60,12 @@ class MarketingController extends Controller {
         $currentUser = User::getCurrentUser();
         $matrixSeconde = UserMatrixSeconde::model()->notClosed()->byUserId($currentUser->id)->find();
         $marketingPlan = MarketingPlan::model()->bySlug(MarketingPlan::SLUG_MATRIX_2)->find();
+        $matrixCount = UserMatrixFirst::getMatrixOrderUsers($matrixSeconde->order_number);
         $this->render('fast', array(
             'currentUser' => $currentUser,
             'matrixSeconde' => $matrixSeconde,
             'marketingPlan' => $marketingPlan,
+            'matrixCount' => $matrixCount,
         ));
     }
     

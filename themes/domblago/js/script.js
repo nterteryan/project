@@ -1,22 +1,21 @@
 $( document ).ready(function() {
+    this.id;
+    this.amount;
+    this.percent;
+    this.close_month;
     $(".btn_tariff").on("click",function(event){
-        event.preventDefault();
-        var id = $(this).data("id");
-        var amount = $(this).data("amount");
-        var percent = $(this).data("percent");
-        var close_month = $(this).data("close_month");
-        $(".btn_modalTr").attr("data-id",id);
-        $(".btn_modalTr").attr("data-close_month",close_month);
-        $(".btn_modalTr").attr("data-percent",percent);
-        $(".btn_modalTr").attr("data-amount",amount);
+         window.id = $(this).data("id");
+         window.amount = $(this).data("amount");
+         window.percent = $(this).data("percent");
+         window.close_month = $(this).data("close_month");
     })
-    $(".btn_modalTr").on("click",function(event){
+    $("#btn_modalTr").on("click",function(event){
         event.preventDefault();
         var url = "/user/Investment/addUser";
-        var id = $(this).data("id");
-        var amount = $(this).data("amount");
-        var percent = $(this).data("percent");
-        var close_month = $(this).data("close_month");
+        var id = window.id;
+        var amount = window.amount;
+        var percent = window.percent;
+        var close_month = window.close_month;
         var pin = $("#sendPin").val();
         $.ajax({
             url: url,

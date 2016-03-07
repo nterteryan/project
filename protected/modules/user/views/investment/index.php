@@ -39,7 +39,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
-				<button type="button" class="btn btn-info btn_modalTr" >Подтвердить</button>
+				<button type="button" class="btn btn-info " id="btn_modalTr" >Подтвердить</button>
 			</div>
 		</div>
 	</div>

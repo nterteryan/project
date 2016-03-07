@@ -50,6 +50,7 @@ class UserTariff extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+				 'tariff' => array(self::BELONGS_TO, 'Tariff','tariff_id'),
 		);
 	}
 
@@ -122,12 +123,37 @@ class UserTariff extends CActiveRecord
 		}
 		return parent::beforeSave();
 	}
+	/**
+	* getUserTariffList
+	* get User Tariff List (UersTariff)
+	*
+	* @author Hovo G.
+	* @created at 7th day of March 2016
+	* @param array
+	* @return object
+	*/
 	public static function getUserTariffList($where = array() ) {
-		if(!empty($where)){
+		if(empty($where)){
 			$tariffList = UserTariff::model()->findAll();
 		}else{
-			$tariffList = UserTariff::model()->findAllByAttributes($where);
+			$tariffList = UserTariff::model()->with('tariff')->findAllByAttributes($where,array("order"=>"tariff_id"));
 		}
 		return $tariffList;
+	}
+	/**
+	* get timeof day
+	* my Investment (Tariff)
+	*
+	* @author Hovo G.
+	* @created at 27h day of March 2016
+	* @param null
+	* @return int
+	*/
+	public function gettimeofday(){
+		$time = strtotime( $this->created_date);
+		$fina = date("Y-m-d", strtotime("+ ".$this->close_month." month", $time));
+		$time2 = strtotime( $fina);
+		$time = round(($time2 - $time)/(60 * 60 * 24));
+		return $time;
 	}
 }

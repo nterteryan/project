@@ -19,20 +19,42 @@ class InvestmentController extends Controller
         );
     }
 
-
+   
     /**
-     * Action Index
-     * list Investment (Tariff)
-     *
-     * @author Hovo G.
-     * @created at 2th day of March 2016
-     * @param null
-     * @return void
-     */
+    * Action my
+    * my Investment (Tariff)
+    *
+    * @author Hovo G.
+    * @created at 2th day of March 2016
+    * @param null
+    * @return void
+    */
+    public function actionMy()
+    {    
+        $userTariff = UserTariff::getUserTariffList(array("user_id"=>Yii::app()->user->id));
+        $dataProvider=new CArrayDataProvider($userTariff, array(
+             "id"=>"id",
+            'pagination'=>array(
+                'pageSize'=>10,
+            ),
+         ));
+        $this->render("my", array(
+            'dataProvider' => $dataProvider,
+        ));
+
+    }
+    /**
+    * Action Index
+    * list Investment (Tariff)
+    *
+    * @author Hovo G.
+    * @created at 2th day of March 2016
+    * @param null
+    * @return void
+    */
     public function actionIndex()
     {
         $tariffs = Tariff::getTariffList(array("status" => "ACTIVE"));
-        $userCertificate = new UserCertificate;
         $this->render("index", array(
             'tariffs' => $tariffs,
         ));
@@ -209,6 +231,7 @@ class InvestmentController extends Controller
                 'actions' => array(
                     'index',
                     'addUser',
+                    'my',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),
