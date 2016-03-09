@@ -32,18 +32,25 @@ class InvestmentController extends Controller
     public function actionMy()
     {    
         $userTariff = UserTariff::getUserTariffList(array("user_id"=>Yii::app()->user->id));
-        $dataProvider=new CArrayDataProvider($userTariff, array(
-             "id"=>"id",
+
+        $arrayDataProvider=new CArrayDataProvider($userTariff, array(
+            'id'=>'id',
+            /* 'sort'=>array(
+                'attributes'=>array(
+                    'username', 'email',
+                ),
+            ), */
             'pagination'=>array(
                 'pageSize'=>10,
             ),
          ));
         $this->render("my", array(
-            'dataProvider' => $dataProvider,
+            'arrayDataProvider' => $arrayDataProvider,
         ));
 
     }
     /**
+    * 
     * Action Index
     * list Investment (Tariff)
     *
@@ -54,9 +61,22 @@ class InvestmentController extends Controller
     */
     public function actionIndex()
     {
+        $model = User::getCurrentUser();
+
         $tariffs = Tariff::getTariffList(array("status" => "ACTIVE"));
+        $type = $model->type;
+        $userTariff = UserTariff::getUserTariffList(array("user_id"=>Yii::app()->user->id));
+        $arrayDataProvider=new CArrayDataProvider($userTariff, array(
+            'pagination'=>array(
+                'pageSize'=>10,
+            ),
+        ));
+
+
         $this->render("index", array(
             'tariffs' => $tariffs,
+            'type' => $type,
+            'arrayDataProvider' => $arrayDataProvider,
         ));
     }
     /**
@@ -186,38 +206,49 @@ class InvestmentController extends Controller
         return $response ;
     }
     /**
-     * TransactionSave
-     * Transaction Save (UserTransaction)
+     * Paiding
+     * Paiding ()
      *
      * @author Hovo G.
-     * @created at 3th day of March 2016
+     * @created at 7th day of March 2016
      * @param $amount (int)
      * @return array
      */
-    private function  transactionSave($amount){
-        $model = new UserTransaction();
-        $model->sender_id =  Yii::app()->user->id;
-        $model->transaction_type =  UserTransaction::TYPE_INVESTMANT;
-        $model->account_type = "AMOUNT";
-        $model->amount = $amount;
-        $model->validate();
-        if ($model->hasErrors()) {
-            $response = array(
-                'success' => 0,
-                'error' => $model->getErrors()
-            );
-            return  $response;
+    public function  actionPaiding(){
+        $request =  Yii::app()->request;
+        if (!$request->isAjaxRequest) {
+            throw new CHttpException(404,'Указанная запись не найдена');
+            return false;
+        }
+        $id = $request->getpost('closedTariffId');
+        $model = new UserTariff();
+        $userTariff =  UserTariff::model()->findByPk($id);
+        $time = strtotime( $userTariff->created_date);
+        $fina = date("Y-m-d", strtotime("+ ".$userTariff->close_month." month", $time));
+        $fina = strtotime($fina);
+        if($fina < strtotime(date("Y-m-d")) ){
+            $userTariff->status = "PAID";
+            $userTariff->update();
+            echo  json_encode(array("success"=>1));die;
         }else{
-            $model->save();
-            $response = array(
-                'success' => 1,
-                'error' => 0
-            );
+            throw new CHttpException(404,'Указанная запись не найдена');
+            return false;
         }
         return $response ;
     }
 
+    /**
+     * Action AddUser
+     * add Investment user (user Tariff)
+     *
+     * @author Hovo G.
+     * @created at 9th day of March 2016
+     * @param null
+     * @return void
+     */
+    private function  transactionSave($amount){
 
+    }
 
     /**
      * Specifies the access control rules.
@@ -231,6 +262,7 @@ class InvestmentController extends Controller
                 'actions' => array(
                     'index',
                     'addUser',
+                    'paiding',
                     'my',
                 ),
                 'roles' => array(User::ROLE_USER),

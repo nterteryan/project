@@ -39,7 +39,7 @@ class Tariff extends CActiveRecord
 			array('created_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, description, status, amount, percent, close_month, created_date, updated_date', 'safe', 'on'=>'search'),
+			array('id, name, description, status, amount, percent_founde,percent_rco_founde,percent_partner,percent_member, close_month, created_date, updated_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +65,10 @@ class Tariff extends CActiveRecord
 			'description' => 'Description',
 			'status' => 'Status',
 			'amount' => 'Amount',
-			'percent' => 'Percent',
+			'percent_founde'=>'Percent founde',
+			'percent_rco_founde'=>'Percent rco founde',
+			'percent_partner'=>'Percent partner',
+			'percent_member'=>'Percent member',
 			'close_month' => 'Close Month',
 			'created_date' => 'Created Date',
 			'updated_date' => 'Updated Date',
@@ -95,7 +98,11 @@ class Tariff extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('amount',$this->amount);
-		$criteria->compare('percent',$this->percent);
+		
+		$criteria->compare('percent_founde',$this->percent_founde);
+		$criteria->compare('percent_rco_founde',$this->percent_rco_founde);
+		$criteria->compare('percent_partner',$this->percent_partner);
+		$criteria->compare('percent_member',$this->percent_member);
 		$criteria->compare('close_month',$this->close_month);
 		$criteria->compare('created_date',$this->created_date,true);
 		$criteria->compare('updated_date',$this->updated_date,true);

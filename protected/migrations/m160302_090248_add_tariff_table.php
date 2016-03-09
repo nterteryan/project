@@ -2,15 +2,7 @@ user<?php
 
 class m160302_090248_add_tariff_table extends CDbMigration
 {
-//	public function up()
-//	{
-//	}
 
-//	public function down()
-//	{
-//		echo "m160302_090248_add_tariff_table does not support migration down.\n";
-//		return false;
-//	}
 	public function safeUp() {
 	    $this->createTable("tariff", array(
 	        "id" => "pk",

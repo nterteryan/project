@@ -1,4 +1,25 @@
 $( document ).ready(function() {
+
+    $(".closedTariff").on("click",function(event){
+        event.preventDefault();
+        tr  = $(this);
+        var url = "/user/Investment/paiding";
+        var closedTariffId = $(this).data("id");
+        alert(closedTariffId);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {closedTariffId:closedTariffId},
+            success: function(mes) {
+                if(!mes.error){
+                    tr.parents('tr').remove();
+                    console.log(tr.parents('tr'));
+                }
+            }
+        })
+    })
+
     this.id;
     this.amount;
     this.percent;

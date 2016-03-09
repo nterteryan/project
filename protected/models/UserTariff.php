@@ -149,6 +149,13 @@ class UserTariff extends CActiveRecord
 	* @param null
 	* @return int
 	*/
+	public function getTariffStatus(){
+		if( $this->status == "CLOSED"){
+			return 'CLOSED';
+		}else{
+			return 'IN PROGRESS';
+		}
+	}
 	public function gettimeofday(){
 		$time = strtotime( $this->created_date);
 		$fina = date("Y-m-d", strtotime("+ ".$this->close_month." month", $time));
