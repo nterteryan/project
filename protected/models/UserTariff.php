@@ -132,12 +132,29 @@ class UserTariff extends CActiveRecord
 	* @param array
 	* @return object
 	*/
-	public static function getUserTariffList($where = array() ) {
-		if(empty($where)){
-			$tariffList = UserTariff::model()->findAll();
-		}else{
-			$tariffList = UserTariff::model()->with('tariff')->findAllByAttributes($where,array("order"=>"tariff_id"));
-		}
+	public static function getUserTariffList() {
+		$criteria = new CDbCriteria;     
+		$criteria->condition='t.user_id=:userId AND t.status !=:Status';
+		$criteria->params=array(':userId'=>Yii::app()->user->id,':Status'=>'PAID');
+		$criteria->with = array('tariff');
+		$tariffList = UserTariff::model()->findAll($criteria);
+		return $tariffList;
+	}
+	/**
+	* getUserTariffListForCommand
+	* get User Tariff List For Command (UersTariff)
+	*
+	* @author Hovo G.
+	* @created at 7th day of March 2016
+	* @param array
+	* @return object
+	*/
+	public static function getUserTariffListForCommand() {
+		$criteria = new CDbCriteria;     
+		$criteria->condition='t.user_id=:userId AND t.status=:Status';
+		$criteria->params=array(':userId'=>Yii::app()->user->id,':Status'=>'IN_PROGRESS');
+		$criteria->with = array('tariff');
+		$tariffList = UserTariff::model()->findAll($criteria);
 		return $tariffList;
 	}
 	/**

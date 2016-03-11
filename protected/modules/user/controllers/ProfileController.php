@@ -47,6 +47,7 @@ class ProfileController extends Controller {
      */
     public function actionIndex() {
         $model = User::getCurrentUser();
+        $premiumPackage = PremiumPackage::model()->findAllByAttributes(array("status"=>"ACTIVE"));
         $images_model = new UserImage();
         if(!empty($_POST["UserImage"])){
             $uploadedFile = CUploadedFile::getInstance($images_model, "image");
@@ -91,6 +92,7 @@ class ProfileController extends Controller {
         $this->render("index", array(
             'model' => $model,
             'images_model' => $images_model,
+            'premiumPackage' => $premiumPackage,
             'image_user' => $image_user,
         ));
     }

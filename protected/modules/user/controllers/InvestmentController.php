@@ -19,36 +19,7 @@ class InvestmentController extends Controller
         );
     }
 
-   
-    /**
-    * Action my
-    * my Investment (Tariff)
-    *
-    * @author Hovo G.
-    * @created at 2th day of March 2016
-    * @param null
-    * @return void
-    */
-    public function actionMy()
-    {    
-        $userTariff = UserTariff::getUserTariffList(array("user_id"=>Yii::app()->user->id));
 
-        $arrayDataProvider=new CArrayDataProvider($userTariff, array(
-            'id'=>'id',
-            /* 'sort'=>array(
-                'attributes'=>array(
-                    'username', 'email',
-                ),
-            ), */
-            'pagination'=>array(
-                'pageSize'=>10,
-            ),
-         ));
-        $this->render("my", array(
-            'arrayDataProvider' => $arrayDataProvider,
-        ));
-
-    }
     /**
     * 
     * Action Index
@@ -62,16 +33,14 @@ class InvestmentController extends Controller
     public function actionIndex()
     {
         $model = User::getCurrentUser();
-
         $tariffs = Tariff::getTariffList(array("status" => "ACTIVE"));
         $type = $model->type;
-        $userTariff = UserTariff::getUserTariffList(array("user_id"=>Yii::app()->user->id));
+        $userTariff = UserTariff::getUserTariffList();
         $arrayDataProvider=new CArrayDataProvider($userTariff, array(
             'pagination'=>array(
-                'pageSize'=>10,
+                'pageSize' => 10,
             ),
         ));
-
 
         $this->render("index", array(
             'tariffs' => $tariffs,
@@ -128,7 +97,8 @@ class InvestmentController extends Controller
         if(empty($tariff["error"])){
             $user->amount = $user->amount-$amount;
             $user->update();
-            $this->transactionSave($amount);
+            $data = array("amount"=>$amount,"tariff_id"=>$tariff_id);
+            $this->transactionSave($data);
             $response = array(
                 'success' => 1,
                 'error' => 0
@@ -184,11 +154,11 @@ class InvestmentController extends Controller
     private function  tariffSave($data){
         $model = new UserTariff();
 
-        $model->tariff_id =  $data["tariff_id"];
-        $model->amount    =  $data["amount"];
-        $model->percent   =  $data["percent"];
+        $model->tariff_id     =  $data["tariff_id"];
+        $model->amount        =  $data["amount"];
+        $model->percent       =  $data["percent"];
         $model->close_month   =  $data["close_month"];
-        $model->user_id   =  Yii::app()->user->id;
+        $model->user_id       =  Yii::app()->user->id;
         $model->validate();
         if ($model->hasErrors()) {
             $response = array(
@@ -229,6 +199,11 @@ class InvestmentController extends Controller
         if($fina < strtotime(date("Y-m-d")) ){
             $userTariff->status = "PAID";
             $userTariff->update();
+            $user = User::getCurrentUser();
+            $user->amount = $user->amount+$userTariff->amount_percent+$userTariff->amount;
+            $user->update();
+            $data = array("amount"=>$user->amount,"tariff_id"=>$userTariff->id);
+            $this->transactionSave($data,false);
             echo  json_encode(array("success"=>1));die;
         }else{
             throw new CHttpException(404,'Указанная запись не найдена');
@@ -237,17 +212,51 @@ class InvestmentController extends Controller
         return $response ;
     }
 
-    /**
-     * Action AddUser
-     * add Investment user (user Tariff)
-     *
-     * @author Hovo G.
-     * @created at 9th day of March 2016
-     * @param null
-     * @return void
-     */
-    private function  transactionSave($amount){
+    /*
+    * TransactionSave
+    * Transaction Save (UserTransaction)
+    *
+    * @author Hovo G.
+    * @created at 3th day of March 2016
+    * @param $amount (int)
+    * @return array
+    */
+    private function  transactionSave($data,$type = true){
+        $amount = $data["amount"];
+        $tariff_id = $data["tariff_id"];
+        $model = new UserTransaction();
+        if($type){
+            $model->sender_id =  Yii::app()->user->id;
+            $status = "INCOME";
+        }else{
+            $model->receiver_id =  Yii::app()->user->id;
+            $status = "OUTCOME";
+        }
 
+        $model->transaction_type =  UserTransaction::TYPE_INVESTMANT;
+        $model->account_type = "AMOUNT";
+        $model->amount = $amount;
+        $model->validate();
+        if ($model->hasErrors()) {
+            $response = array(
+                'success' => 0,
+                'error' => $model->getErrors()
+            );
+            return  $response;
+        }else{
+            $model->save();
+            $transaction = new UserTariffTransaction();
+            $transaction->status = $status;
+            $transaction->user_tariff = $tariff_id;
+            $transaction->user_transaction = $model->id;
+            $transaction->save();
+            $transaction->validate();
+            $response = array(
+                'success' => 1,
+                'error' => 0
+            );
+        }
+        // return $response;
     }
 
     /**
@@ -263,7 +272,6 @@ class InvestmentController extends Controller
                     'index',
                     'addUser',
                     'paiding',
-                    'my',
                 ),
                 'roles' => array(User::ROLE_USER),
             ),

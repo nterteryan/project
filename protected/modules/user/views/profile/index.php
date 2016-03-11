@@ -46,8 +46,11 @@
                 <div class="description">
                     В момент привязки платежной системы к порталу, Вы можете делать оплату на указанные  счета. Подтвердить перевод путем сканирования или снимка скрин шот отправить на почту  domblaga@gmail.com Тема письма Оплата пакета (Соучредитель)
                 </div>
-                <div>
+                <div class="col-xs-6">
                     <a class="btn btn-partner">Стать соучредителем</a>
+                </div>
+                <div class="col-xs-6">
+                    <a class="btn btn-partner"  data-toggle="modal" data-target="#premium" >премия</a>
                 </div>
             </div>
         </div>
@@ -68,15 +71,11 @@
                     'class' => 'control-label'
                 ))
                 ?>
-                <?php
-                echo $form->textField($model, 'first_name', array(
-                    'class' => 'form-control'
-                ));
-                ?>
-                <?php
-                echo $form->error($model, 'first_name', array(
-                ))
-                ?>
+                <div class="control-label">
+                    <?php
+                        echo  $model->first_name;
+                    ?>
+                </div>
             </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'last_name'); ?>">
                 <?php
@@ -84,15 +83,11 @@
                     'class' => 'control-label'
                 ))
                 ?>
-                <?php
-                echo $form->textField($model, 'last_name', array(
-                    'class' => 'form-control'
-                ));
-                ?>
-                <?php
-                echo $form->error($model, 'last_name', array(
-                ))
-                ?>
+                <div class="control-label">
+                    <?php
+                        echo  $model->last_name;
+                    ?>
+                </div>
             </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'username'); ?>">
                 <?php
@@ -167,11 +162,34 @@
                     <input class="btn btn-save-changes" id="focusedInput" type="submit" value="Сохранить изменения">
                     <input class="btn btn-cancel" type="submit" value="Отмена">
                 </div>
-                
-                
             </div>
             <?php $this->endWidget(); ?>
         </div>
     </div>
     <?php $this->renderPartial("_changePasswordModal", array('model' => $model)) ?>
+</div>
+<!-- Modal -->
+<div id="premium" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body col-xs-12">
+            <?php foreach ($premiumPackage as $key => $value) :?>
+                <div class="col-xs-6">
+                    <div class="heading referral_link">
+                        <span><?= $value->price ?>$</span>
+                        <a class="btn btn-partner" ><?= $value->close_month ?> месяц</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>    
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+<!-- endModal   -->
 </div>

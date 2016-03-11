@@ -38,7 +38,6 @@
                             <!--<a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/team'; ?>">Моя Команда</a>-->
                             <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/certificate'; ?>">Сертификаты</a>
                             <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/investment'; ?>">Инвестиционный</a>
-                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/user/investment/my'; ?>">Мой инвестиции</a>
                         </div>
                         <div class="tab-pane fade" id="social">
                             <?php $this->widget('application.widgets.userSocial.UserSocial'); ?>
