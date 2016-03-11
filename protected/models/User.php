@@ -493,7 +493,7 @@ class User extends CActiveRecord {
         $this->pin = rand($min, $max);
         return $this->save(false);
     }
-    /**
+	/**
      * Action isPinValid
      * is Pin Valid (user)
      *
@@ -508,6 +508,16 @@ class User extends CActiveRecord {
         }else{
             return false;
         }
+    }
+    
+    public function getUserType($icon = true) {
+        switch($this->type) {
+            case self::TYPE_MEMBER: $className = 'icon-member'; $name = 'КЛИЕНТ'; break;
+            case self::TYPE_PARTNER: $className = 'icon-partner'; $name = 'ПАРТНЕР'; break;
+            case self::TYPE_FOUNDER: $className = 'icon-founder'; $name = 'УЧРЕДИТЕЛЬ'; break;
+            case self::TYPE_CO_FOUNDER: $className = 'icon-cofounder'; $name = 'СОУЧРЕДИТЕЛЬ'; break;
+        }
+        return ($icon) ? $className : $name;
     }
 
 }

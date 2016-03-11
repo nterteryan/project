@@ -1,13 +1,10 @@
 <div class="col-md-12">
-    <div class="heading certificate_link">
-         <h3>Моя рефферальная ссылка:</h3>
-        <div class="form">
-            <div class="link">
-                <input type="text" value="http://domblago.local/reg/ch8NXkWx" />  
-            </div>
-            <div class="button">
-                <input class="btn btn-invite" type="button" value="Приглосить" />
-            </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Мои Сертификаты</h3>
+        </div>
+        <div class="panel-body">
+            <?php $this->widget('application.widgets.userCertificate.UserCertificates') ?>
         </div>
     </div>
     <hr class="hr-dashed" />
@@ -25,9 +22,8 @@
                     <div class="certificate-title"><?php echo $certificate->description; ?></div>
                     <div class="certificate-descripton"><?php echo $certificate->more_description; ?></div>
                     <div class="text-center">
-                        <a href="#" data-id="<?php echo $certificate->id; ?>" class="btn btn-certificate-choose">Выбрать</a>
-                    </div>
-                    
+                        <a href="#" data-id="<?php echo $certificate->id; ?>" class="btn btn-certificate-choose certificate-choose">Выбрать</a>
+                    </div>            
                 </div>
             </div>
         <?php endforeach; ?>

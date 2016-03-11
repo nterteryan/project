@@ -41,7 +41,7 @@
             <div class="col-md-9">
                 <div class="type">
                     Тип пользователя:
-                    <div class="icon-partner">ПАРТНЕР</div>
+                    <div class="<?php echo $model->getUserType(); ?>"><?php echo $model->getUserType(false); ?></div>
                 </div>
                 <div class="description">
                     В момент привязки платежной системы к порталу, Вы можете делать оплату на указанные  счета. Подтвердить перевод путем сканирования или снимка скрин шот отправить на почту  domblaga@gmail.com Тема письма Оплата пакета (Соучредитель)

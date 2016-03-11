@@ -491,27 +491,118 @@ ul.projects li{
 .btn-certificate-choose:hover{
     color: #fff;
 }
-/* imageUpload  */
-.fileUpload {
-    position: relative;
-    overflow: hidden;
+
+
+/*MARKETING_PAGE*/
+
+
+.carusel-img img {
+    /*width: 100%;
+    height: auto;*/
+    width: 250px;
+    height: 234px;
 }
-.fileUpload input#UserImage_image {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
+
+.red-arrow {
+    text-align: center;
+    margin-top: 15%;
+}
+
+.text-carusel-1 {
+    margin-top: 45%;
+}
+
+.carousel ul {
     padding: 0;
+}
+
+.carousel ul li {
+    list-style: none;
+}
+
+.read-more a {
+    display: block;
+    width: 205px;
+    height: auto;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 12px;
+    color: #004985;
+    font-family: Arial LatRus Regular;
+    padding: 10px 20px;
+    margin: 40px auto;
+    background: transparent;
+    border: 1px solid #5b9bc3;
+    border-radius: 3px;
+}
+
+section.bg-light-gray h3 {
+    color: #004985;
+    padding: 25px 0;
+}
+
+.apt {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.apt p {
+    font-family: arial-bold;
+    font-size: 16px;
+    color: #000;
+}
+
+.apt p span {
     font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
+    color: #176ab0;
 }
-#imageUpload{
-    margin: 0;
+
+.passive h3 {
+    margin: 40px 0;
 }
-#user_image{
-    width: 165px;
-    height: 176px;
+
+.passive-profy a {
+    display: block;
+    margin: 25px 0;
 }
-/*End imageUpload*/
+
+.passive-profy-more {
+    padding: 30px 0;
+}
+
+.passive-info {
+    margin-bottom: 30px;
+}
+
+.passive-info p {
+    line-height: 20px;
+    font-size: 14px;
+    font-family: arial-regular;
+    color: #4e4e4e;
+}
+    
+/*.carusel-rel h3, .carusel-rel h3 p {
+    text-align: right;
+}
+
+.carusel-rel h3, .carusel-rel>div {
+    padding-right: 10%;
+}
+
+.carusel-rel>h3>span {
+    margin-right: 10%;
+}
+
+.carusel-rel-right h3, .carusel-rel-right h3 p {
+    text-align: left;
+}
+
+.carusel-rel-right h3, .carusel-rel-right>div {
+    padding-left: 10%;
+}
+
+.carusel-rel-right>h3>span {
+    margin-left: 12%;
+}
+*/

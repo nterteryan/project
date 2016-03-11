@@ -13,7 +13,7 @@
 <div class="page-inner-content marketing">
     
     <div class="container marketing-plan">
-        <h1>Маркетинг План</h1>
+        <h1>Как это работает</h1>
         <div class="text">
             Инновации в маркетинговых разработках! МБО «Дом Блага» дает возможность каждому члену 
             получать <span class="bold">активный</span> или <span class="bold">пассивный доход</span>. 
@@ -22,7 +22,7 @@
         </div>
     </div>
     
-    <div class="page-light-bg">
+    <!-- <div class="page-light-bg">
         <div class="container">
             <div class="content-row">
                 <h2 class="text-center">
@@ -60,46 +60,82 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <div class="W90">
         <div class="row carousel">
-            <div class="col-md-6 carusel-rel">
-                <h3>Вертушка 1 -   25$  взнос</h3>
-                <div class="text-center">
-                    <img src="<?php echo APP_BASE_URL ?>/images/pages/carusel-1.jpg" />
-                </div>
-                <div class="text-right">
-                    <div class="text-carusel-1">
-                        <div class="red-text">100 $ доход:</div>
-                        <div><strong>25$</strong> -вазврат </div>
-                        <div><strong>75$</strong> -взнос в Вертушку-2</div>
+            <div class="col-md-5 carusel-rel">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="text-left">
+                            <ul class="text-carusel-1">
+                                <li><strong>25$</strong> -вазврат</li>
+                                <li><strong>75$</strong> -взнос в Вертушку-2</li>
+                            </ul>
+                            <!-- <div class="text-carusel-1">
+                                <div><strong>25$</strong> -вазврат </div>
+                                <div><strong>75$</strong> -взнос в Вертушку-2</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <h3 class="text-right">
+                            <span>Вертушка 1</span>
+                            <p>25$ взнос - <span>100 $ доход</span></p>
+                        </h3>
+                        <div class="text-right carusel-img">
+                            <img src="<?php echo APP_BASE_URL ?>/images/pages/carusel-1.png" />
+                        </div>
                     </div>
                 </div>
-                <img class="red-arrow" src="<?php echo APP_BASE_URL ?>/images/pages/red-arrow.jpg" />
             </div>
-            <div class="col-md-6">
-                <h3>Вертушка 2  -  100$ взнос</h3>
-                <div class="text-center">
-                    <img src="<?php echo APP_BASE_URL ?>/images/pages/carusel-2.jpg" />
+            <div class="col-md-2 red-arrow">
+                <img src="<?php echo APP_BASE_URL ?>/images/pages/red-arrow.jpg" />
+            </div>
+            <div class="col-md-5 carusel-rel-right">
+               <div class="row">
+                    <div class="col-md-7">
+                        <h3 class="text-left">
+                            <span>Вертушка 2</span>
+                            <p>75$ взнос - <span>300 $ доход</span></p>
+                        </h3>
+                        <div class="text-left carusel-img">
+                            <img src="<?php echo APP_BASE_URL ?>/images/pages/carusel-2.png" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="text-carusel-2 text-left">
+                            <ul class="text-carusel-1">
+                                <li><strong>75$</strong> гарантированный возврат<br/>
+                                первого вклада или возможность<br/> его реинвестирования</li>
+                                <li><strong>25$</strong> на пассивный доход</li>
+                                <li><strong>25$</strong> на Благо</li>
+                                <li><strong>50$</strong> на ротацию Вертушки</li>
+                                <li><strong>100$</strong> на вход в линейную систему и 25$ на покупку акций МБО «Дом Блага»</li>
+                            </ul>
+                            <!-- <div><strong>75$</strong> гарантированный возврат<br/>
+                                первого вклада или возможность<br/> его реинвестирования </div>
+                            <div><strong>25$</strong> на пассивный доход</div>
+                            <div><strong>25$</strong> на Благо</div>
+                            <div><strong>50$</strong> на ротацию Вертушки</div>
+                            <div><strong>100$</strong> на вход в линейную систему и 25$ на покупку акций МБО «Дом Блага»</div> -->
+                        </div>
+                    </div>
                 </div>
-                <div class="text-carusel-2">
-                    <div class="red-text">300 $ доход:</div>
-                    <div><strong>75$</strong> гарантированный возврат<br/>
-                        первого вклада или возможность<br/> его реинвестирования </div>
-                    <div><strong>25$</strong> на пассивный доход</div>
-                    <div><strong>25$</strong> на Благо</div>
-                    <div><strong>50$</strong> на ротацию Вертушки</div>
-                    <div><strong>100$</strong> на вход в линейную систему и 25$ на покупку акций МБО «Дом Блага»</div>
-                </div>
+            </div>
+        </div>
+        <div class="row read-more">
+            <div class="col-md-12">
+                <a href="#!">Подробнее...</a>
             </div>
         </div>
         
         
     </div>
-    <div class="container carusel-description">
+   <!--  <div class="container carusel-description">
             <div class="row">
-                <div class="col-md-6">
+                
+               <div class="col-md-6">
                     <h3>Вертушка 1: Легкий Старт</h3>                    
                     <div>
                         Первый членский взнос составляет всего 25$. Доход обусловлен общей работой всех вкладчиков группы. Пройдя 1-ый круг в Вертушке-1, Вы имеете доход 100$, который будет распределен таким образом:
@@ -128,31 +164,72 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 </div>
 
-<div class="page-inner-content marketing bg-light-gray">
-    <div class="container">       
-
-        <div class="content-row">
-            <h3 class="text-center">Так есть ли выход из сложившейся ситуации? Есть ли альтернатива? <br/>
-                Как реализовать свое ПРАВО НА ЗДОРОВЬЕ? 
-            </h3>
-            
-            <div class="col-md-4 no-padd-left">
-                <img src="<?php echo APP_BASE_URL ?>/images/pages/home-on-hand.jpg" class="img-responsive" />
+<section class="page-inner-content marketing bg-light-gray">
+    <h3 class="text-center">Партнерство !</h3>
+    <div class="container">
+        <div class="row content-row">
+            <div class="col-md-6">
+                <p>Покупая акции МБО «Дом Блага» Вы становитесь нашим полноправным партнером и получаете пассивный доход в виде дивидендов.
+Следующее вознаграждение, которое Вы получаете, это комиссионные от членского взноса. Который вносит каждый человек, что бы стать полноценным членом МБО «Дом Блага»*
+</p>
             </div>
-            <div class="col-md-8 no-padd">
-                <p>На первой линии 4 лично приглашенных человека, которые могут подтвердить Ваш результат. На каждого из них приходится доход 25%.</p>
-                <p>Вторая линия. Минимальное количество 16 человек, максимальное значение не установлено. Из них 4 лично приглашенных должны подтвердить результат. Ожидаемый доход 15%</p>
-                <p>Следующие линии предполагают увеличение числа лично приглашенных участников и получение дохода с каждого из них.</p>
-                <p>К восьмой линии общее количество участников составляет уже 400 человек. На этом этапе Вы можете БЕСПЛАТНО получить квартиру в пользование на один год или же ежемесячную выплату 300$ на протяжении года. Далее, когда общее количество партнеров Вашего круга составят 2000 человек, Вы получаете квартиру в собственность или же 30 000$ наличными.</p>
+            <div class="col-md-6">
+                <p>100 Долларов внесенные в МБО «Дом Блага»* распределяются на развитие МБО «Дом Блага»* в размере 50$ и 50$ на партнерскую систему. </p>
+                <p>С первой лини, Вы получаете 25% от суммы. Всех покупок, которые будет делать Ваш партнер с первой линии. (Членского взноса, Социальной сети, Рекламы в Социальной сети, Покупок в Магазине. И прочих покупок.
+И так далее соответственно по линиям...</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#!">
+                    <img src="<?php echo APP_BASE_URL ?>/images/pages/your-profy.png" class="img-responsive">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 apt">
+                <p>Самые активные участники получат в собственность <span>квартиру</span> или ее стоимость в денежном эквиваленте.</p>
+                <div class="read-more">
+                    <a href="#!">Подробнее...</a>
+                </div>
             </div>
         </div>
     </div>
-
+</section>
+<section class="passive">
+    <h3 class="text-center">Пассивный Доход</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 passive-info">
+                <p class="text-center">В МБО «Дом Блага» существует множество источников поступления в общую кассу средств, которые с каждым днем будут дополнятся.<br> 
+                Перечислим некоторые. Доход от Вертушки, доход с партнерской программы, доход с магазина, в котором будут самые разные товары и услуги, дохода с рекламы Социальной Сети, доход с<br> 
+                покупки Акций и продажи Акций. Доход с Инвесторских вложений в Краутфайдинг. И масса других…</p>
+                <p class="text-center">Как происходят начисления и кому.<br>
+                Начисления происходят ТОЛЬКО полноценным членам МБО «Дом Блага», и ТОЛЬКО активным членам.<br> 
+                Активность считается Лично Приглашенными партнерами.</p>
+                <p class="text-center">Например: 1 Лично приглашенный партнер, открывает Вам 10% от всего общего объема финансов, которые поступили в кассу в течении<br>
+                недели.жпоступили в кассу в течении недели. И далее ...</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 passive-profy">
+                <a href="#!">
+                    <img src="<?php echo APP_BASE_URL ?>/images/pages/passive-profy.png" class="img-responsive">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="read-more passive-profy-more">
+                    <a href="#!">Подробнее...</a>
+                </div>
+            </div>
+        </div>
+    </div>
     
-
     
-</div>
+</section>
