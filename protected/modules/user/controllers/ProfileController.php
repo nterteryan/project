@@ -29,6 +29,7 @@ class ProfileController extends Controller {
                 'actions' => array(
                     'index',
                     'changePassword',
+                    'premium',
                     'pin',
                 ),
                 'roles' => array(User::ROLE_USER),
@@ -38,6 +39,80 @@ class ProfileController extends Controller {
             ),
         );
     }
+    /**
+    * 
+    * Action Premium
+    * Premium  (Premium)
+    *
+    * @author Hovo G.
+    * @created at 11th day of March 2016
+    * @param null
+    * @return jsone
+    */
+    public function actionPremium() {    
+        $request =  Yii::app()->request;
+        if (!$request->isAjaxRequest) {
+            throw new CHttpException(404,'Указанная запись не найдена');
+            return false;
+        }
+        $premium_id = $request->getpost("id");
+        $pin        = $request->getpost("pin");
+        $auto       = $request->getpost("auto");
+        $premiumPackage = PremiumPackage::model()->findByPk($premium_id);
+        if(empty($premiumPackage)){
+            $response = array(
+                'success' => 0,
+                'error'   => "Anpatkar!! :) Bed boy!! \n Эта функция браузера предназначена для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, чтобы включить функцию Domblaga или «взломать» чей-то аккаунт, это мошенники. Выполнив эти действия, вы предоставите им доступ к своему аккаунту Domblaga."
+            );
+            echo json_encode($response);
+            Yii::app()->end();
+        }
+        $month      = $premiumPackage->close_month;
+        $price      = $premiumPackage->price;
+        $user  = User::getCurrentUser();
+        $isAmountEnough = $user->isAmountEnough($price);
+        $isPinValid = $user->isPinValid($pin);
+        if(!$isPinValid){
+            $response = array(
+                'success' => 0,
+                'error'   => "pin is inValid!!!"
+            );
+            echo json_encode($response);
+            Yii::app()->end();
+        }elseif(!$isAmountEnough){
+            $response = array(
+                'success'   => 0,
+                'amountAdd' => 1,
+                'error'     => "you  Amount is not Enough!!!"
+            );
+            echo json_encode($response);
+            Yii::app()->end();
+        }
+        if($user->is_premium == "NO"){
+            $user->is_premium = "YES";
+            $user->amount = $user->amount-$price;
+            $user->update();
+            if($auto){
+                $auto = "YES";
+            }else{
+                $auto = "NO";
+            }
+            $premium = new UserPremium();
+            $premium->user_id    = Yii::app()->user->id;
+            $premium->premium_id = $premium_id;
+            $premium->auto_bil   = $auto;
+            $premium->save();
+            $response = array(
+                'success'   => 1,
+                'amountAdd' => 0,
+                'error'     => 0
+            );
+            echo json_encode($response);
+            Yii::app()->end();
+        }
+
+    }
+
 
     /**
      * Action Index 

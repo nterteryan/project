@@ -2,7 +2,6 @@
 ::-moz-placeholder { color:#7e7e7e; font-size: 16px; } /* firefox 19+ */
 :-ms-input-placeholder { color:#7e7e7e; font-size: 16px; } /* ie */
 input:-moz-placeholder { color:#7e7e7e; font-size: 16px;}
-
 .navbar-fixed-top {
     min-height: 85px;
     background: url(../img/header_bg.png) 0 0 repeat;
@@ -115,6 +114,9 @@ span.required, span.error, div.errorMessage {
 
 .margin-bottom-10 {
     margin-bottom: 10px;
+}
+.margin-left-5p {
+    margin-left: 5%;
 }
 footer {
     background-color: #0e3454;

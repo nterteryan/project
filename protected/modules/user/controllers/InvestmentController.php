@@ -92,13 +92,20 @@ class InvestmentController extends Controller
             'percent'=>$percent,
             'close_month'=>$close_month,
         );
-        $tariff = $this->tariffSave($data);
+        $tariffUserId = $this->tariffSave($data);
         $user = User::getCurrentUser();
-        if(empty($tariff["error"])){
+        if(empty($tariffUserId["error"])){
+            $model = new UserTransactions();
             $user->amount = $user->amount-$amount;
             $user->update();
-            $data = array("amount"=>$amount,"tariff_id"=>$tariff_id);
-            $this->transactionSave($data);
+            $data = array(
+                "amount"              => $amount,
+                "tariff_id"           => $tariff_id,
+                "transaction_type"    => "tariff",
+                "transaction_type_id" => $tariffUserId,
+                "type_tr"             => UserTransactions::TYPE_INVESTMANT,
+            );
+           $this->transactionSave($data);
             $response = array(
                 'success' => 1,
                 'error' => 0
@@ -168,10 +175,7 @@ class InvestmentController extends Controller
             return  $response;
         }else{
             $model->save();
-            $response = array(
-                'success' => 1,
-                'error' => 0
-            );
+            return $model->id;
         }
         return $response ;
     }
@@ -203,6 +207,12 @@ class InvestmentController extends Controller
             $user->amount = $user->amount+$userTariff->amount_percent+$userTariff->amount;
             $user->update();
             $data = array("amount"=>$user->amount,"tariff_id"=>$userTariff->id);
+            $data = array(
+                "amount"              => $user->amount,
+                "transaction_type"    => "tariff",
+                "transaction_type_id" => $userTariff->id,
+                "type_tr"             => UserTransactions::TYPE_INVESTMANT,
+            );
             $this->transactionSave($data,false);
             echo  json_encode(array("success"=>1));die;
         }else{
@@ -214,7 +224,7 @@ class InvestmentController extends Controller
 
     /*
     * TransactionSave
-    * Transaction Save (UserTransaction)
+    * Transaction Save (UserTransactions)
     *
     * @author Hovo G.
     * @created at 3th day of March 2016
@@ -222,39 +232,32 @@ class InvestmentController extends Controller
     * @return array
     */
     private function  transactionSave($data,$type = true){
-        $amount = $data["amount"];
-        $tariff_id = $data["tariff_id"];
-        $model = new UserTransaction();
+        $model = new UserTransactions();
+        $amount                     = $data["amount"];
+        $transaction_type           = $data["transaction_type"];
+        $transaction_type_id        = $data["transaction_type_id"];
+        $type_tr                    = $data["type_tr"];
         if($type){
-            $model->sender_id =  Yii::app()->user->id;
-            $status = "INCOME";
+            $model->sender_id       =  Yii::app()->user->id;
+            $model->amount_type     =  "INCOME";
         }else{
-            $model->receiver_id =  Yii::app()->user->id;
-            $status = "OUTCOME";
+            $model->receiver_id     =  Yii::app()->user->id;
+            $model->amount_type     =  "OUTCOME";
         }
-
-        $model->transaction_type =  UserTransaction::TYPE_INVESTMANT;
-        $model->account_type = "AMOUNT";
-        $model->amount = $amount;
+        $model->transaction_type    =  $transaction_type; 
+        $model->type                =  $type_tr;  
+        $model->account_type        = "AMOUNT";
+        $model->amount              = $amount;
+        $model->transaction_type_id = $transaction_type_id;
         $model->validate();
         if ($model->hasErrors()) {
             $response = array(
                 'success' => 0,
-                'error' => $model->getErrors()
+                'error'   => $model->getErrors()
             );
             return  $response;
         }else{
             $model->save();
-            $transaction = new UserTariffTransaction();
-            $transaction->status = $status;
-            $transaction->user_tariff = $tariff_id;
-            $transaction->user_transaction = $model->id;
-            $transaction->save();
-            $transaction->validate();
-            $response = array(
-                'success' => 1,
-                'error' => 0
-            );
         }
         // return $response;
     }
