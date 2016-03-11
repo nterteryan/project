@@ -266,6 +266,33 @@ p.heading.text-center {
     color: #000;
     font-weight: bold;
 }
+.personal-info .type .icon-member{   
+    min-height: 20px;
+    background: url(../img/icon-member.png) 0 0 no-repeat;
+    padding-left: 25px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+}
+.personal-info .type .icon-founder{   
+    min-height: 20px;
+    background: url(../img/icon_founder.png) 0 0 no-repeat;
+    padding-left: 25px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+}
+.personal-info .type .icon-cofounder{   
+    min-height: 20px;
+    background: url(../img/icon_cofounder.png) 0 0 no-repeat;
+    padding-left: 25px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    color: #000;
+    font-weight: bold;
+}
 .personal-info .description{
     font-size: 13px;
     color: #818080;

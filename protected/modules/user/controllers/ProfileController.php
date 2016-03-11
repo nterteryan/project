@@ -78,7 +78,7 @@ class ProfileController extends Controller {
         if (isset($_POST["User"])) {
             $model->attributes = $_POST["User"];
             if ($model->save()) {
-                $this->redirect(Yii::app()->createUrl("/user/dashboard"));
+                $this->redirect(Yii::app()->createUrl("/user/profile"));
             }
         }
 
