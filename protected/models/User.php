@@ -39,6 +39,9 @@ class User extends CActiveRecord {
     const ERR_INVALID_ACTIVATION = "Ссылка активации является неправильной.";
     const ERR_OLD_PASSWORD = "Пароль не соответствует текушему.";
     const ERR_OLD_PASSWORD_REQUIRED = '"Текуший Пароль" обязателен для заполнения';
+    const ERROR_NOT_ENOUGH_AMOUNT = 'У вас не достаточно денег на лицевом счету.';
+    const ERROR_INVALID_PIN_CODE = 'Неверный пин код.';
+    const ERROR_FROM_USER = 'Предупреждение! Вы делаете что то неверно.';
     // Scenarios 
     const SCENARIO_RESET_PASSWORD = 'resetPassword';
     const SCENARIO_REGISTRATION = 'registration';
@@ -53,6 +56,9 @@ class User extends CActiveRecord {
     const TYPE_CO_FOUNDER = "CO_FOUNDER";
     const TYPE_PARTNER = "PARTNER";
     const TYPE_MEMBER = "MEMBER";
+    // User premium
+    const IS_PREMIUM_YES = 'YES';
+    const IS_PREMIUM_NO = 'NO';
     // User default avatar if no image 
     const DEFAULT_AVATAR = '/themes/domblago/img/no_image.gif';
     // Compare field 
@@ -518,6 +524,18 @@ class User extends CActiveRecord {
             case self::TYPE_CO_FOUNDER: $className = 'icon-cofounder'; $name = 'СОУЧРЕДИТЕЛЬ'; break;
         }
         return ($icon) ? $className : $name;
+    }
+    
+    /**
+     * Mark user as premium
+     *
+     * @author Narek T.
+     * @created at 12th day of March 2016
+     * @return void
+     */
+    public function markAsPremium() {
+        $this->is_premium = self::IS_PREMIUM_YES;
+        return $this->save(false);
     }
 
 }

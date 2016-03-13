@@ -14,7 +14,7 @@ class ProfileController extends Controller {
     public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
-            'postOnly + pin',
+            'postOnly + pin, premium',
         );
     }
 
@@ -39,80 +39,70 @@ class ProfileController extends Controller {
             ),
         );
     }
+
     /**
-    * 
-    * Action Premium
-    * Premium  (Premium)
-    *
-    * @author Hovo G.
-    * @created at 11th day of March 2016
-    * @param null
-    * @return jsone
-    */
-    public function actionPremium() {    
-        $request =  Yii::app()->request;
-        if (!$request->isAjaxRequest) {
-            throw new CHttpException(404,'Указанная запись не найдена');
-            return false;
-        }
-        $premium_id = $request->getpost("id");
-        $pin        = $request->getpost("pin");
-        $auto       = $request->getpost("auto");
-        $premiumPackage = PremiumPackage::model()->findByPk($premium_id);
-        if(empty($premiumPackage)){
+     * Make user account premium
+     *
+     * @author Hovo G.
+     * @created at 11th day of March 2016
+     * @updated at 12th day of March by Narek T.
+     * @return jsone
+     */
+    public function actionPremium() {
+        $request = Yii::app()->request;
+        $premiumPackageId = $request->getpost("id");
+        $pin = $request->getpost("pin");
+        $auto = $request->getpost("auto");
+        // Try to find premium package with id
+        $premiumPackage = PremiumPackage::model()->findByPk($premiumPackageId);
+        if (!$premiumPackage instanceof PremiumPackage) {
             $response = array(
                 'success' => 0,
-                'error'   => "Anpatkar!! :) Bed boy!! \n Эта функция браузера предназначена для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, чтобы включить функцию Domblaga или «взломать» чей-то аккаунт, это мошенники. Выполнив эти действия, вы предоставите им доступ к своему аккаунту Domblaga."
+                'error' => User::ERROR_FROM_USER,
             );
             echo json_encode($response);
             Yii::app()->end();
         }
-        $month      = $premiumPackage->close_month;
-        $price      = $premiumPackage->price;
-        $user  = User::getCurrentUser();
-        $isAmountEnough = $user->isAmountEnough($price);
-        $isPinValid = $user->isPinValid($pin);
-        if(!$isPinValid){
+        $month = $premiumPackage->close_month;
+        $price = $premiumPackage->price;
+        $currentUser = User::getCurrentUser();
+        // Check if pin code not valide
+        if (!$currentUser->isPinValid($pin)) {
             $response = array(
                 'success' => 0,
-                'error'   => "pin is inValid!!!"
+                'error' => User::ERROR_INVALID_PIN_CODE,
             );
             echo json_encode($response);
             Yii::app()->end();
-        }elseif(!$isAmountEnough){
+        }
+        // Check if current user havent enough money in balance
+        if (!$currentUser->isAmountEnough($price)) {
             $response = array(
-                'success'   => 0,
+                'success' => 0,
                 'amountAdd' => 1,
-                'error'     => "you  Amount is not Enough!!!"
+                'error' => User::ERROR_NOT_ENOUGH_AMOUNT,
             );
             echo json_encode($response);
             Yii::app()->end();
         }
-        if($user->is_premium == "NO"){
-            $user->is_premium = "YES";
-            $user->amount = $user->amount-$price;
-            $user->update();
-            if($auto){
-                $auto = "YES";
-            }else{
-                $auto = "NO";
-            }
-            $premium = new UserPremium();
-            $premium->user_id    = Yii::app()->user->id;
-            $premium->premium_id = $premium_id;
-            $premium->auto_bil   = $auto;
-            $premium->save();
-            $response = array(
-                'success'   => 1,
-                'amountAdd' => 0,
-                'error'     => 0
-            );
-            echo json_encode($response);
-            Yii::app()->end();
-        }
-
+        // Discount from user amount and mark user as premium
+        $currentUser->discount($price);
+        $currentUser->markAsPremium();
+        // Create user premium relation
+        $premium = new UserPremium();
+        $premium->user_id = $currentUser->id;
+        $premium->premium_id = $premiumPackageId;
+        $premium->auto_bil = $auto;
+        $premium->save();
+        $response = array(
+            'success' => 1,
+            'amountAdd' => 0,
+            'error' => 0
+        );
+        echo json_encode($response);
+        Yii::app()->end();
+        
     }
-
 
     /**
      * Action Index 
@@ -121,12 +111,18 @@ class ProfileController extends Controller {
      * @created at 23th day of Jan 2016
      */
     public function actionIndex() {
+        // Get client sript objetc
+        $clientScript = Yii::app()->getClientScript();
+        $clientScript->registerScriptFile(APP_BASE_URL . '/js/ajax_handler.js');
+        $clientScript->registerScriptFile(APP_BASE_URL . '/js/main_helper.js');
+        $clientScript->registerScriptFile(USER_MODULE_ASSETS_URL . '/js/profile/event_handlers.js');
+        $clientScript->registerScriptFile(USER_MODULE_ASSETS_URL . '/js/profile/event_listeners.js');
         $model = User::getCurrentUser();
-        $premiumPackage = PremiumPackage::model()->findAllByAttributes(array("status"=>"ACTIVE"));
+        $premiumPackage = PremiumPackage::model()->active()->findAll();
         $images_model = new UserImage();
-        if(!empty($_POST["UserImage"])){
+        if (!empty($_POST["UserImage"])) {
             $uploadedFile = CUploadedFile::getInstance($images_model, "image");
-            $fileName = "user-image-" . time() . "." . $uploadedFile->getExtensionName(); 
+            $fileName = "user-image-" . time() . "." . $uploadedFile->getExtensionName();
             $images_model->image = $fileName;
             $images_model->user_id = Yii::app()->user->id;
             $images_model->validate();
@@ -134,14 +130,13 @@ class ProfileController extends Controller {
                 $this->changeUserImageStatus();
             }
 
-            if($images_model->save())
-            {
+            if ($images_model->save()) {
                 $fullPath = Yii::app()->basePath . '/../images/userimages/' . $fileName;
                 $uploadedFile->saveAs($fullPath);
                 $thumb = new EasyImage($fullPath);
                 $thumb->scaleAndCrop(250, 250);
                 $fullPathThumb = Yii::app()->basePath . '/../images/userimages/thumb/' . $fileName;
-                $thumb->save($fullPathThumb);    
+                $thumb->save($fullPathThumb);
 
                 $min = new EasyImage($fullPath);
                 $min->scaleAndCrop(100, 100);
@@ -158,12 +153,12 @@ class ProfileController extends Controller {
             }
         }
 
-        if(!empty($model->userimage[0]->image)){
-            $image_user = Yii::app()->createAbsoluteUrl("/images/userimages/thumb/".$model->userimage[0]->image);
-        }else{
+        if (!empty($model->userimage[0]->image)) {
+            $image_user = Yii::app()->createAbsoluteUrl("/images/userimages/thumb/" . $model->userimage[0]->image);
+        } else {
             $image_user = $model->avatar;
         }
-        
+
         $this->render("index", array(
             'model' => $model,
             'images_model' => $images_model,
@@ -192,7 +187,7 @@ class ProfileController extends Controller {
         $model->attributes = $_POST['User'];
         $model->old_password = $_POST['User']['old_password'];
         $model->validate();
-        if(!$model->old_password) {
+        if (!$model->old_password) {
             $model->addError('old_password', User::ERR_OLD_PASSWORD_REQUIRED);
         }
         if (!HashHelper::comparePassword($model->old_password, $oldPassword)) {
@@ -201,13 +196,13 @@ class ProfileController extends Controller {
         if ($model->hasErrors()) {
             $response['success'] = 0;
             $response['error'] = $model->getErrors();
-        }else{
+        } else {
             $model->save(false);
         }
         echo json_encode($response);
         Yii::app()->end();
     }
-    
+
     /**
      * Check if user havent pin code set and return 
      *
@@ -226,7 +221,7 @@ class ProfileController extends Controller {
         Yii::app()->end();
     }
 
-     /**
+    /**
      * change User Image Status
      * if isset user image change Status is BLOCKED
      *
@@ -234,14 +229,15 @@ class ProfileController extends Controller {
      * @created at 5th day of March 2016
      * @param null
      * @return boolean
-     */  
+     */
     private function changeUserImageStatus() {
         $images_model = new UserImage();
         $images_user = $images_model->getUserImages();
-        if(!empty($images_user->image)){
+        if (!empty($images_user->image)) {
             $images_user->status = "BLOCKED";
             $images_user->update();
         }
-        return true;       
+        return true;
     }
+
 }

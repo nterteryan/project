@@ -44,17 +44,12 @@ class Controller extends CController {
      * @created @created at 23th day of Jan 2016
      */
     private function defineConstants() {
-        // Root directory of the app
-        $webRootPath = Yii::app()->basePath . '/../';
-        // App base url
-        $baseUrl = rtrim(Yii::app()->baseUrl, '/');
-        // Base url absolute 
-        $baseUrlAbs = rtrim(Yii::app()->createAbsoluteUrl(''));
         // Create constants
-        define("APP_ROOT_PATH", $webRootPath);
-        define("APP_BASE_URL", $baseUrl);
-        define("APP_BASE_URL_ABS", $baseUrlAbs);
-        define("APP_THEME_URL", APP_BASE_URL.'/themes/'.Yii::app()->theme->name);
+        defined('APP_ROOT_PATH') or define('APP_ROOT_PATH', Yii::app()->basePath . '/../');
+        defined('APP_BASE_URL') or define('APP_BASE_URL', rtrim(Yii::app()->baseUrl, '/'));
+        defined('APP_BASE_URL_ABS') or define('APP_BASE_URL_ABS', rtrim(Yii::app()->createAbsoluteUrl('')));
+        defined('APP_THEME_URL') or define('APP_THEME_URL', APP_BASE_URL . '/themes/' . Yii::app()->theme->name);
+        defined('USER_MODULE_ASSETS_URL') or define('USER_MODULE_ASSETS_URL', Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('user.assets')));
     }
 
 }
