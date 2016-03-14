@@ -58,7 +58,7 @@ class ProfileController extends Controller {
         if (!$premiumPackage instanceof PremiumPackage) {
             $response = array(
                 'success' => 0,
-                'error' => User::ERROR_FROM_USER,
+                'error'   => User::ERROR_FROM_USER,
             );
             echo json_encode($response);
             Yii::app()->end();
@@ -70,7 +70,7 @@ class ProfileController extends Controller {
         if (!$currentUser->isPinValid($pin)) {
             $response = array(
                 'success' => 0,
-                'error' => User::ERROR_INVALID_PIN_CODE,
+                'error'   => User::ERROR_INVALID_PIN_CODE,
             );
             echo json_encode($response);
             Yii::app()->end();
@@ -78,9 +78,9 @@ class ProfileController extends Controller {
         // Check if current user havent enough money in balance
         if (!$currentUser->isAmountEnough($price)) {
             $response = array(
-                'success' => 0,
+                'success'   => 0,
                 'amountAdd' => 1,
-                'error' => User::ERROR_NOT_ENOUGH_AMOUNT,
+                'error'     => User::ERROR_NOT_ENOUGH_AMOUNT,
             );
             echo json_encode($response);
             Yii::app()->end();
@@ -148,6 +148,9 @@ class ProfileController extends Controller {
         }
         if (isset($_POST["User"])) {
             $model->attributes = $_POST["User"];
+            $model->first_name =  $model->first_name;
+            $model->last_name =  $model->last_name;
+            $model->username =  $model->username;
             if ($model->save()) {
                 $this->redirect(Yii::app()->createUrl("/user/profile"));
             }

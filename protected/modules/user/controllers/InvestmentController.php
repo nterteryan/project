@@ -18,8 +18,6 @@ class InvestmentController extends Controller
             //'postOnly',
         );
     }
-
-
     /**
     * 
     * Action Index
@@ -30,8 +28,12 @@ class InvestmentController extends Controller
     * @param null
     * @return void
     */
-    public function actionIndex()
-    {
+    public function actionIndex(){
+        $clientScript = Yii::app()->getClientScript();
+        $clientScript->registerScriptFile(APP_BASE_URL . '/js/ajax_handler.js');
+        $clientScript->registerScriptFile(APP_BASE_URL . '/js/main_helper.js');
+        $clientScript->registerScriptFile(USER_MODULE_ASSETS_URL . '/js/investment/event_handlers.js');
+        $clientScript->registerScriptFile(USER_MODULE_ASSETS_URL . '/js/investment/event_listeners.js');
         $model = User::getCurrentUser();
         $tariffs = Tariff::getTariffList(array("status" => "ACTIVE"));
         $type = $model->type;
@@ -41,10 +43,9 @@ class InvestmentController extends Controller
                 'pageSize' => 10,
             ),
         ));
-
         $this->render("index", array(
-            'tariffs' => $tariffs,
-            'type' => $type,
+            'tariffs'           => $tariffs,
+            'type'              => $type,
             'arrayDataProvider' => $arrayDataProvider,
         ));
     }
@@ -63,44 +64,50 @@ class InvestmentController extends Controller
             $this->send304();
             return false;
         }
-        $tariff_id = $request->getpost('id');
-        $amount = $request->getpost('amount');
-        $pin = $request->getpost('pin');
-        $percent = $request->getpost('percent');
-        $close_month = $request->getpost('close_month');
+        $tariffId = $request->getpost('id');
+        $tariff   = UserTariff::model()->findByPk($tariffId);
+        if (!$tariff instanceof PremiumPackage) {
+            $response = array(
+                'success' => 0,
+                'error'   => User::ERROR_FROM_USER,
+            );
+            echo json_encode($response);Yii::app()->end();
+        }
+        $amount         = $tariff->amount;
+        $pin            = $tariff->pin;
+        $percent        = $tariff->percent;
+        $close_month    = $tariff->close_month;
         $isAmountEnough = $this->isAmountEnough($amount);
-        $isPinValid = $this->isPinValid($pin);
-        if(!$isPinValid){
+        $currentUser = User::getCurrentUser();
+        if (!$currentUser->isPinValid($pin)) {
             $response = array(
                 'success' => 0,
-                'error' => "pin is inValid!!!"
+                'error'   => User::ERROR_INVALID_PIN_CODE,
             );
-            echo json_encode($response);
-            Yii::app()->end();
-        }elseif(!$isAmountEnough){
+            echo json_encode($response);Yii::app()->end();
+        }
+        if (!$currentUser->isAmountEnough($price)) {
             $response = array(
-                'success' => 0,
+                'success'   => 0,
                 'amountAdd' => 1,
-                'error' => "you  Amount is not Enough!!!"
+                'error'     => User::ERROR_NOT_ENOUGH_AMOUNT,
             );
-            echo json_encode($response);
-            Yii::app()->end();
+            echo json_encode($response);Yii::app()->end();
         }
         $data = array(
-            'tariff_id'=>$tariff_id,
-            'amount'=>$amount,
-            'percent'=>$percent,
-            'close_month'=>$close_month,
+            'tariff_id'   => $tariffId,
+            'amount'      => $amount,
+            'percent'     => $percent,
+            'close_month' => $close_month,
         );
         $tariffUserId = $this->tariffSave($data);
-        $user = User::getCurrentUser();
         if(empty($tariffUserId["error"])){
             $model = new UserTransactions();
-            $user->amount = $user->amount-$amount;
+            $currentUser->amount = $currentUser->amount-$amount;
             $user->update();
             $data = array(
                 "amount"              => $amount,
-                "tariff_id"           => $tariff_id,
+                "tariff_id"           => $tariffId,
                 "transaction_type"    => "tariff",
                 "transaction_type_id" => $tariffUserId,
                 "type_tr"             => UserTransactions::TYPE_INVESTMANT,
@@ -108,15 +115,50 @@ class InvestmentController extends Controller
            $this->transactionSave($data);
             $response = array(
                 'success' => 1,
-                'error' => 0
+                'error'   => 0
             );
             echo json_encode($response);
             Yii::app()->end();
         }
-        echo json_encode($tariff["error"][0]);
+        echo json_encode($tariff["error"][0]);Yii::app()->end();
+    }
+    /**
+     * sendPercent
+     * sendPercent
+     *
+     * @author Hovo G.
+     * @created at 14th day of March 2016
+     * @return json
+     */
+    public function actionSendPercent(){
+        $request =  Yii::app()->request;
+        if (!$request->isAjaxRequest) {
+            throw new CHttpException(404,'Указанная запись не найдена');
+            return false;
+        }
+        $id         = $request->getpost('id');
+        $userTariff =  UserTariff::model()->findByPk($id);
+        $lookingDay = DateComponent::lookingDay("Mon");
+        if(empty($userTariff) || $lookingDay == false  || $userTariff->amount_percent == 0 ){
+            throw new CHttpException(404,'Указанная запись не найдена');
+            return false;
+        }
+        $user         = User::getCurrentUser();
+        $user->amount = $user->amount+$userTariff->amount_percent;
+        $user->update();
+        $userTariff->amount_percent = 0;
+        $userTariff->update();
+        $data = array("amount"=>$user->amount,"tariff_id"=>$userTariff->id);
+        $data = array(
+            "amount"              => $userTariff->amount_percent,
+            "transaction_type"    => "tariff",
+            "transaction_type_id" => $userTariff->id,
+            "type_tr"             => UserTransactions::TYPE_INVESTMANT,
+        );
+        $this->transactionSave($data,false);
+        echo  json_encode(array("success"=>1));
         Yii::app()->end();
     }
-
     /**
      * isAmountEnough
      * is Amount Enough (user)
@@ -143,7 +185,7 @@ class InvestmentController extends Controller
      * @return boolean
      */
     private function isPinValid($pin){
-        $user = User::getCurrentUser();
+        $user       = User::getCurrentUser();
         $isPinValid = $user->isPinValid($pin);
         if(!$isPinValid)
             return  false;
@@ -170,7 +212,7 @@ class InvestmentController extends Controller
         if ($model->hasErrors()) {
             $response = array(
                 'success' => 0,
-                'error' => $model->getErrors()
+                'error'   => $model->getErrors()
             );
             return  $response;
         }else{
@@ -194,16 +236,16 @@ class InvestmentController extends Controller
             throw new CHttpException(404,'Указанная запись не найдена');
             return false;
         }
-        $id = $request->getpost('closedTariffId');
-        $model = new UserTariff();
+        $id         = $request->getpost('closedTariffId');
+        $model      = new UserTariff();
         $userTariff =  UserTariff::model()->findByPk($id);
-        $time = strtotime( $userTariff->created_date);
-        $fina = date("Y-m-d", strtotime("+ ".$userTariff->close_month." month", $time));
-        $fina = strtotime($fina);
+        $time       = strtotime( $userTariff->created_date);
+        $fina       = date("Y-m-d", strtotime("+ ".$userTariff->close_month." month", $time));
+        $fina       = strtotime($fina);
         if($fina < strtotime(date("Y-m-d")) ){
             $userTariff->status = "PAID";
             $userTariff->update();
-            $user = User::getCurrentUser();
+            $user         = User::getCurrentUser();
             $user->amount = $user->amount+$userTariff->amount_percent+$userTariff->amount;
             $user->update();
             $data = array("amount"=>$user->amount,"tariff_id"=>$userTariff->id);
@@ -274,6 +316,7 @@ class InvestmentController extends Controller
                 'actions' => array(
                     'index',
                     'addUser',
+                    'sendPercent',
                     'paiding',
                 ),
                 'roles' => array(User::ROLE_USER),

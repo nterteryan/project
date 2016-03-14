@@ -10,38 +10,53 @@
 				    'dataProvider' => $arrayDataProvider,
 				    'columns' => array(
 				    	array(
-				    	    'name' => 'name',
-				    	    'type' => 'raw',
-				    	    'value' => 'CHtml::encode($data->tariff["name"])',
+							'name'  => 'нам',
+							'type'  => 'raw',
+							'value' => 'CHtml::encode($data->tariff["name"])',
 				    	),
 				        array(
-				            'name' => 'создания',
-				            'type' => 'raw',
-				            'value' => 'CHtml::encode($data["amount"]." $")',
+							'name'  => 'создания',
+							'type'  => 'raw',
+							'value' => 'CHtml::encode($data["amount"]." $")',
 				        ),
 				        array(
-				            'name' => 'amount_percent',
-				            'type' => 'raw',
-				            'value' => 'CHtml::encode($data["amount"]+$data["amount_percent"]." $" )',
+							'name'  => 'процент ($)',
+							'type'  => 'raw',
+							'value' => 'CHtml::encode($data["amount_percent"]." $" )',
 				        ),
 				        array(
-				            'name' => 'осталось',
-				            'type' => 'raw',
-				            'value' => 'CHtml::encode($data->gettimeofday()." дней")',
+							'name'  => 'осталось',
+							'type'  => 'raw',
+							'value' => 'CHtml::encode($data->gettimeofday()." дней")',
 				        ),
 				        array(
-				            'name' => 'Дата',
-				            'type' => 'raw',
-				            'value' => 'CHtml::encode($data["created_date"])',
+							'name'  => 'Дата',
+							'type'  => 'raw',
+							'value' => 'CHtml::encode($data["created_date"])',
 				        ),
 				        array(
-				        	'name' => 'осталось',
-				        	'type' => 'raw',
-				        	'value' =>function($data,$row){
-									   if ($data->status == "CLOSED") return CHtml::link("CLOSED", "#", array("class"=>"btn btn-default closedTariff","data-id"=>$data["id"]));
-									   else return "IN PROGRESS";
-									}
+							'name'  => 'осталось',
+							'type'  => 'raw',
+							'value' => function($data,$row){
+										if ($data->status == "CLOSED") return CHtml::link("ЗАКРЫТО", "#", array("class"=>"btn btn-default closedTariff","data-id"=>$data["id"]));
+										else return "ВЫПОЛНЕНИЯ";
+									 }
 				        ),
+				        array(
+				            'class'=>'CButtonColumn',
+				            'template'=>'{lookingDay}',
+				            'buttons'=>array(
+		            		'lookingDay' => array(
+		            		   'label'=>'отправить процент',  
+            		           'url'=>'"#"',
+            		           'visible'=>'DateComponent::lookingDay("Mon") && $data["amount_percent"] > 0',
+            		           'url'=>'$data->id',
+            		           'options'=>array(
+									'class'   =>'btn btn-default sendPercent',
+            		           	),
+    		      			),
+			            )
+			        )    	
 				    ),
 				));
 				?>

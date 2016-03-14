@@ -82,7 +82,7 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password, username', 'required', 'message' => self::ERR_REQUIRED),
+            array('email, password, username,skype', 'required', 'message' => self::ERR_REQUIRED),
             array('email', 'unique', 'message' => self::ERR_UNIQUE),
             array('parent_id', 'numerical', 'integerOnly' => true, 'message' => self::ERR_NUMERICAL),
             array('email, first_name, last_name, skype, refferal_code, activation_code', 'length', 'max' => 255, 'tooLong' => self::ERR_LENGTH),
@@ -90,6 +90,7 @@ class User extends CActiveRecord {
             array('status', 'length', 'max' => 7, 'tooLong' => self::ERR_LENGTH),
             array('username', 'length', 'max' => 16, 'tooLong' => self::ERR_LENGTH),
             array('username', 'unique'),
+            array('skype', 'unique'),
             array('role', 'length', 'max' => 11, 'tooLong' => self::ERR_LENGTH),
             array('phone', 'length', 'max' => 60, 'tooLong' => self::ERR_LENGTH),
             array('created_date', 'safe'),

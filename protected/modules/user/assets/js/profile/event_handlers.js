@@ -49,9 +49,9 @@ var eventHandlers = (function() {
              */
             addPremium: function(event, element) {
                 event.preventDefault();
-                premium_id = $(this).data("id");
-                premium_month = $(this).data("month");
-                premium_price = $(this).data("price");
+                premium_id = element.data("id");
+                premium_month = element.data("month");
+                premium_price = element.data("price");
                 $("#approvePremiumPackage").show();
                 $(".partnerSave").html('<div class="col-xs-12">' + premium_price + "$ за " + premium_month + " месяц </div>");
                 html = "";
@@ -78,8 +78,8 @@ var eventHandlers = (function() {
              * @param {DOMEvent} event
              * @returns {void}
              */
-            approvePremiumPackage: function() {
-                id = $(this).data("id");
+            approvePremiumPackage: function(event, element) {
+                id = element.data("id");
                 pin = $("#sendPin").val();
                 auto = 0;
                 if ($('input#autoBil').is(':checked')) {

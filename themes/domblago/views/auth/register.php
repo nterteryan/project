@@ -51,6 +51,18 @@
                 ))
                 ?>
             </div>
+            <div class="form-group <?php echo HtmlHelper::hasError($model, 'skype'); ?>">
+                <?php
+                echo $form->textField($model, 'skype', array(
+                    'class' => 'form-control',
+                    'placeholder'=> 'skype name *',
+                ));
+                ?>
+                <?php
+                echo $form->error($model, 'skype', array(
+                ))
+                ?>
+            </div>
             <div class="form-group <?php echo HtmlHelper::hasError($model, 'email'); ?>">
                 <?php
                 echo $form->emailField($model, 'email', array(
