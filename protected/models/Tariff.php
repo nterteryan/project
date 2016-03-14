@@ -30,7 +30,7 @@ class Tariff extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, description, updated_date', 'required'),
+            array('name, description', 'required'),
             array('amount, close_month', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 255),
             array('status', 'length', 'max' => 7),
@@ -131,6 +131,24 @@ class Tariff extends CActiveRecord {
             $tariffList = Tariff::model()->findAllByAttributes($where);
         }
         return $tariffList;
+    }
+    
+    /**
+     * Get tariif plan persentage for current user type
+     *
+     * @author Narek T.
+     * @created at 15th day of March 2016
+     * @param string $userType
+     * @return double
+     */
+    public function getPercentageByUserType($userType) {
+        switch ($userType) {
+            case User::TYPE_FOUNDER: $percent = $this->percent_founde; break;
+            case User::TYPE_CO_FOUNDER: $percent = $this->percent_rco_founde; break;
+            case User::TYPE_PARTNER: $percent = $this->percent_partner; break;
+            case User::TYPE_MEMBER: $percent = $this->percent_member; break;
+        }
+        return $percent;
     }
 
 }
