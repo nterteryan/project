@@ -12,6 +12,7 @@
         <script type="text/javascript">var APP_BASE_URL = "/<?php echo APP_BASE_URL; ?>"</script>
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/app.js"></script>
         <script type="text/javascript" src="<?php echo APP_THEME_URL; ?>/js/script.js"></script>
+        <script type="text/javascript" src="<?php echo APP_BASE_URL ?>/js/sticky_footer.js"></script>
         <script type="text/javascript">var MODULE_BASE_URL = "/user/<?php echo APP_BASE_URL; ?>"</script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
@@ -44,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12 padding-none">
+                <div class="col-lg-8 col-md-12 padding-none content">
                     <?php echo $content; ?>
                 </div>
                 <div class="col-lg-2 col-md-12 sidebar-right">
@@ -60,6 +61,7 @@
                 </div>
             </div>
         </div>
+        <div class="sticky-maker"></div>
         <?php $this->renderPartial("//layouts/_footer") ?>
     </body>
 </html>

@@ -19,6 +19,7 @@ return array(
     'modules' => array(
         'user',
         'admin',
+        'marketplace',
         // uncomment the following to enable the Gii tool
         'gii' => array(
             'class' => 'system.gii.GiiModule',
