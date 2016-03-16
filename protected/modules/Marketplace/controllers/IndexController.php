@@ -1,10 +1,16 @@
 <?php
 
-class DefaultController extends Controller
+class IndexController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+        $user = User::getCurrentUser();
+        $marketplace = new Marketplace();
+		$this->render("index", array(
+			'user'        => $user,
+			'marketplace' => $marketplace,
+		));
+
 	}
 
 	public function filters() {

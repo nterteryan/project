@@ -31,7 +31,7 @@ class Marketplace extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, logo, description, updated_date', 'required'),
+			array('user_id, title, logo, description', 'required'),
 			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('title, logo, description', 'length', 'max'=>255),
 			array('status', 'length', 'max'=>8),
@@ -52,7 +52,13 @@ class Marketplace extends CActiveRecord
 		return array(
 		);
 	}
-
+	public function beforeSave() {
+	    if ($this->isNewRecord) {
+	        $this->created_date = new CDbExpression("now()");
+	    }
+	    $this->updated_date = new CDbExpression("now()");
+	    return true;
+	}
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

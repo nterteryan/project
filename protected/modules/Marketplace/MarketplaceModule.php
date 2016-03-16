@@ -3,7 +3,7 @@
 class MarketplaceModule extends CWebModule
 {
 	private $_assetsUrl;
-	// public $defaultController = 'profile';
+	public $defaultController = 'index';
 
 	public function init() {
 	    Yii::app()->assetManager->forceCopy = true;
@@ -21,7 +21,7 @@ class MarketplaceModule extends CWebModule
 	    if (defined('YII_DEBUG') && YII_DEBUG) {
 	        Yii::app()->assetManager->forceCopy = true;
 	    }
-	    // $controller->layout = 'user';
+	    $controller->layout = 'marketplac';
 	    if (parent::beforeControllerAction($controller, $action)) {
 	        // this method is called before any module controller action is performed
 	        // you may place customized code here
