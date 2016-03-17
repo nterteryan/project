@@ -15,9 +15,9 @@ class InvestmentCommand extends CConsoleCommand {
             }
             if ($fina >= strtotime(date("Y-m-d"))) {
                 $amount_percent = $value->amount_percent + ($value->amount * ($value->percent / 100));
-                $model->model()->updateByPk($value->id, array('amount_percent' => $amount_percent));
+                $total_percent  = $value->total_percent  + ($value->amount * ($value->percent / 100));
+                $model->model()->updateByPk($value->id, array('amount_percent' => $amount_percent,'total_percent' => $total_percent));
             }
         }
     }
-
 }

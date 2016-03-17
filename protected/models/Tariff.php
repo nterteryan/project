@@ -56,18 +56,18 @@ class Tariff extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'status' => 'Status',
-            'amount' => 'Amount',
-            'percent_founde' => 'Percent founde',
+            'id'                 => 'ID',
+            'name'               => 'Name',
+            'description'        => 'Description',
+            'status'             => 'Status',
+            'amount'             => 'Amount',
+            'percent_founde'     => 'Percent founde',
             'percent_rco_founde' => 'Percent rco founde',
-            'percent_partner' => 'Percent partner',
-            'percent_member' => 'Percent member',
-            'close_month' => 'Close Month',
-            'created_date' => 'Created Date',
-            'updated_date' => 'Updated Date',
+            'percent_partner'    => 'Percent partner',
+            'percent_member'     => 'Percent member',
+            'close_month'        => 'Close Month',
+            'created_date'       => 'Created Date',
+            'updated_date'       => 'Updated Date',
         );
     }
 
@@ -133,6 +133,8 @@ class Tariff extends CActiveRecord {
         return $tariffList;
     }
     
+  
+    
     /**
      * Get tariif plan persentage for current user type
      *
@@ -143,10 +145,10 @@ class Tariff extends CActiveRecord {
      */
     public function getPercentageByUserType($userType) {
         switch ($userType) {
-            case User::TYPE_FOUNDER: $percent = $this->percent_founde; break;
+            case User::TYPE_FOUNDER: $percent    = $this->percent_founde; break;
             case User::TYPE_CO_FOUNDER: $percent = $this->percent_rco_founde; break;
-            case User::TYPE_PARTNER: $percent = $this->percent_partner; break;
-            case User::TYPE_MEMBER: $percent = $this->percent_member; break;
+            case User::TYPE_PARTNER: $percent    = $this->percent_partner; break;
+            case User::TYPE_MEMBER: $percent     = $this->percent_member; break;
         }
         return $percent;
     }

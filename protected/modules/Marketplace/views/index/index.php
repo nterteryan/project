@@ -4,11 +4,11 @@
     </div>
 
     <div class="heading">
+
     </div>
     <hr class="hr-dashed" />
 
     <div class=" profile">
-
         <h3 class="panel-title">Мой Профиль</h3>
 
         <div class="row personal-info">
@@ -19,15 +19,8 @@
 
         <div class="">
             <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'registration',
-                'enableAjaxValidation' => false,
-                'htmlOptions' => array(
-                    'enctype' => 'multipart/form-data',
-                )
-            ));
-            $formImages = $this->beginWidget('CActiveForm', array(
-                    'id' => 'imageUpload',
+                $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'registration',
                     'enableAjaxValidation' => false,
                     'htmlOptions' => array(
                         'enctype' => 'multipart/form-data',
@@ -40,12 +33,11 @@
 
                 </div>
                 <?php
-                echo $formImages->fileField($marketplace, 'image');
-                echo $formImages->error($marketplace, 'image', array());
+                echo $form->fileField($marketplace, 'image');
+                echo $form->error($marketplace, 'image', array());
                 ?>
             </div>
 
-            <?php $this->endWidget(); ?>    
             <div class="form-group <?php echo HtmlHelper::hasError($marketplace, 'title'); ?>">
                 <?php
                 echo $form->labelEx($marketplace, 'title', array(
@@ -53,7 +45,7 @@
                 ))
                 ?>
                 <?php
-                echo $form->emailField($marketplace, 'title', array(
+                echo $form->textField($marketplace, 'title', array(
                     'class' => 'form-control'
                 ));
                 ?>
@@ -94,7 +86,6 @@
                 ))
                 ?>
             </div>
-
             <div class="form-group action-buttons">
                 <div class="buttons-right">
                     <input class="btn btn-save-changes" id="focusedInput" type="submit" value="Сохранить ">
@@ -106,7 +97,6 @@
     </div>
 </div>
 <script type="text/javascript">
-	
 	    var handleFileSelect = function(evt) {
         var files = evt.target.files;
         var file = files[0];

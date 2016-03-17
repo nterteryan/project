@@ -56,15 +56,17 @@ class UserTariff extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'id' => 'ID',
-            'user_id' => 'User',
-            'tariff_id' => 'Tariff',
-            'created_date' => 'Created Date',
-            'updated_date' => 'Updated Date',
-            'amount' => 'Amount',
-            'percent' => 'Percent',
-            'status' => 'Status',
-            'close_month' => 'Close month',
+            'id'             => 'ID',
+            'user_id'        => 'User',
+            'tariff_id'      => 'Tariff',
+            'created_date'   => 'Created Date',
+            'updated_date'   => 'Updated Date',
+            'amount'         => 'Amount',
+            'refund_date'    => 'Refund Date',
+            'total_percent'  => 'Total Percent',
+            'percent'        => 'Percent',
+            'status'         => 'Status',
+            'close_month'    => 'Close month',
             'amount_percent' => 'amount percent',
         );
     }
@@ -91,6 +93,8 @@ class UserTariff extends CActiveRecord {
         $criteria->compare('tariff_id', $this->tariff_id);
         $criteria->compare('amount', $this->amount);
         $criteria->compare('percent', $this->percent);
+        $criteria->compare('refund_date', $this->refund_date);
+        $criteria->compare('total_percent', $this->total_percent);
         $criteria->compare('status', $this->status);
         $criteria->compare('close_month', $this->close_month);
         $criteria->compare('amount_percent', $this->amount_percent);
@@ -130,8 +134,8 @@ class UserTariff extends CActiveRecord {
      */
     public static function getUserTariffList() {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.user_id=:userId AND t.status !=:Status';
-        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => 'PAID');
+        $criteria->condition = 't.user_id=:userId AND t.status !=:Status AND  t.status !=:StatusRefund';
+        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => 'PAID', ':StatusRefund' => 'REFUND');
         $criteria->with = array('tariff');
         $tariffList = UserTariff::model()->findAll($criteria);
         return $tariffList;
@@ -153,6 +157,17 @@ class UserTariff extends CActiveRecord {
         $criteria->with = array('tariff');
         $tariffList = UserTariff::model()->findAll($criteria);
         return $tariffList;
+    }
+
+    /**
+     * is Visible Refund  ( array )
+     *
+     * @author Hovo G.
+     * @created at 17th day of March 2016
+     * @return Tariff List
+     */
+    public  function isVisibleRefund() {
+        return ($this->amount > $this->total_percent ) ? true : false;
     }
 
     /**

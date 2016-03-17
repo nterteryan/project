@@ -70,6 +70,35 @@ var eventHandlers = (function() {
                         // $("#danger").html(html);
                     }
                 });
+            },            
+            sendRefund: function(event, element) {
+                id = element.attr("href");
+                // Send ajax request
+                ajaxHandler.sendAjaxRequest({
+                    url: '/user/investment/sendRefund',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {id: id},
+                }, function(mes) {
+                    if (!mes.error) {
+                        alert("1223");
+                        // $("#danger").html(html);
+                        // setTimeout(function() {
+                        //     element.parents("tr").children().eq(2).text("0 $");
+                        //     element.css("background","#0DAD0D");
+                        //     element.addClass("disabled");
+                        //     $('.premium_b').remove();
+                        // }, 500);
+                    } else {
+                        // html = '<div class="alert alert-danger col-xs-12">';
+                        // html += mes.error;
+                        // html += '</div>';
+                        // if (mes.amountAdd) {
+                        //     html += '<div class="col-xs-12 margin-bottom-10"><a href="/user/finance" class="btn btn-success" >Add amount </a></div>';
+                        // }
+                        // $("#danger").html(html);
+                    }
+                });
             }
         },
         onDblClick: {

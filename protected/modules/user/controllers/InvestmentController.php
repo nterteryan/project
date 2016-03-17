@@ -64,21 +64,22 @@ class InvestmentController extends Controller {
             return false;
         }
         $tariffId = $request->getpost('id');
-        $tariff = UserTariff::model()->findByPk($tariffId);
-        if (!$tariff instanceof PremiumPackage) {
+        $pin      = $request->getpost('pin');
+        $tariff   = Tariff::model()->findByPk($tariffId);
+        if (!$tariff instanceof Tariff) {
             $response = array(
                 'success' => 0,
-                'error' => User::ERROR_FROM_USER,
+                'error'   => User::ERROR_FROM_USER,
             );
             echo json_encode($response);
             Yii::app()->end();
         }
-        $amount = $tariff->amount;
-        $pin = $tariff->pin;
-        $percent = $tariff->percent;
-        $close_month = $tariff->close_month;
+
+        $currentUser    = User::getCurrentUser();
+        $amount         = $tariff->amount;
+        $percent        = $tariff->getPercentageByUserType($currentUser->type);
+        $close_month    = $tariff->close_month;
         $isAmountEnough = $this->isAmountEnough($amount);
-        $currentUser = User::getCurrentUser();
         if (!$currentUser->isPinValid($pin)) {
             $response = array(
                 'success' => 0,
@@ -97,22 +98,22 @@ class InvestmentController extends Controller {
             Yii::app()->end();
         }
         $data = array(
-            'tariff_id' => $tariffId,
-            'amount' => $amount,
-            'percent' => $percent,
+            'tariff_id'   => $tariffId,
+            'amount'      => $amount,
+            'percent'     => $percent,
             'close_month' => $close_month,
         );
         $tariffUserId = $this->tariffSave($data);
         if (empty($tariffUserId["error"])) {
             $model = new UserTransactions();
             $currentUser->amount = $currentUser->amount - $amount;
-            $user->update();
+            $currentUser->update();
             $data = array(
-                "amount" => $amount,
-                "tariff_id" => $tariffId,
-                "transaction_type" => "tariff",
+                "amount"              => $amount,
+                "tariff_id"           => $tariffId,
+                "transaction_type"    => "tariff",
                 "transaction_type_id" => $tariffUserId,
-                "type_tr" => UserTransactions::TYPE_INVESTMANT,
+                "type_tr"             => UserTransactions::TYPE_INVESTMANT,
             );
             $this->transactionSave($data);
             $response = array(
@@ -154,12 +155,37 @@ class InvestmentController extends Controller {
         $userTariff->update();
         $data = array("amount" => $user->amount, "tariff_id" => $userTariff->id);
         $data = array(
-            "amount" => $userTariff->amount_percent,
-            "transaction_type" => "tariff",
+            "amount"              => $userTariff->amount_percent,
+            "transaction_type"    => "tariff",
             "transaction_type_id" => $userTariff->id,
-            "type_tr" => UserTransactions::TYPE_INVESTMANT,
+            "type_tr"             => UserTransactions::TYPE_INVESTMANT,
         );
         $this->transactionSave($data, false);
+        echo json_encode(array("success" => 1));
+        Yii::app()->end();
+    }    
+    /**
+     * sendRefund
+     * sendRefund
+     *
+     * @author Hovo G.
+     * @created at 14th day of March 2016
+     * @return json
+     */
+    public function actionSendRefund() {
+        $request = Yii::app()->request;
+        if (!$request->isAjaxRequest) {
+            throw new CHttpException(404, 'Указанная запись не найдена');
+        }
+        $id  = $request->getpost('id');
+        $userTariff = UserTariff::model()->findByPk($id);
+        if (empty($userTariff) ||  $userTariff->amount_percent == 0) {
+            throw new CHttpException(404, 'Указанная запись не найдена');
+            return false;
+        }
+        $userTariff->status      = "REFUND";
+        $userTariff->refund_date = new CDbExpression("now()");
+        $userTariff->update();
         echo json_encode(array("success" => 1));
         Yii::app()->end();
     }
@@ -210,11 +236,11 @@ class InvestmentController extends Controller {
     private function tariffSave($data) {
         $model = new UserTariff();
 
-        $model->tariff_id = $data["tariff_id"];
-        $model->amount = $data["amount"];
-        $model->percent = $data["percent"];
+        $model->tariff_id   = $data["tariff_id"];
+        $model->amount      = $data["amount"];
+        $model->percent     = $data["percent"];
         $model->close_month = $data["close_month"];
-        $model->user_id = Yii::app()->user->id;
+        $model->user_id     = Yii::app()->user->id;
         $model->validate();
         if ($model->hasErrors()) {
             $response = array(
@@ -244,12 +270,12 @@ class InvestmentController extends Controller {
             throw new CHttpException(404, 'Указанная запись не найдена');
             return false;
         }
-        $id = $request->getpost('closedTariffId');
-        $model = new UserTariff();
+        $id         = $request->getpost('closedTariffId');
+        $model      = new UserTariff();
         $userTariff = UserTariff::model()->findByPk($id);
-        $time = strtotime($userTariff->created_date);
-        $fina = date("Y-m-d", strtotime("+ " . $userTariff->close_month . " month", $time));
-        $fina = strtotime($fina);
+        $time       = strtotime($userTariff->created_date);
+        $fina       = date("Y-m-d", strtotime("+ " . $userTariff->close_month . " month", $time));
+        $fina       = strtotime($fina);
         if ($fina < strtotime(date("Y-m-d"))) {
             $userTariff->status = "PAID";
             $userTariff->update();
@@ -325,6 +351,7 @@ class InvestmentController extends Controller {
                     'index',
                     'addUser',
                     'sendPercent',
+                    'SendRefund',
                     'paiding',
                 ),
                 'roles' => array(User::ROLE_USER),

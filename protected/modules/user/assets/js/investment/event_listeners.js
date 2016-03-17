@@ -11,6 +11,13 @@ $(document).ready(function() {
         e.preventDefault();
         // Trigger handler add to cart process
         eventHandlers.onClick.sendPercent(e, $(this));
+    });   
+    // On clicking on add plan button
+    $(document.body).on('click', '.sendRefund', function(e) {
+        // Prevent default action
+        e.preventDefault();
+        // Trigger handler add to cart process
+        eventHandlers.onClick.sendRefund(e, $(this));
     });
     
 });
