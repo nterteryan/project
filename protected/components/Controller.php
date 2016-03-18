@@ -50,6 +50,7 @@ class Controller extends CController {
         defined('APP_BASE_URL_ABS') or define('APP_BASE_URL_ABS', rtrim(Yii::app()->createAbsoluteUrl('')));
         defined('APP_THEME_URL') or define('APP_THEME_URL', APP_BASE_URL . '/themes/' . Yii::app()->theme->name);
         defined('USER_MODULE_ASSETS_URL') or define('USER_MODULE_ASSETS_URL', Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('user.assets')));
+        defined('MARKETPLACE_MODULE_ASSETS_URL') or define('MARKETPLACE_MODULE_ASSETS_URL', Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('marketplace.assets')));
     }
 
 }

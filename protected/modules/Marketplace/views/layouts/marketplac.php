@@ -32,6 +32,8 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="list-group table-of-contents tab-pane fade active in" id="home">
                             <a class="list-group-item active" href="<?php echo APP_BASE_URL . '/marketplace'; ?>">Market</a>
+                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/marketplace/categories'; ?>">категории</a>
+                            <a class="list-group-item" href="<?php echo APP_BASE_URL . '/marketplace/product'; ?>">продукт</a>
                         </div>
                         <div class="tab-pane fade" id="social">
                             <a class="list-group-item " href="<?php echo APP_BASE_URL . '/user/profile'; ?>">Профиль</a>

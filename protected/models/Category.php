@@ -30,7 +30,7 @@ class Category extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('marketplace_id, parent_id, title, icone, updated_date', 'required'),
+			array('marketplace_id, title, icone', 'required'),
 			array('marketplace_id, parent_id', 'numerical', 'integerOnly'=>true),
 			array('title, icone', 'length', 'max'=>255),
 			array('created_date', 'safe'),
@@ -98,6 +98,37 @@ class Category extends CActiveRecord
 		));
 	}
 
+	/**
+	 * BeforeSave
+	 * For check isNewRecord, set created date or updated date
+	 * 
+	 * @author Narek T.
+	 * @created at 23th day of January 2016
+	 * @return bool
+	 */
+	public function beforeSave() {
+	    if ($this->isNewRecord) {
+	        $this->created_date = new CDbExpression("now()");
+	    }
+	    return true;
+	}
+
+	/**
+	 * getMarketplaceCategoryList
+	 * get Category List (Category)
+	 *
+	 * @author Hovo G.
+	 * @created at 7th day of March 2016
+	 * @param array
+	 * @return object
+	 */
+	public static function getMarketplaceCategoryList($marketplaceId) {
+	    $criteria = new CDbCriteria;
+	    $criteria->condition = 'marketplace_id=:marketplace_id ';
+	    $criteria->params = array(':marketplace_id' => $marketplaceId);
+	    $tariffList = Category::model()->findAll($criteria);
+	    return $tariffList;
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

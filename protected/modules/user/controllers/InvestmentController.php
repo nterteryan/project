@@ -17,9 +17,7 @@ class InvestmentController extends Controller {
                 //'postOnly',
         );
     }
-
     /**
-     * 
      * Action Index
      * list Investment (Tariff)
      *

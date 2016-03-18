@@ -134,8 +134,8 @@ class UserTariff extends CActiveRecord {
      */
     public static function getUserTariffList() {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.user_id=:userId AND t.status !=:Status AND  t.status !=:StatusRefund';
-        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => 'PAID', ':StatusRefund' => 'REFUND');
+        $criteria->condition = 't.user_id=:userId AND t.status !=:Status ';
+        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => 'PAID');
         $criteria->with = array('tariff');
         $tariffList = UserTariff::model()->findAll($criteria);
         return $tariffList;
@@ -182,6 +182,8 @@ class UserTariff extends CActiveRecord {
     public function getTariffStatus() {
         if ($this->status == "CLOSED") {
             return 'CLOSED';
+        }elseif ($this->status == "REFUND") {
+            return 'REFUND';
         } else {
             return 'IN PROGRESS';
         }

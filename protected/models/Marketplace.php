@@ -31,14 +31,16 @@ class Marketplace extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, logo, description', 'required'),
+			array('user_id, title, logo, description,slug', 'required'),
 			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('title, logo, description', 'length', 'max'=>255),
 			array('status', 'length', 'max'=>8),
+			array('slug', 'length', 'max'=>20),
 			array('created_date', 'safe'),
+           		array('slug', 'unique'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, title, logo, description, status, created_date, updated_date', 'safe', 'on'=>'search'),
+			array('id, user_id, title, logo, description, status, created_date, updated_date,slug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +72,7 @@ class Marketplace extends CActiveRecord
 			'title' => 'Title',
 			'logo' => 'Logo',
 			'description' => 'Description',
+			'slug' => 'Slug',
 			'status' => 'Status',
 			'created_date' => 'Created Date',
 			'updated_date' => 'Updated Date',
@@ -96,6 +99,7 @@ class Marketplace extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('slug',$this->slug);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('logo',$this->logo,true);
 		$criteria->compare('description',$this->description,true);

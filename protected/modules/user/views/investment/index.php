@@ -40,6 +40,8 @@
                             'value' => function($data, $row) {
                                 if ($data->status == "CLOSED")
                                     return CHtml::link("Заказать Деньги", "#", array("class" => "btn btn-default closedTariff", "data-id" => $data["id"]));
+                                elseif ($data->status == "REFUND")
+                                    return 'Возврат';
                                 else
                                     return "В процессе";
                             }
@@ -51,7 +53,7 @@
                                 'lookingDay' => array(
                                     'label' => 'Получить доход',
                                     'url' => '"#"',
-                                    'visible' => 'DateComponent::lookingDay("Mon") && $data["amount_percent"] > 0',
+                                    'visible' => 'DateComponent::lookingDay("Mon") && $data["amount_percent"] > 0 && $data->status != "REFUND"',
                                     'url' => '$data->id',
                                     'options' => array(
                                         'class' => 'btn btn-default sendPercent',
@@ -66,7 +68,7 @@
                                 'REFUND' => array(
                                     'label' => 'ВОЗВРАТ',
                                     'url' => '"#"',
-                                    'visible' => '$data->isVisibleRefund() && $data["amount_percent"] > 0',
+                                    'visible' => '$data->isVisibleRefund() && $data["amount_percent"] > 0 && $data->status != "REFUND"',
                                     'url' => '$data->id',
                                     'options' => array(
                                         'class' => 'btn btn-default sendRefund',
