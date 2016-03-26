@@ -15,6 +15,9 @@
  * @property string $updated_date
  */
 class Tariff extends CActiveRecord {
+    
+    const STATUS_ACTIVE = 'ACTIVE';
+    const STATUS_BLOCKED = 'BLOCKED';
 
     /**
      * @return string the associated database table name
@@ -116,6 +119,30 @@ class Tariff extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    /**
+     * Scopes
+     *
+     * @author Narek T. 
+     * @created at 13th day of March 2015
+     * @return array
+     */
+    public function scopes() {
+        return array(
+            'active' => array(
+                'condition' => $this->getTableAlias(true, false) . '.`status`=:status',
+                'params' => array(
+                    ':status' => self::STATUS_ACTIVE,
+                ),
+            ),
+            'blocked' => array(
+                'condition' => $this->getTableAlias(true, false) . '.`status`=:status',
+                'params' => array(
+                    ':status' => self::STATUS_BLOCKED,
+                ),
+            ),
+        );
+    }
 
     /**
      * get Tariff List, by where ( array )
@@ -132,8 +159,6 @@ class Tariff extends CActiveRecord {
         }
         return $tariffList;
     }
-    
-  
     
     /**
      * Get tariif plan persentage for current user type

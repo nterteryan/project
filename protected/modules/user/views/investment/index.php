@@ -61,21 +61,21 @@
                                 ),
                             )
                         ),
-                        array(
-                            'class' => 'CButtonColumn',
-                            'template' => '{REFUND}',
-                            'buttons' => array(
-                                'REFUND' => array(
-                                    'label' => 'ВОЗВРАТ',
-                                    'url' => '"#"',
-                                    'visible' => '$data->isVisibleRefund() && $data["amount_percent"] > 0 && $data->status != "REFUND"',
-                                    'url' => '$data->id',
-                                    'options' => array(
-                                        'class' => 'btn btn-default sendRefund',
-                                    ),
-                                ),
-                            )
-                        )
+//                        array(
+//                            'class' => 'CButtonColumn',
+//                            'template' => '{REFUND}',
+//                            'buttons' => array(
+//                                'REFUND' => array(
+//                                    'label' => 'ВОЗВРАТ',
+//                                    'url' => '"#"',
+//                                    'visible' => '$data->isVisibleRefund() && $data["amount_percent"] > 0 && $data->status != "REFUND"',
+//                                    'url' => '$data->id',
+//                                    'options' => array(
+//                                        'class' => 'btn btn-default sendRefund',
+//                                    ),
+//                                ),
+//                            )
+//                        )
                     ),
                 ));
                 ?>

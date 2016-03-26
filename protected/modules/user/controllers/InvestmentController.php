@@ -40,7 +40,7 @@ class InvestmentController extends Controller {
             ),
         ));
         $this->render("index", array(
-            'tariffs' => Tariff::getTariffList(array("status" => "ACTIVE")),
+            'tariffs' => Tariff::model()->active()->findAll(),
             'userType' => $currentUser->type,
             'arrayDataProvider' => $arrayDataProvider,
         ));
@@ -86,7 +86,7 @@ class InvestmentController extends Controller {
             echo json_encode($response);
             Yii::app()->end();
         }
-        if (!$currentUser->isAmountEnough($price)) {
+        if (!$currentUser->isAmountEnough($amount)) {
             $response = array(
                 'success' => 0,
                 'amountAdd' => 1,

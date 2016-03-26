@@ -16,7 +16,12 @@
  * @property integer $close_month
  */
 class UserTariff extends CActiveRecord {
-
+    
+    const STATUS_IN_PROGRESS = 'IN_PROGRESS';
+    const STATUS_CLOSED = 'CLOSED';
+    const STATUS_PAID = 'PAID';
+    const STATUS_REFUND = 'REFUND';
+    
     /**
      * @return string the associated database table name
      */
@@ -135,7 +140,7 @@ class UserTariff extends CActiveRecord {
     public static function getUserTariffList() {
         $criteria = new CDbCriteria;
         $criteria->condition = 't.user_id=:userId AND t.status !=:Status ';
-        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => 'PAID');
+        $criteria->params = array(':userId' => Yii::app()->user->id, ':Status' => self::STATUS_PAID);
         $criteria->with = array('tariff');
         $tariffList = UserTariff::model()->findAll($criteria);
         return $tariffList;
@@ -153,7 +158,7 @@ class UserTariff extends CActiveRecord {
     public static function getUserTariffListForCommand() {
         $criteria = new CDbCriteria;
         $criteria->condition = 't.status=:Status';
-        $criteria->params = array(':Status' => 'IN_PROGRESS');
+        $criteria->params = array(':Status' => self::STATUS_IN_PROGRESS);
         $criteria->with = array('tariff');
         $tariffList = UserTariff::model()->findAll($criteria);
         return $tariffList;
